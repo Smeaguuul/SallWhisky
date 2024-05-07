@@ -1,5 +1,5 @@
 package application.model;
 
 public enum Træsort {
-    QUERCUSALBA, QUERCUSROBER, QUERCUSPATRA
+    QUERCUSPATREA, QUERCUSROBER, QUERCUSALBA
 }
