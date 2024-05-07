@@ -19,7 +19,7 @@ public class MotherPane extends GridPane {
         this.setGridLinesVisible(false);
         this.setPadding(new Insets(20));
         this.setHgap(60);
-        this.setVgap(10);
+        this.setVgap(15);
     }
 
     private static Background getBackgroundTheme() {
@@ -31,8 +31,8 @@ public class MotherPane extends GridPane {
                 1,      // endY
                 true,   // proportional
                 javafx.scene.paint.CycleMethod.NO_CYCLE,
-                new Stop(0, Color.rgb(125,125,125)),
-                new Stop(1, Color.rgb(1, 170, 170))
+                new Stop(0, Color.rgb(200,200,200)),
+                new Stop(1, Color.rgb(255, 165, 0))
         );
 
         BackgroundFill linearGradientFill = new BackgroundFill(

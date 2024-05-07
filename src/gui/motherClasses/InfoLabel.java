@@ -8,9 +8,9 @@ import javafx.scene.text.FontWeight;
 public class InfoLabel extends Label {
     public InfoLabel(String s) {
         super(s);
-        this.setFont(Font.font("System", 14));
+        this.setFont(Font.font("System",FontWeight.SEMI_BOLD, 16));
         this.setWrapText(false);
-        //this.setUnderline(true);
-        this.setPadding(new Insets(0,0,10,0));
+        this.setUnderline(true);
+        //this.setPadding(new Insets(0,0,10,0));
     }
 }

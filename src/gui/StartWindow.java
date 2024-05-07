@@ -2,20 +2,13 @@ package gui;
 
 
 import gui.motherClasses.MotherButton;
-import gui.motherClasses.MotherLabel;
 import gui.motherClasses.MotherPane;
+import gui.opretFad.OpretFadWindow;
 import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.util.Collection;
 
 public class StartWindow extends Application {
     private Stage stage;
