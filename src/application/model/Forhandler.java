@@ -13,4 +13,9 @@ public class Forhandler {
         this.region = region;
         this.land = land;
     }
+
+    @Override
+    public String toString() {
+        return navn + " (" + region + ", "+ land + ")";
+    }
 }

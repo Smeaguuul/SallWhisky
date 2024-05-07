@@ -2,6 +2,7 @@ package gui;
 
 
 import gui.motherClasses.MotherButton;
+import gui.motherClasses.MotherLabel;
 import gui.motherClasses.MotherPane;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -32,11 +33,18 @@ public class StartWindow extends Application {
     }
 
     private void initContent(MotherPane pane) {
-        pane.setMinSize(500,500);
+        //Opretter knap til opret Destillat
         MotherButton opretDestillatButton = new MotherButton("Opret Destillat");
         pane.add(opretDestillatButton, 0, 1);
 
+        //Opretter knap til opretFad
+        MotherButton opretFadButton = new MotherButton("Opret Fad");
+        opretFadButton.setOnAction(event -> openOpretFadWindow());
 
+        pane.add(opretFadButton, 1, 1);
+
+
+        //Tilføjer et logo
         Image image;
         image = new Image(getClass().getResourceAsStream("/gui/images/logo.png"));
         ImageView imageView = new ImageView();
@@ -44,5 +52,14 @@ public class StartWindow extends Application {
         imageView.setPreserveRatio(true);
         imageView.setFitWidth(120);
         pane.add(imageView,0,0);
+
+        //Label test
+        //MotherLabel label = new MotherLabel("Test");
+        //pane.add(label,1,1);
+    }
+
+    private void openOpretFadWindow() {
+        OpretFadWindow opretFadWindow = new OpretFadWindow("Opret Fad Vindue", this.stage);
+        opretFadWindow.showAndWait();
     }
 }

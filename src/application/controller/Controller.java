@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Controller {
-    public Medarbejder getMedarbejder(int medarbejderNummer) {
+    static public Medarbejder getMedarbejder(int medarbejderNummer) {
         Medarbejder medarbejder = null;
 
         //Får fat i alle medarbejdere i Storage
@@ -30,19 +30,19 @@ public class Controller {
         return medarbejder;
     }
 
-    public ArrayList<Forhandler> getForhandlere() {
+    static public ArrayList<Forhandler> getForhandlere() {
         ArrayList<Forhandler> forhandlerer;
         forhandlerer = Storage.getForhandlere();
         return forhandlerer;
     }
 
-    public Fad opretFad(Træsort træsort, Forhandler forhandler, TidligereIndhold tidligereIndhold, int literStørrelse, String bemærkning) {
+    static public Fad opretFad(Træsort træsort, Forhandler forhandler, TidligereIndhold tidligereIndhold, int literStørrelse, String bemærkning) {
         Fad fad = new Fad(træsort, bemærkning, tidligereIndhold, literStørrelse, forhandler);
         Storage.addFad(fad);
         return fad;
     }
 
-    public Destillat opretDestillat(LocalDate startDato, LocalDate slutDato, int literVæske, double alkoholProcent, RygningsType rygningsType, String kommentar, MaltBatch maltbatch, Medarbejder medarbejder){
+    static public Destillat opretDestillat(LocalDate startDato, LocalDate slutDato, int literVæske, double alkoholProcent, RygningsType rygningsType, String kommentar, MaltBatch maltbatch, Medarbejder medarbejder){
         Destillat destillat = new Destillat(startDato, slutDato, literVæske, alkoholProcent, rygningsType, kommentar, medarbejder, maltbatch);
         Storage.addDestillat(destillat);
         return destillat;

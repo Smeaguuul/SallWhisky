@@ -9,9 +9,12 @@ public class Fad {
 
     public Fad(Træsort træSort, String bemærkning, TidligereIndhold tidligereIndhold, int literStørrelse, Forhandler forhandler) {
         this.træsort = træSort;
-        this.bemærkning = bemærkning;
         this.tidligereIndhold = tidligereIndhold;
         this.literStørrelse = literStørrelse;
         this.forhandler = forhandler;
+    }
+
+    public void setBemærkning(String bemærkning) {
+        this.bemærkning = bemærkning;
     }
 }
