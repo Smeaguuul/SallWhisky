@@ -108,7 +108,7 @@ public class OpretFadWindow extends Stage {
         buttonBox.getChildren().addAll(afbrydButton, bekræftButton);
         pane.add(buttonBox, 1, 7);
 
-        //Tilføjer et logo
+        //Tilføjer et fadbillede
         Image image = new Image(getClass().getResourceAsStream("/gui/images/WhiskyFade.png"));
         ImageView imageView = new ImageView();
         imageView.setImage(image);

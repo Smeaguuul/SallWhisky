@@ -3,6 +3,7 @@ package gui;
 
 import gui.motherClasses.MotherButton;
 import gui.motherClasses.MotherPane;
+import gui.opretDestillat.OpretDestillatWindow;
 import gui.opretFad.OpretFadWindow;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -28,6 +29,7 @@ public class StartWindow extends Application {
     private void initContent(MotherPane pane) {
         //Opretter knap til opret Destillat
         MotherButton opretDestillatButton = new MotherButton("Opret Destillat");
+        opretDestillatButton.setOnAction(event -> openOpretDestillatWindow());
         pane.add(opretDestillatButton, 0, 1);
 
         //Opretter knap til opretFad
@@ -49,6 +51,11 @@ public class StartWindow extends Application {
         //Label test
         //MotherLabel label = new MotherLabel("Test");
         //pane.add(label,1,1);
+    }
+
+    private void openOpretDestillatWindow() {
+        OpretDestillatWindow opretDestillatWindow = new OpretDestillatWindow("Opret Destillat Vindue", this.stage);
+        opretDestillatWindow.showAndWait();
     }
 
     private void openOpretFadWindow() {
