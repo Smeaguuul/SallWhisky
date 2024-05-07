@@ -44,7 +44,7 @@ public class Controller {
 
     public Destillat opretDestillat(LocalDate startDato, LocalDate slutDato, int literVæske, double alkoholProcent, RygningsType rygningsType, String kommentar, MaltBatch maltbatch, Medarbejder medarbejder){
         Destillat destillat = new Destillat(startDato, slutDato, literVæske, alkoholProcent, rygningsType, kommentar, medarbejder, maltbatch);
-
-        return null;
+        Storage.addDestillat(destillat);
+        return destillat;
     }
 }
