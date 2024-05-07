@@ -8,10 +8,7 @@ import gui.motherClasses.*;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.TextAlignment;
@@ -93,12 +90,19 @@ public class OpretFadWindow extends Stage {
         bekræftButton.setOnAction(event -> {
             try {
                 validereInput();
+                Button bekræftOprettelse = new MotherButton("Bekræft");
+                Button annullereOprettelse = new MotherButton("Annullere");
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Bekræft Oprettelse");
                 alert.setHeaderText("Bekræft nedenstående information:");
-
-                alert.setContentText("Test Content Text");
+                String fadBekræftTekst = getIndtastedeInformation();
+                alert.setContentText(fadBekræftTekst);
                 alert.showAndWait();
+
+                if (alert.getResult() == ButtonType.OK){
+                    Controller.opretFad((Træsort) træsortComboBox.getValue(), (Forhandler) forhandlerComboBox.getValue(),(TidligereIndhold) tidligereIndholdComboBox.getValue(), Integer.parseInt(størrelseTextField.getText()), kommentarTextArea.getText());
+                    this.close();
+                }
             } catch (Exception e){
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setHeaderText("KATASTROFAL FEJL 40!!");
@@ -111,6 +115,12 @@ public class OpretFadWindow extends Stage {
         buttonBox.getChildren().addAll(afbrydButton,bekræftButton);
         pane.add(buttonBox,1,6);
 
+    }
+
+    private String getIndtastedeInformation() {
+        String info = "";
+        info += "Træsort : " + træsortComboBox.getSelectionModel().getSelectedItem();
+        return info;
     }
 
     private void validereInput() {
