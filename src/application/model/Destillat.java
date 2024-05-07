@@ -9,14 +9,18 @@ public class Destillat {
     private double alkoholprocent;
     private RygningsType rygningsType;
     private String kommentar;
+    private MaltBatch maltBatch;
 
-    public Destillat(LocalDate startDato, LocalDate slutDato, double literVæske, double alkoholprocent, RygningsType rygningsType, String kommentar) {
+    private Medarbejder medarbejder;
+    public Destillat(LocalDate startDato, LocalDate slutDato, double literVæske, double alkoholprocent, RygningsType rygningsType, String kommentar, Medarbejder medarbejder, MaltBatch maltBatch) {
         this.startDato = startDato;
         this.slutDato = slutDato;
         this.literVæske = literVæske;
         this.alkoholprocent = alkoholprocent;
         this.rygningsType = rygningsType;
         this.kommentar = kommentar;
+        this.medarbejder = medarbejder;
+        this.maltBatch = maltBatch;
     }
 
 }
