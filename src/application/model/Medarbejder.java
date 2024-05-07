@@ -12,4 +12,8 @@ public class Medarbejder {
         this.cpr = cpr;
         this.signatur = signatur;
     }
+
+    public int getNummer() {
+        return nummer;
+    }
 }
