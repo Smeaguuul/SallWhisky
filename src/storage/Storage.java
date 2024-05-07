@@ -1,21 +1,63 @@
 package storage;
 
-import application.model.Fad;
-import application.model.Forhandler;
-import application.model.Medarbejder;
+import application.model.*;
 
 import java.util.ArrayList;
 
 public class Storage {
-    public static ArrayList<Medarbejder> getMedarbejdere() {
-        return null;
+    private static ArrayList<Fad> fade = new ArrayList<>();
+    public static ArrayList<Fad> getFade(){
+        return new ArrayList<Fad>(fade);
     }
-
-    public static ArrayList<Forhandler> getForhandlere() {
-        return null;
+    public static void addFad(Fad fad){
+        fade.add(fad);
     }
-
-    public static boolean addFad(Fad fad) {
-        return true;
+    //------------------------------------------------------------------------------------------------------------------
+    private static ArrayList<Destillat> destillater = new ArrayList<>();
+    public static ArrayList<Destillat> getDestillater(){
+        return new ArrayList<Destillat>(destillater);
+    }
+    public static void addDestillat(Destillat destillat){
+        destillater.add(destillat);
+    }
+    //------------------------------------------------------------------------------------------------------------------
+    private static ArrayList<Malteri> malterier = new ArrayList<>();
+    public static ArrayList<Malteri> getMalterier(){
+        return new ArrayList<Malteri>(malterier);
+    }
+    public static void addMalteri(Malteri malteri){
+        malterier.add(malteri);
+    }
+    //------------------------------------------------------------------------------------------------------------------
+    private static ArrayList<Mark> marker = new ArrayList<>();
+    public static ArrayList<Mark> getMarker(){
+        return new ArrayList<Mark>(marker);
+    }
+    public static void addMark(Mark mark){
+        marker.add(mark);
+    }
+    //------------------------------------------------------------------------------------------------------------------
+    private static ArrayList<Medarbejder> medarbejdere = new ArrayList<>();
+    public static ArrayList<Medarbejder> getMedarbejdere(){
+        return new ArrayList<Medarbejder>(medarbejdere);
+    }
+    public static void addMedarbejder(Medarbejder medarbejder){
+        medarbejdere.add(medarbejder);
+    }
+    //------------------------------------------------------------------------------------------------------------------
+    private static ArrayList<Forhandler> forhandlere = new ArrayList<>();
+    public static ArrayList<Forhandler> getForhandlere(){
+        return new ArrayList<Forhandler>(forhandlere);
+    }
+    public static void addForhandler(Forhandler forhandler){
+        forhandlere.add(forhandler);
+    }
+    //------------------------------------------------------------------------------------------------------------------
+    private static ArrayList<MaltBatch> maltBatches = new ArrayList<>();
+    public static ArrayList<MaltBatch> getMaltBatches(){
+        return new ArrayList<MaltBatch>(maltBatches);
+    }
+    public static void addMaltbatch(MaltBatch maltBatch){
+        maltBatches.add(maltBatch);
     }
 }
