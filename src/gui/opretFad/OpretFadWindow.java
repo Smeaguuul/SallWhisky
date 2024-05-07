@@ -10,6 +10,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -76,7 +78,7 @@ public class OpretFadWindow extends Stage {
         kommentarTextArea.setMaxWidth(250);
         kommentarLabel.setAlignment(Pos.TOP_CENTER);
         pane.add(kommentarLabel,0,5);
-        pane.add(kommentarTextArea,1,5);
+        pane.add(kommentarTextArea,1,5, 1, 2);
 
         /*
         Opretter knapper og en HBox til at holde på dem.
@@ -104,6 +106,15 @@ public class OpretFadWindow extends Stage {
 
         //Tilføjer knapperne til pane
         buttonBox.getChildren().addAll(afbrydButton, bekræftButton);
-        pane.add(buttonBox, 1, 6);
+        pane.add(buttonBox, 1, 7);
+
+        //Tilføjer et logo
+        Image image = new Image(getClass().getResourceAsStream("/gui/images/WhiskyFade.png"));
+        ImageView imageView = new ImageView();
+        imageView.setImage(image);
+        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(120);
+        imageView.setRotate(20);
+        pane.add(imageView,0,6);
     }
 }

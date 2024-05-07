@@ -48,6 +48,14 @@ public class BekræftFadButton extends MotherButton {
     private String getIndtastedeInformation() {
         String info = "";
         info += "Træsort : " + commonClass.getTræsort();
+        info += "\nForhandler: " + commonClass.getForhandler();
+        info += "\nTidligere indhold: " + commonClass.getTidligereIndhold();
+        info += "\nAntal liter i fad: " + commonClass.getLiterStørrelse();
+        if (commonClass.getKommentar().isEmpty()) {
+            info += "\nIngen ydeligere kommentarer.";
+        } else {
+            info += "\nKommentar: " + commonClass.getKommentar();
+        }
         return info;
     }
 
