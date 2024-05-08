@@ -1,17 +1,19 @@
-package gui;
+package gui.opretFad;
 
 import application.controller.Controller;
 import application.model.Forhandler;
 import application.model.TidligereIndhold;
 import application.model.Træsort;
 import gui.motherClasses.*;
-import javafx.event.EventHandler;
+import gui.opretFad.BekræftFadButton;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.TextAlignment;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -74,67 +76,45 @@ public class OpretFadWindow extends Stage {
         kommentarTextArea = new TextArea();
         kommentarTextArea.setEditable(true);
         kommentarTextArea.setMaxWidth(250);
+        kommentarLabel.setAlignment(Pos.TOP_CENTER);
         pane.add(kommentarLabel,0,5);
-        pane.add(kommentarTextArea,1,5);
+        pane.add(kommentarTextArea,1,5, 1, 2);
 
-        //Tilføjer knapper
+        /*
+        Opretter knapper og en HBox til at holde på dem.
+        BekræftFadButton typen står for funktionalitet ift. at oprette
+         */
         HBox buttonBox = new HBox();
-        buttonBox.setSpacing(10);
+        buttonBox.setSpacing(20);
         buttonBox.setAlignment(Pos.BASELINE_RIGHT);
         MotherButton afbrydButton = new MotherButton("Afbryd");
-        MotherButton bekræftButton = new MotherButton("Bekræft");
+        BekræftFadButton bekræftButton = new BekræftFadButton("Bekræft");
+
+        //Afbryd lukker blot vinduet
         afbrydButton.setOnAction(event -> {
             this.close();
         });
 
+        //Bekræft tjekker først om det indtastede information er gyldigt. Hvis det er gyldigt, så vises et bekræftelses vindue ellers vises en advarsel
         bekræftButton.setOnAction(event -> {
-            try {
-                validereInput();
-                Button bekræftOprettelse = new MotherButton("Bekræft");
-                Button annullereOprettelse = new MotherButton("Annullere");
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Bekræft Oprettelse");
-                alert.setHeaderText("Bekræft nedenstående information:");
-                String fadBekræftTekst = getIndtastedeInformation();
-                alert.setContentText(fadBekræftTekst);
-                alert.showAndWait();
-
-                if (alert.getResult() == ButtonType.OK){
-                    Controller.opretFad((Træsort) træsortComboBox.getValue(), (Forhandler) forhandlerComboBox.getValue(),(TidligereIndhold) tidligereIndholdComboBox.getValue(), Integer.parseInt(størrelseTextField.getText()), kommentarTextArea.getText());
-                    this.close();
-                }
-            } catch (Exception e){
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setHeaderText("KATASTROFAL FEJL 40!!");
-                alert.setContentText(e.getMessage());
-                alert.showAndWait();
+            CommonClass commonClass = new CommonClass((Træsort) træsortComboBox.getValue(), (Forhandler) forhandlerComboBox.getValue(), (TidligereIndhold) tidligereIndholdComboBox.getValue(), størrelseTextField.getText(), kommentarTextArea.getText());
+            boolean bekræftet = bekræftButton.bekræft(commonClass);
+            if (bekræftet) {
+                this.close();
             }
         });
 
-        //Tilføjer knapper til pane
-        buttonBox.getChildren().addAll(afbrydButton,bekræftButton);
-        pane.add(buttonBox,1,6);
+        //Tilføjer knapperne til pane
+        buttonBox.getChildren().addAll(afbrydButton, bekræftButton);
+        pane.add(buttonBox, 1, 7);
 
-    }
-
-    private String getIndtastedeInformation() {
-        String info = "";
-        info += "Træsort : " + træsortComboBox.getSelectionModel().getSelectedItem();
-        return info;
-    }
-
-    private void validereInput() {
-        if (this.træsortComboBox.getSelectionModel().isEmpty()){
-            throw new NoSuchElementException("Ingen Træsort Valgt!");
-        }
-        if (this.tidligereIndholdComboBox.getSelectionModel().isEmpty()){
-            throw new NoSuchElementException("Intet Tidligere Indhold Valgt!");
-        }
-        if (this.forhandlerComboBox.getSelectionModel().isEmpty()){
-            throw new NoSuchElementException("Ingen Forhandler Valgt!");
-        }
-        if (this.størrelseTextField.getText().isEmpty() || this.størrelseTextField.getText().matches(".*[^0-9].*")){
-            throw new NoSuchElementException("Ikke En Gyldig Størrelse!");
-        }
+        //Tilføjer et fadbillede
+        Image image = new Image(getClass().getResourceAsStream("/gui/images/WhiskyFade.png"));
+        ImageView imageView = new ImageView();
+        imageView.setImage(image);
+        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(120);
+        imageView.setRotate(20);
+        pane.add(imageView,0,6);
     }
 }

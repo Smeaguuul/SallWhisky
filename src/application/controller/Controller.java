@@ -47,4 +47,8 @@ public class Controller {
         Storage.addDestillat(destillat);
         return destillat;
     }
+
+    public static ArrayList<MaltBatch> getMaltBatches() {
+        return Storage.getMaltBatches();
+    }
 }

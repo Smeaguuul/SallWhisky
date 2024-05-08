@@ -16,4 +16,9 @@ public class MaltBatch {
         this.malteri = malteri;
         this.mark = mark;
     }
+
+    @Override
+    public String toString() {
+        return "MaltBatch nr. " + nummer + " af kornsort " + kornsort + " (" + ankomstDato + ")";
+    }
 }
