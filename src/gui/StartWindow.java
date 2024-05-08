@@ -6,6 +6,7 @@ import gui.motherClasses.MotherMainMenuButton;
 import gui.motherClasses.MotherPane;
 import gui.opretDestillat.OpretDestillatWindow;
 import gui.opretFad.OpretFadWindow;
+import gui.opretMedarbejderTjækker.TjækMedarbejderWindow;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -72,5 +73,8 @@ public class StartWindow extends Application {
     private void openOpretFadWindow() {
         OpretFadWindow opretFadWindow = new OpretFadWindow("Opret Fad Vindue", this.stage);
         opretFadWindow.showAndWait();
+    }
+    private void openMedarbejderTjækker() {
+        TjækMedarbejderWindow tjækMedarbejderWindow = new TjækMedarbejderWindow();
     }
 }
