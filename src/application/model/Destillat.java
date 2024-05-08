@@ -23,6 +23,10 @@ public class Destillat {
         this.maltBatch = maltBatch;
     }
 
+    public Medarbejder getMedarbejder() {
+        return this.medarbejder;
+    }
+
     public LocalDate getStartDato() {
         return startDato;
     }
@@ -49,9 +53,5 @@ public class Destillat {
 
     public MaltBatch getMaltBatch() {
         return maltBatch;
-    }
-
-    public Medarbejder getMedarbejder() {
-        return medarbejder;
     }
 }
