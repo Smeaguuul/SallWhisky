@@ -5,10 +5,16 @@ import storage.Storage;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 public class Controller {
     static public Medarbejder getMedarbejder(int medarbejderNummer) {
         Medarbejder medarbejder = null;
+
+        //Kaster en error hvis medarbejder nummer ikke er gyldigt
+        if (!(medarbejderNummer > 0)){
+            throw new IllegalArgumentException("MedarbejderNummer skal være positivt");
+        }
 
         //Får fat i alle medarbejdere i Storage
         ArrayList<Medarbejder> medarbejdere = Storage.getMedarbejdere();
@@ -26,6 +32,10 @@ public class Controller {
             }
         }
 
+        //Kaster en error hvis ingen medarbejder findes
+        if (medarbejder == null){
+            throw new NoSuchElementException("Medarbejder eksistere ikke");
+        }
         //Returnere medarbejder
         return medarbejder;
     }
