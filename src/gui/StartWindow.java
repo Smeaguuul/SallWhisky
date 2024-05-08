@@ -75,7 +75,7 @@ public class StartWindow extends Application {
         opretFadWindow.showAndWait();
     }
     private void openMedarbejderTjækker() {
-        TjækMedarbejderWindow tjækMedarbejderWindow = new TjækMedarbejderWindow();
-        tjækMedarbejderWindow.showAndWait();
+    //    TjækMedarbejderWindow tjækMedarbejderWindow = new TjækMedarbejderWindow();
+    //    tjækMedarbejderWindow.showAndWait();
     }
 }
