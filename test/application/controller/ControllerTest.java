@@ -1,9 +1,10 @@
 package application.controller;
 
-import application.model.Medarbejder;
+import application.model.*;
 import org.junit.jupiter.api.Test;
 import storage.Storage;
 
+import java.time.LocalDate;
 import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -92,6 +93,29 @@ class ControllerTest {
     }
 
     @Test
-    void opretDestillat() {
+    void opretDestillat_LiterOgAlkoholProcent_TC3() {
+        //Arrange
+        int expectedAntalLiter = 35;
+        double expectedAlkoholprocent = 40;
+        Adresse adresse = new Adresse("1", "Landmandvej", "6960", "Danmark");
+        Mark mark = new Mark("En meget fin Økologisk mark, som dyrkes af Lars Landmand", "Langdahl",  adresse);
+        Malteri malteri = new Malteri("Thy Whisky Malteri", "Et stort malteri i Thy, som opereres af Thy Whisky.", adresse);
+        MaltBatch expectedMaltBatch = new MaltBatch(Kornsort.EVERGREEN, 1, LocalDate.of(2024,05,03), malteri, mark);
+        Medarbejder expectedMedarbejder = new Medarbejder(1, "Mads Medarbejder", "010203-4555", "NAM");
+
+
+        //Act
+        Destillat actual = Controller.opretDestillat(LocalDate.of(2024,05,01), LocalDate.of(2024,05,8),expectedAntalLiter,expectedAlkoholprocent, RygningsType.IKKERØGET,"",expectedMaltBatch, expectedMedarbejder);
+
+        //Assert
+        Destillat iStorage = Storage.getDestillater().get(0);
+        assertEquals(actual, iStorage);
+
+        System.out.println("Error besked:");
+        System.out.println("Actual: " + iStorage);
+        System.out.println("Expected: " + actual);
+
+
+        //TODO Assert et eller andet
     }
 }
