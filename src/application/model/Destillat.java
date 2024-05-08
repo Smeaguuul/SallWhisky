@@ -23,4 +23,35 @@ public class Destillat {
         this.maltBatch = maltBatch;
     }
 
+    public LocalDate getStartDato() {
+        return startDato;
+    }
+
+    public LocalDate getSlutDato() {
+        return slutDato;
+    }
+
+    public double getLiterVæske() {
+        return literVæske;
+    }
+
+    public double getAlkoholprocent() {
+        return alkoholprocent;
+    }
+
+    public RygningsType getRygningsType() {
+        return rygningsType;
+    }
+
+    public String getKommentar() {
+        return kommentar;
+    }
+
+    public MaltBatch getMaltBatch() {
+        return maltBatch;
+    }
+
+    public Medarbejder getMedarbejder() {
+        return medarbejder;
+    }
 }

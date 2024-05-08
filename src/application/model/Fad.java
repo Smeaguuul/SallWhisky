@@ -17,4 +17,24 @@ public class Fad {
     public void setBemærkning(String bemærkning) {
         this.bemærkning = bemærkning;
     }
+
+    public Træsort getTræsort() {
+        return træsort;
+    }
+
+    public String getBemærkning() {
+        return bemærkning;
+    }
+
+    public TidligereIndhold getTidligereIndhold() {
+        return tidligereIndhold;
+    }
+
+    public int getLiterStørrelse() {
+        return literStørrelse;
+    }
+
+    public Forhandler getForhandler() {
+        return forhandler;
+    }
 }

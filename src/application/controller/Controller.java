@@ -36,7 +36,10 @@ public class Controller {
         return forhandlerer;
     }
 
-    static public Fad opretFad(Træsort træsort, Forhandler forhandler, TidligereIndhold tidligereIndhold, int literStørrelse, String bemærkning) {
+    static public Fad opretFad(Træsort træsort, Forhandler forhandler, TidligereIndhold tidligereIndhold, int literStørrelse, String bemærkning) throws IllegalArgumentException {
+        if (literStørrelse <= 0){
+            throw new IllegalArgumentException("Liter størrelse skal være over 0");
+        }
         Fad fad = new Fad(træsort, bemærkning, tidligereIndhold, literStørrelse, forhandler);
         Storage.addFad(fad);
         return fad;
