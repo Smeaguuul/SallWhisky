@@ -54,7 +54,7 @@ public class BekræftDestillatButton extends MotherButton {
         return "En masse information";
     }
 
-    private void validerInput() {
+    private void validerInput() { //TODO (SKal nok ligge i controller i form af en error den kaster)
 
     }
 }
