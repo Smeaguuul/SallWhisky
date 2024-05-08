@@ -39,7 +39,7 @@ public class StartWindow extends Application {
         pane.setVgap(40);
         //Opretter knap til opret Destillat
         MotherButton opretDestillatButton = new MotherMainMenuButton("Opret Destillat");
-        opretDestillatButton.setOnAction(event -> openOpretDestillatWindow());
+        opretDestillatButton.setOnAction(event -> openMedarbejderTjækker());
         pane.add(opretDestillatButton, 0, 1);
 
         //Opretter knap til opretFad
@@ -76,5 +76,6 @@ public class StartWindow extends Application {
     }
     private void openMedarbejderTjækker() {
         TjækMedarbejderWindow tjækMedarbejderWindow = new TjækMedarbejderWindow();
+        tjækMedarbejderWindow.showAndWait();
     }
 }
