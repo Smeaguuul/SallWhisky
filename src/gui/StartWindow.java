@@ -65,17 +65,13 @@ public class StartWindow extends Application {
         //pane.add(label,1,1);
     }
 
-    private void openOpretDestillatWindow() {
-        OpretDestillatWindow opretDestillatWindow = new OpretDestillatWindow("Opret Destillat Vindue", this.stage);
-        opretDestillatWindow.showAndWait();
-    }
 
     private void openOpretFadWindow() {
         OpretFadWindow opretFadWindow = new OpretFadWindow("Opret Fad Vindue", this.stage);
         opretFadWindow.showAndWait();
     }
     private void openMedarbejderTjækker() {
-        TjækMedarbejderWindow tjækMedarbejderWindow = new TjækMedarbejderWindow();
+        TjækMedarbejderWindow tjækMedarbejderWindow = new TjækMedarbejderWindow("Indtast medarbejder nummer", this.stage);
         tjækMedarbejderWindow.showAndWait();
     }
 }

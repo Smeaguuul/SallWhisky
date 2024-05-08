@@ -16,4 +16,9 @@ public class Medarbejder {
     public int getNummer() {
         return nummer;
     }
+
+    @Override
+    public String toString() {
+        return nummer + " " + name + " " + cpr + " " + signatur;
+    }
 }
