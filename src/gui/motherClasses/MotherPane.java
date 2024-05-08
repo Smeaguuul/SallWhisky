@@ -26,13 +26,13 @@ public class MotherPane extends GridPane {
         // Create a linear gradient background
         LinearGradient linearGradient = new LinearGradient(
                 0,      // startX
-                0,      // startY
+                0.25,      // startY
                 0,      // endX
                 1,      // endY
                 true,   // proportional
                 javafx.scene.paint.CycleMethod.NO_CYCLE,
-                new Stop(0, Color.rgb(200,200,200)),
-                new Stop(1, Color.rgb(255, 165, 0))
+                new Stop(0, Color.rgb(255,153,204)),
+                new Stop(1, Color.rgb(255, 153, 0))
         );
 
         BackgroundFill linearGradientFill = new BackgroundFill(

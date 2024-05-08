@@ -3,11 +3,11 @@ package application.model;
 public class Mark {
     private String navn;
     private String beskrivelse;
-    private Addresse addresse;
+    private Adresse adresse;
 
-    public Mark(String beskrivelse, String navn, Addresse addresse) {
+    public Mark(String beskrivelse, String navn, Adresse adresse) {
         this.beskrivelse = beskrivelse;
         this.navn = navn;
-        this.addresse = addresse;
+        this.adresse = adresse;
     }
 }

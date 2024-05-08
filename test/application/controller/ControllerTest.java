@@ -97,7 +97,7 @@ class ControllerTest {
         //Arrange
         int expectedAntalLiter = 35;
         double expectedAlkoholprocent = 40;
-        Addresse adresse = new Addresse("1", "Landmandvej", "6960", "Danmark");
+        Adresse adresse = new Adresse("1", "Landmandvej", "6960", "Danmark");
         Mark mark = new Mark("En meget fin Økologisk mark, som dyrkes af Lars Landmand", "Langdahl",  adresse);
         Malteri malteri = new Malteri("Thy Whisky Malteri", "Et stort malteri i Thy, som opereres af Thy Whisky.", adresse);
         MaltBatch expectedMaltBatch = new MaltBatch(Kornsort.EVERGREEN, 1, LocalDate.of(2024,05,03), malteri, mark);
