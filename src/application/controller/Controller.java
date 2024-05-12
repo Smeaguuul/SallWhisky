@@ -34,7 +34,7 @@ public class Controller {
 
         //Kaster en error hvis ingen medarbejder findes
         if (medarbejder == null) {
-            throw new NoSuchElementException("Medarbejder eksistere ikke");
+            throw new NoSuchElementException("Medarbejder eksistere ikke.");
         }
         //Returnere medarbejder
         return medarbejder;

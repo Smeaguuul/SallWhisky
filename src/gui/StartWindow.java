@@ -4,9 +4,8 @@ package gui;
 import gui.motherClasses.MotherButton;
 import gui.motherClasses.MotherMainMenuButton;
 import gui.motherClasses.MotherPane;
-import gui.opretDestillat.OpretDestillatWindow;
 import gui.opretFad.OpretFadWindow;
-import gui.opretMedarbejderTjækker.TjækMedarbejderWindow;
+import gui.medarbejderCheck.CheckMedarbejderWindow;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -71,7 +70,7 @@ public class StartWindow extends Application {
         opretFadWindow.showAndWait();
     }
     private void openMedarbejderTjækker() {
-        TjækMedarbejderWindow tjækMedarbejderWindow = new TjækMedarbejderWindow("Indtast medarbejder nummer", this.stage);
-        tjækMedarbejderWindow.showAndWait();
+        CheckMedarbejderWindow checkMedarbejderWindow = new CheckMedarbejderWindow("Indtast medarbejder nummer", this.stage);
+        checkMedarbejderWindow.showAndWait();
     }
 }

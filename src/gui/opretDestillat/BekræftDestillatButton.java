@@ -51,7 +51,7 @@ public class BekræftDestillatButton extends MotherButton {
     }
 
     private String getIndtastedeInformation() {
-        return "En masse information";
+        return "En masse information"; //TODO tilføj information om den indtastede information
     }
 
     private void validerInput() { //TODO (SKal nok ligge i controller i form af en error den kaster)
