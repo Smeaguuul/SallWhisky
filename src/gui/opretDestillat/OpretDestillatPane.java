@@ -104,6 +104,7 @@ public class OpretDestillatPane extends MotherPane {
         //Tilføjer knapperne til pane
         buttonBox.getChildren().addAll(afbrydButton, bekræftButton);
 
+        //Tilføjer alle noder til det centrale pane, og sætter det på det ydre pane
         centralPane.addColumn(0, startDatoLabel, slutDatoLabel, literVæskeLabel, alkoholProcentLabel, rygningstypeLabel, maltBatchLabel, kommentarLabel);
         centralPane.addColumn(1, startDatoDatePicker, slutDatoDatePicker, størrelseTextField, alkoholProcentTextField, rygningstypeComboBox, maltBatchComboBox);
         centralPane.add(kommentarTextArea,1,7, 1, 2);
