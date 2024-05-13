@@ -12,7 +12,7 @@ public class Controller {
         Medarbejder medarbejder = null;
 
         //Kaster en error hvis medarbejder nummer ikke er gyldigt
-        if (!(medarbejderNummer > 0)){
+        if (!(medarbejderNummer > 0)) {
             throw new IllegalArgumentException("MedarbejderNummer skal være positivt");
         }
 
@@ -33,8 +33,8 @@ public class Controller {
         }
 
         //Kaster en error hvis ingen medarbejder findes
-        if (medarbejder == null){
-            throw new NoSuchElementException("Medarbejder eksistere ikke");
+        if (medarbejder == null) {
+            throw new NoSuchElementException("Medarbejder eksistere ikke.");
         }
         //Returnere medarbejder
         return medarbejder;
@@ -47,7 +47,7 @@ public class Controller {
     }
 
     static public Fad opretFad(Træsort træsort, Forhandler forhandler, TidligereIndhold tidligereIndhold, int literStørrelse, String bemærkning) throws IllegalArgumentException {
-        if (literStørrelse <= 0){
+        if (literStørrelse <= 0) {
             throw new IllegalArgumentException("Liter størrelse skal være over 0");
         }
         Fad fad = new Fad(træsort, bemærkning, tidligereIndhold, literStørrelse, forhandler);
@@ -56,7 +56,16 @@ public class Controller {
     }
 
 
-    static public Destillat opretDestillat(LocalDate startDato, LocalDate slutDato, int literVæske, double alkoholProcent, RygningsType rygningsType, String kommentar, MaltBatch maltbatch, Medarbejder medarbejder){
+    static public Destillat opretDestillat(LocalDate startDato, LocalDate slutDato, int literVæske, double alkoholProcent, RygningsType rygningsType, String kommentar, MaltBatch maltbatch, Medarbejder medarbejder) {
+        if (literVæske <= 0) {
+            throw new IllegalArgumentException("Litermængde skal være over 0.");
+        }
+        if (alkoholProcent < 40 || alkoholProcent > 100) {
+            throw new IllegalArgumentException("Alkoholprocent skal være mellem 40 og 100.");
+        }
+        if (startDato.isAfter(slutDato) || startDato.isEqual(slutDato)) {
+            throw new IllegalArgumentException("Startdato skal være før slutdato.");
+        }
         Destillat destillat = new Destillat(startDato, slutDato, literVæske, alkoholProcent, rygningsType, kommentar, medarbejder, maltbatch);
         Storage.addDestillat(destillat);
         return destillat;

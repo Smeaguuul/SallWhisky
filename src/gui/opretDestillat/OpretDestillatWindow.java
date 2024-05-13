@@ -19,7 +19,8 @@ import java.util.ArrayList;
 public class OpretDestillatWindow extends Stage {
     private Medarbejder medarbejder;
 
-    public OpretDestillatWindow(String title, Stage owner) {
+    public OpretDestillatWindow(String title, Stage owner, Medarbejder medarbejder) {
+        this.medarbejder = medarbejder;
         this.initOwner(owner);
         this.setTitle(title);
         MotherPane pane = new MotherPane();

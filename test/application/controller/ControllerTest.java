@@ -12,10 +12,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ControllerTest {
     private Forhandler juan;
+    private Medarbejder medarbejder;
+    private MaltBatch maltBatch;
 
     @BeforeEach
     void setUp() {
         juan = new Forhandler("Juan iglesias", "Catalonien", "Spanien");
+        medarbejder = new Medarbejder(1, "Mads Medarbejder", "010203-4555", "MAM");
+        Adresse adresse = new Adresse("1", "Landmandvej", "6960", "Danmark");
+        Mark mark = new Mark("En meget fin Økologisk mark, som dyrkes af Lars Landmand", "Langdahl", adresse);
+        Malteri malteri = new Malteri("Thy Whisky Malteri", "Et stort malteri i Thy, som opereres af Thy Whisky.", adresse);
+        maltBatch = new MaltBatch(Kornsort.EVERGREEN, 1, LocalDate.of(2024, 05, 03), malteri, mark);
     }
 
     @Test
@@ -157,63 +164,127 @@ class ControllerTest {
     @Test
     void opretDestillat_TC1_Dato() {
         // Arrange
-        Medarbejder expectedMedarbejder = new Medarbejder(1, "Mads Medarbejder", "010203-4555", "MAM");
-        Adresse adresse = new Adresse("1", "Landmandvej", "6960", "Danmark");
-        Mark mark = new Mark("En meget fin Økologisk mark, som dyrkes af Lars Landmand","Langdahl",adresse);
-        Malteri malteri = new Malteri("Thy Whisky Malteri", "Et stort malteri i Thy, som opereres af Thy Whisky.",adresse);
-        MaltBatch expectedMaltBatch = new MaltBatch(Kornsort.EVERGREEN, 1, LocalDate.of(2024,05,03), malteri, mark);
-        LocalDate expectedStartdato = LocalDate.of(2024,05,01);
-        LocalDate expectedSlutdato = LocalDate.of(2024,05,8);
+        LocalDate expectedStartdato = LocalDate.of(2024, 05, 01);
+        LocalDate expectedSlutdato = LocalDate.of(2024, 05, 8);
         double expectedLiterVæske = 35;
         int expectedAlkoholProcent = 99;
 
-        Destillat expectedDestillat = Controller.opretDestillat(expectedStartdato,expectedSlutdato, 35,99, RygningsType.IKKERØGET,
-                "Meget fint destillat",expectedMaltBatch,expectedMedarbejder);
-
         // Act
-        Medarbejder actualMedarbejder = Storage.getDestillater().get(0).getMedarbejder();
-        MaltBatch actualMaltbatch = Storage.getDestillater().get(0).getMaltBatch();
-        LocalDate actualStartDato = Storage.getDestillater().get(0).getStartDato();
-        LocalDate actualSlutDato = Storage.getDestillater().get(0).getSlutDato();
-        double actualLiterVæske = Storage.getDestillater().get(0).getLiterVæske();
-        double actualAlkoholProcent = Storage.getDestillater().get(0).getAlkoholprocent();
-        Destillat actualDestillat = Storage.getDestillater().get(0);
+        Destillat actualDestilat = Controller.opretDestillat(expectedStartdato, expectedSlutdato, 35, 99, RygningsType.IKKERØGET, "Meget fint destillat", maltBatch, medarbejder);
+
+        Medarbejder actualMedarbejder = actualDestilat.getMedarbejder();
+        MaltBatch actualMaltbatch = actualDestilat.getMaltBatch();
+        LocalDate actualStartDato = actualDestilat.getStartDato();
+        LocalDate actualSlutDato = actualDestilat.getSlutDato();
+        double actualLiterVæske = actualDestilat.getLiterVæske();
+        double actualAlkoholProcent = actualDestilat.getAlkoholprocent();
+        Destillat actualDestillat = actualDestilat;
 
         // Assert
-        assertTrue(expectedDestillat.equals(actualDestillat));
-        assertEquals(expectedMedarbejder,actualMedarbejder);
-        assertEquals(expectedMaltBatch,actualMaltbatch);
-        assertEquals(expectedStartdato,actualStartDato);
-        assertEquals(expectedSlutdato,actualSlutDato);
-        assertEquals(expectedLiterVæske,actualLiterVæske);
-        assertEquals(expectedAlkoholProcent,actualAlkoholProcent);
+        assertTrue(Storage.getDestillater().get(0).equals(actualDestillat));
+        assertEquals(medarbejder, actualMedarbejder);
+        assertEquals(maltBatch, actualMaltbatch);
+        assertEquals(expectedStartdato, actualStartDato);
+        assertEquals(expectedSlutdato, actualSlutDato);
+        assertEquals(expectedLiterVæske, actualLiterVæske);
+        assertEquals(expectedAlkoholProcent, actualAlkoholProcent);
+    }
 
+    @Test
+    void opretDestillat_TC2_Dato() {
+        // Arrange
+        LocalDate expectedStartdato = LocalDate.of(2024, 05, 01);
+        LocalDate expectedSlutdato = LocalDate.of(2024, 05, 01);
+        String expected = "Startdato skal være før slutdato.";
+
+        // Act
+        Exception actual = assertThrows(IllegalArgumentException.class, () -> {
+            Controller.opretDestillat(expectedStartdato, expectedSlutdato, 35, 99, RygningsType.IKKERØGET, "Meget fint destillat", maltBatch, medarbejder);
+        });
+
+
+        // Assert
+        System.out.println("Opretdestillat: TC2");
+        System.out.println("Actual: " + actual.getMessage());
+        System.out.println("Expected: " + expected);
+        assertTrue(actual.getMessage().contains(expected));
+    }
+
+    @Test
+    void opretDestillat_TC3_Dato() {
+        // Arrange
+        LocalDate expectedStartdato = LocalDate.of(2024, 05, 8);
+        LocalDate expectedSlutdato = LocalDate.of(2024, 05, 01);
+        String expected = "Startdato skal være før slutdato.";
+
+
+        // Act
+        Exception actual = assertThrows(IllegalArgumentException.class, () -> {
+            Controller.opretDestillat(expectedStartdato, expectedSlutdato, 35, 99, RygningsType.IKKERØGET, "Meget fint destillat", maltBatch, medarbejder);
+        });
+
+
+        // Assert
+        System.out.println("Opretdestillat: TC3");
+        System.out.println("Actual: " + actual.getMessage());
+        System.out.println("Expected: " + expected);
+        assertTrue(actual.getMessage().contains(expected));
+    }
+
+    @Test
+    void opretDestillat_LiterOgAlkoholProcent_TC1() {
+        //Arrange
+        String expected = "Litermængde skal være over 0.";
+        int expectedAntalLiter = -10;
+        double expectedAlkoholprocent = 40;
+
+        //Act
+        Exception actual = assertThrows(IllegalArgumentException.class, () -> {
+            Controller.opretDestillat(LocalDate.of(2024, 05, 01), LocalDate.of(2024, 05, 8), expectedAntalLiter, expectedAlkoholprocent, RygningsType.IKKERØGET, "", maltBatch, medarbejder);
+        });
+
+        //Assert
+        System.out.println("Opretdestillat: TC3");
+        System.out.println("Actual: " + actual.getMessage());
+        System.out.println("Expected: " + expected);
+        assertTrue(actual.getMessage().contains(expected));
+    }
+
+    @Test
+    void opretDestillat_LiterOgAlkoholProcent_TC2() {
+        //Arrange
+        String expected = "Litermængde skal være over 0.";
+        int expectedAntalLiter = 0;
+        double expectedAlkoholprocent = 40;
+
+        //Act
+        Exception actual = assertThrows(IllegalArgumentException.class, () -> {
+            Controller.opretDestillat(LocalDate.of(2024, 05, 01), LocalDate.of(2024, 05, 8), expectedAntalLiter, expectedAlkoholprocent, RygningsType.IKKERØGET, "", maltBatch, medarbejder);
+        });
+
+        //Assert
+        System.out.println("Opretdestillat: TC3");
+        System.out.println("Actual: " + actual.getMessage());
+        System.out.println("Expected: " + expected);
+        assertTrue(actual.getMessage().contains(expected));
     }
 
     @Test
     void opretDestillat_LiterOgAlkoholProcent_TC3() {
         //Arrange
+        String expected = "Alkoholprocent skal være mellem 40 og 100.";
         int expectedAntalLiter = 35;
-        double expectedAlkoholprocent = 40;
-        Adresse adresse = new Adresse("1", "Landmandvej", "6960", "Danmark");
-        Mark mark = new Mark("En meget fin Økologisk mark, som dyrkes af Lars Landmand", "Langdahl",  adresse);
-        Malteri malteri = new Malteri("Thy Whisky Malteri", "Et stort malteri i Thy, som opereres af Thy Whisky.", adresse);
-        MaltBatch expectedMaltBatch = new MaltBatch(Kornsort.EVERGREEN, 1, LocalDate.of(2024,05,03), malteri, mark);
-        Medarbejder expectedMedarbejder = new Medarbejder(1, "Mads Medarbejder", "010203-4555", "NAM");
-
+        double expectedAlkoholprocent = 39.9;
 
         //Act
-        Destillat actual = Controller.opretDestillat(LocalDate.of(2024,05,01), LocalDate.of(2024,05,8),expectedAntalLiter,expectedAlkoholprocent, RygningsType.IKKERØGET,"",expectedMaltBatch, expectedMedarbejder);
+        Exception actual = assertThrows(IllegalArgumentException.class, () -> {
+            Controller.opretDestillat(LocalDate.of(2024, 05, 01), LocalDate.of(2024, 05, 8), expectedAntalLiter, expectedAlkoholprocent, RygningsType.IKKERØGET, "", maltBatch, medarbejder);
+        });
 
         //Assert
-        Destillat iStorage = Storage.getDestillater().get(0);
-        assertEquals(actual, iStorage);
-
-        System.out.println("Error besked:");
-        System.out.println("Actual: " + iStorage);
-        System.out.println("Expected: " + actual);
-
-
-        //TODO Assert et eller andet
+        System.out.println("Opretdestillat: TC3");
+        System.out.println("Actual: " + actual.getMessage());
+        System.out.println("Expected: " + expected);
+        assertTrue(actual.getMessage().contains(expected));
     }
 }
