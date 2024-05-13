@@ -56,7 +56,7 @@ public class Controller {
     }
 
 
-    static public Destillat opretDestillat(LocalDate startDato, LocalDate slutDato, int literVæske, double alkoholProcent, RygningsType rygningsType, String kommentar, MaltBatch maltbatch, Medarbejder medarbejder) {
+    static public Destillat opretDestillat(LocalDate startDato, LocalDate slutDato, double literVæske, double alkoholProcent, RygningsType rygningsType, String kommentar, MaltBatch maltbatch, Medarbejder medarbejder) {
         if (literVæske <= 0) {
             throw new IllegalArgumentException("Litermængde skal være over 0.");
         }

@@ -66,6 +66,7 @@ public class CheckMedarbejderWindow extends Stage {
         checkButton.setOnAction(e -> {
             checkMedarbejder();
         });
+        checkButton.setDefaultButton(true);
         hBox.getChildren().add(checkButton);
 
         //Tilføjer HBox til vinduet

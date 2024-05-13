@@ -162,12 +162,12 @@ class ControllerTest {
     }
 
     @Test
-    void opretDestillat_TC1_Dato() {
+    void opretDestillat_TC1_Gyldig() {
         // Arrange
         LocalDate expectedStartdato = LocalDate.of(2024, 05, 01);
         LocalDate expectedSlutdato = LocalDate.of(2024, 05, 8);
-        double expectedLiterVæske = 35;
-        int expectedAlkoholProcent = 99;
+        double expectedLiterVæske = 35.7;
+        double expectedAlkoholProcent = 40.5;
 
         // Act
         Destillat actualDestilat = Controller.opretDestillat(expectedStartdato, expectedSlutdato, 35, 99, RygningsType.IKKERØGET, "Meget fint destillat", maltBatch, medarbejder);
