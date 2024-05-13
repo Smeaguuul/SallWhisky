@@ -74,4 +74,9 @@ public class Controller {
     public static ArrayList<MaltBatch> getMaltBatches() {
         return Storage.getMaltBatches();
     }
+    public static Adminstrator opretAdmin(String navn, String cpr,String signatur,String kode){
+        Adminstrator adminstrator = new Adminstrator(navn, cpr, signatur, kode);
+        Storage.addMedarbejder(adminstrator);
+        return adminstrator;
+    }
 }
