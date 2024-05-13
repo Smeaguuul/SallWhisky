@@ -25,6 +25,15 @@ public class OpretRedigerTab extends gui.motherClasses.MotherTab {
         MotherButton opretFadButton = new MotherMainMenuButton("Opret Fad");
         opretFadButton.setOnAction(event -> openOpretFadWindow());
         pane.add(opretFadButton, 1, 1);
+
+        //Opretter knap til opretning af medarbejder
+        MotherButton redigerMedarbejderButton = new MotherMainMenuButton("Adminstrer Medarbejdere");
+        pane.add(redigerMedarbejderButton,0,2);
+
+        //Opret forhandler
+        MotherButton opretForhandlerButton = new MotherMainMenuButton("Opret Forhandler");
+        pane.add(opretForhandlerButton,1,2);
+
     }
 
     @Override
