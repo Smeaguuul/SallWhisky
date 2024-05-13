@@ -2,43 +2,30 @@ package gui.medarbejderCheck;
 
 import application.controller.Controller;
 import application.model.Medarbejder;
-import gui.motherClasses.InfoLabel;
-import gui.motherClasses.MotherButton;
-import gui.motherClasses.MotherLabel;
-import gui.motherClasses.MotherPane;
-import gui.opretDestillat.OpretDestillatWindow;
+import gui.motherClasses.*;
+import gui.opretDestillat.OpretDestillatPane;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 import javafx.scene.control.TextField;
 
 import java.util.NoSuchElementException;
 
-public class CheckMedarbejderWindow extends Stage {
-    private Stage owner;
+public class CheckMedarbejderWindow extends MotherPane {
+    private MotherTab owner;
     private TextField textField = new TextField();
     private TextArea textArea = new TextArea();
     private MotherButton buttonOk;
     private Medarbejder aktuelMedarbejder;
 
-    public CheckMedarbejderWindow(String title, Stage owner) {
-        MotherPane pane = new MotherPane();
-        Scene scene = new Scene(pane);
-        this.initOwner(owner);
-        this.initContent(pane);
-        this.setTitle(title);
-        this.setScene(scene);
+    public CheckMedarbejderWindow(String title, MotherTab owner) {
         this.owner = owner;
-    }
 
-    private void initContent(MotherPane pane) {
         //Titel
         MotherLabel instructionLabel = new MotherLabel("Indtast venlist medarbejdernummer.");
-        pane.add(instructionLabel, 0, 0,2,1);
+        this.add(instructionLabel, 0, 0,2,1);
 
         //HBox til nummer checkning
         HBox hBox = new HBox();
@@ -70,7 +57,7 @@ public class CheckMedarbejderWindow extends Stage {
         hBox.getChildren().add(checkButton);
 
         //Tilføjer HBox til vinduet
-        pane.add(hBox,0,1,2,1);
+        this.add(hBox,0,1,2,1);
 
         //HBox til knapper
         HBox buttonHBox = new HBox();
@@ -79,7 +66,7 @@ public class CheckMedarbejderWindow extends Stage {
         // Back Button
         MotherButton buttonTilbage = new MotherButton("Annuller");
         buttonTilbage.setOnAction(e -> {
-            this.close();
+            owner.drawDefault();
         });
         buttonHBox.getChildren().add(buttonTilbage);
 
@@ -88,21 +75,20 @@ public class CheckMedarbejderWindow extends Stage {
         buttonOk.setDisable(true);
         buttonOk.setOnAction(e -> {
             openOpretDestillatWindow();
-            this.close();
         });
         buttonHBox.getChildren().add(buttonOk);
         buttonHBox.setAlignment(Pos.CENTER_RIGHT);
 
         //Tilføjer knapper til vinduet
-        pane.add(buttonHBox,1,3);
+        this.add(buttonHBox,1,3);
 
 
         // Text Area
         textArea.setEditable(false);
         textArea.setMaxWidth(300);
-        pane.add(textArea, 0, 2,2,1);
+        this.add(textArea, 0, 2,2,1);
 
-        pane.setMinSize(100,100);
+        this.setMinSize(100,100);
     }
 
     private void checkMedarbejder() {
@@ -113,15 +99,18 @@ public class CheckMedarbejderWindow extends Stage {
             buttonOk.setDisable(false);
         } catch (NoSuchElementException e) {
             textArea.setText(e.getMessage().toString());
+            buttonOk.setDisable(true);
         } catch (NumberFormatException e) {
             textArea.setText("Indtast venligst et tal.");
+            buttonOk.setDisable(true);
         } catch (IllegalArgumentException e) {
             textArea.setText(e.getMessage().toString());
+            buttonOk.setDisable(true);
         }
     }
 
     private void openOpretDestillatWindow() {
-        OpretDestillatWindow opretDestillatWindow = new OpretDestillatWindow("Opret Destillat Vindue", owner, aktuelMedarbejder);
-        opretDestillatWindow.showAndWait();
+        OpretDestillatPane opretDestillatPane = new OpretDestillatPane("Opret Destillat Vindue", this.owner, this.aktuelMedarbejder);
+        owner.setContent(opretDestillatPane);
     }
 }
