@@ -16,6 +16,7 @@ public class Medarbejder {
     }
 
     public Medarbejder(int nummer, String navn, String cpr, String signatur) {
+        antalMedarbejder++;
         this.nummer = nummer;
         this.navn = navn;
         this.cpr = cpr;
