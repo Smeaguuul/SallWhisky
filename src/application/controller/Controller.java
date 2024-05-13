@@ -80,5 +80,9 @@ public class Controller {
         forhandlerer = Storage.getForhandlere();
         return forhandlerer;
     }
-
+    public static Forhandler opretForhandler(String navn, String region, String land) {
+        Forhandler hand = new Forhandler(navn, region, land);
+        Storage.addForhandler(hand);
+        return hand;
+    }
 }
