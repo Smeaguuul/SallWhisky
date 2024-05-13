@@ -15,6 +15,8 @@ import javafx.stage.Stage;
 import javafx.scene.control.TextField;
 import storage.Storage;
 
+import java.util.NoSuchElementException;
+
 public class TjækMedarbejderWindow extends Stage {
     private Stage owner;
     public TjækMedarbejderWindow(String title, Stage owner) {
@@ -33,6 +35,9 @@ public class TjækMedarbejderWindow extends Stage {
 
         // Text Field
         TextField textField = new TextField();
+        pane.add(textField, 1, 1);
+
+        // Listener der fjerner alle tegn der ikke er tal, fra textfeltet.
         textField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
@@ -42,13 +47,22 @@ public class TjækMedarbejderWindow extends Stage {
                 }
             }
         });
-        pane.add(textField, 1, 1);
 
         // Check Button
         MotherButton checkButton = new MotherButton("Check");
         pane.add(checkButton, 2,1);
         checkButton.setOnAction(e -> {
-            textField.setText(Controller.getMedarbejder(Integer.parseInt(textField.getText())).toString());
+            try {
+                textField.setText(Controller.getMedarbejder(Integer.parseInt(textField.getText())).toString());
+            }
+            catch (NoSuchElementException exception) {
+                textField.setText(exception.getMessage());
+            }
+            if(Controller.getMedarbejder(Integer.parseInt(textField.getText())) != null) {
+            }
+            else {
+                textField.setText("Mejderbejder med det nummer eksistere ikke");
+            }
         });
 
         // Back Button
