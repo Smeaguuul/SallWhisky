@@ -54,6 +54,7 @@ public class TjækMedarbejderWindow extends Stage {
         checkButton.setOnAction(e -> {
             try {
                 textField.setText(Controller.getMedarbejder(Integer.parseInt(textField.getText())).toString());
+                Controller.getMedarbejder(Integer.parseInt(textField.getText()))
             }
             catch (NoSuchElementException exception) {
                 textField.setText(exception.getMessage());
@@ -88,7 +89,7 @@ public class TjækMedarbejderWindow extends Stage {
         pane.add(textArea, 1, 2);
     }
     private void openOpretDestillatWindow() {
-        OpretDestillatWindow opretDestillatWindow = new OpretDestillatWindow("Opret Destillat Vindue", owner);
+        OpretDestillatWindow opretDestillatWindow = new OpretDestillatWindow("Opret Destillat Vindue", owner,);
         opretDestillatWindow.showAndWait();
     }
 }
