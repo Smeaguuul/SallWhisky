@@ -287,4 +287,49 @@ class ControllerTest {
         System.out.println("Expected: " + expected);
         assertTrue(actual.getMessage().contains(expected));
     }
+
+    @Test
+    void opretDestillat_LiterOgAlkoholProcent_TC4() {
+        // Arrange
+        int expectedAntalLiter = 35;
+        int expectedAlkoholprocent = 100;
+        LocalDate expectedStartdato = LocalDate.of(2024, 05, 01);
+        LocalDate expectedSlutdato = LocalDate.of(2024, 05, 8);
+        RygningsType expectedRygsningsType = RygningsType.IKKERØGET;
+
+        Destillat expectedDestillat = Controller.opretDestillat(expectedStartdato,
+                expectedSlutdato, expectedAntalLiter, expectedAlkoholprocent, expectedRygsningsType, "", maltBatch, medarbejder);
+
+
+        // Act
+        Destillat actualDestillat = Storage.getDestillater().get(0);
+        double actualAlkohol = actualDestillat.getAlkoholprocent();
+        double actualLiter = actualDestillat.getLiterVæske();
+
+        // Assert
+        System.out.println("Opretdestillat TC4");
+        System.out.println("Actual: " + actualDestillat + ", Liter: " + actualLiter + ", Alkohol%: " + actualAlkohol + "%");
+        System.out.println("Expected: " + expectedDestillat + ", Liter: " + expectedAntalLiter + ", Alkohol%: " + expectedAlkoholprocent + "%");
+        assertEquals(expectedDestillat,actualDestillat);
+        assertEquals(expectedAntalLiter,actualLiter);
+        assertEquals(expectedAlkoholprocent,actualAlkohol);
+    }
+    @Test
+    void opretDestillat_LiterOgAlkoholProcent_TC5() {
+        //Arrange
+        String expected = "Alkoholprocent skal være mellem 40 og 100.";
+        int expectedAntalLiter = 35;
+        double expectedAlkoholprocent = 100.1;
+
+        //Act
+        Exception actual = assertThrows(IllegalArgumentException.class, () -> {
+            Controller.opretDestillat(LocalDate.of(2024, 05, 01), LocalDate.of(2024, 05, 8), expectedAntalLiter, expectedAlkoholprocent, RygningsType.IKKERØGET, "", maltBatch, medarbejder);
+        });
+
+        //Assert
+        System.out.println("Opretdestillat: TC5");
+        System.out.println("Actual: " + actual.getMessage());
+        System.out.println("Expected: " + expected);
+        assertTrue(actual.getMessage().contains(expected));
+    }
 }
