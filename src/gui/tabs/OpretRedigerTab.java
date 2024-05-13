@@ -13,9 +13,10 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
-public class OpretRedigerTab extends gui.motherClasses.MotherTab {
+public class OpretRedigerTab extends MotherTab {
     public OpretRedigerTab(String text) {
         super(text);
+        this.setStyle(" -fx-background-color: rgb(" + 133 + "," + 144 + ", " + 162 + ");");
         //Laver tab til opret og rediger
         MotherPane paneRediger = new MotherPane();
         this.initContentRediger(paneRediger);
@@ -50,18 +51,27 @@ public class OpretRedigerTab extends gui.motherClasses.MotherTab {
         VBox medarbejderVBox = new VBox();
         medarbejderVBox.setSpacing(10);
         medarbejderVBox.setAlignment(Pos.BOTTOM_CENTER);
-        VerticalImageStackPane medarbejderImage = new VerticalImageStackPane("/gui/images/fad.jpg");
+        VerticalImageStackPane medarbejderImage = new VerticalImageStackPane("/gui/images/medarbejder.png");
         medarbejderVBox.getChildren().add(medarbejderImage);
         MotherButton redigerMedarbejderButton = new MainMenuButton("Adminstrer Medarbejdere");
-        redigerMedarbejderButton.setOnAction(event -> openOpretFadWindow());
+        redigerMedarbejderButton.setOnAction(event -> openRedigerMedarbejdereWindow());
         medarbejderVBox.getChildren().add(redigerMedarbejderButton);
         pane.add(medarbejderVBox,2,1);
 
         //Opret forhandler
-        MotherButton opretForhandlerButton = new MotherMainMenuButton("Opret Forhandler");
+        VBox forhandlerVBox = new VBox();
+        forhandlerVBox.setSpacing(10);
+        forhandlerVBox.setAlignment(Pos.BOTTOM_CENTER);
+        VerticalImageStackPane forhandlerImage = new VerticalImageStackPane("/gui/images/forhandler.jpg");
+        forhandlerVBox.getChildren().add(forhandlerImage);
+        MotherButton opretForhandlerButton = new MainMenuButton("Opret Forhandler");
         opretForhandlerButton.setOnAction(event -> openOpretForhandlerPane());
-        //pane.add(opretForhandlerButton,1,2);
+        forhandlerVBox.getChildren().add(opretForhandlerButton);
+        pane.add(forhandlerVBox,3,1);
 
+    }
+
+    private void openRedigerMedarbejdereWindow() {
     }
 
     private void openOpretForhandlerPane() {

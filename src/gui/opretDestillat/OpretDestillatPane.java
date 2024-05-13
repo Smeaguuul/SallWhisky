@@ -7,6 +7,10 @@ import javafx.geometry.Pos;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.HBox;
 
 import java.time.LocalDate;
@@ -18,6 +22,9 @@ public class OpretDestillatPane extends MotherPane {
 
     public OpretDestillatPane(String title, MotherTab owner, Medarbejder medarbejder) {
         this.medarbejder = medarbejder;
+        this.setBackground(new Background(new BackgroundImage(new Image("/gui/images/mark.jpg"), null, null, null, new BackgroundSize(1600,900,false,false,true,true)), null, null));
+        this.setAlignment(Pos.CENTER);
+
         MotherLabel instructionLabel = new MotherLabel("Udfyld venligst nedenstående for at oprette et nyt destillat: ");
         this.add(instructionLabel, 0, 0, 2, 1);
 

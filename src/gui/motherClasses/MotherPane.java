@@ -18,7 +18,7 @@ public class MotherPane extends GridPane {
 
         this.setGridLinesVisible(false);
         this.setPadding(new Insets(20));
-        this.setHgap(60);
+        this.setHgap(30);
         this.setVgap(15);
     }
 
@@ -31,7 +31,7 @@ public class MotherPane extends GridPane {
                 1,      // endY
                 true,   // proportional
                 javafx.scene.paint.CycleMethod.NO_CYCLE,
-                new Stop(0, Color.rgb(22,26,29)),
+                new Stop(0, Color.rgb(44,51,58)),
                 new Stop(1, Color.rgb(69,79,89))
         );
 
