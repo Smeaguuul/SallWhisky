@@ -24,7 +24,7 @@ public class OpretRedigerTab extends MotherTab {
     }
 
     private void initContentRediger(MotherPane pane) {
-        //Opretter knap og billede til opret Destillat
+        //Opretter knap og billede til opretDestillat og sætter det i en VBox
         VBox destillatVBox = new VBox();
         destillatVBox.setSpacing(10);
         VerticalImageStackPane fieldImage = new VerticalImageStackPane("/gui/images/mark.jpg");
@@ -36,7 +36,7 @@ public class OpretRedigerTab extends MotherTab {
         pane.add(destillatVBox,0,1);
 
 
-        //Opretter knap til opretFad
+        //Opretter knap og billede til opretFad og sætter det i en VBox
         VBox fadVBox = new VBox();
         fadVBox.setSpacing(10);
         fadVBox.setAlignment(Pos.BOTTOM_CENTER);
@@ -47,7 +47,7 @@ public class OpretRedigerTab extends MotherTab {
         fadVBox.getChildren().add(opretFadButton);
         pane.add(fadVBox,1,1);
 
-        //Opretter knap til opretning af medarbejder
+        //Opretter knap og billede til Adminstrer Medarbejdere og sætter det i en VBox
         VBox medarbejderVBox = new VBox();
         medarbejderVBox.setSpacing(10);
         medarbejderVBox.setAlignment(Pos.BOTTOM_CENTER);
@@ -58,7 +58,7 @@ public class OpretRedigerTab extends MotherTab {
         medarbejderVBox.getChildren().add(redigerMedarbejderButton);
         pane.add(medarbejderVBox,2,1);
 
-        //Opret forhandler
+        //Opretter knap og billede til opretForhandler og sætter det i en VBox
         VBox forhandlerVBox = new VBox();
         forhandlerVBox.setSpacing(10);
         forhandlerVBox.setAlignment(Pos.BOTTOM_CENTER);

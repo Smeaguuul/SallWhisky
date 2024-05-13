@@ -9,10 +9,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
 import javafx.scene.control.TextField;
 
 import java.util.NoSuchElementException;
@@ -29,9 +26,12 @@ public class CheckMedarbejderWindow extends MotherPane {
         this.setBackground(new Background(new BackgroundImage(new Image("/gui/images/mark.jpg"), null, null, null, new BackgroundSize(1600,900,false,false,true,true)), null, null));
         this.setAlignment(Pos.CENTER);
 
+        //Opretter et pane til at holde på de centrale elementer
+        GridPane centralPane = new CentralPane();
+
         //Titel
         MotherLabel instructionLabel = new MotherLabel("Indtast venlist medarbejdernummer.");
-        this.add(instructionLabel, 0, 0, 2, 1);
+        centralPane.add(instructionLabel, 0, 0, 2, 1);
 
         //HBox til nummer checkning
         HBox hBox = new HBox();
@@ -63,7 +63,7 @@ public class CheckMedarbejderWindow extends MotherPane {
         hBox.getChildren().add(checkButton);
 
         //Tilføjer HBox til vinduet
-        this.add(hBox, 0, 1, 2, 1);
+        centralPane.add(hBox, 0, 1, 2, 1);
 
         //HBox til knapper
         HBox buttonHBox = new HBox();
@@ -86,15 +86,15 @@ public class CheckMedarbejderWindow extends MotherPane {
         buttonHBox.setAlignment(Pos.CENTER_RIGHT);
 
         //Tilføjer knapper til vinduet
-        this.add(buttonHBox, 1, 3);
+        centralPane.add(buttonHBox, 1, 3);
 
 
         // Text Area
         textArea.setEditable(false);
         textArea.setMaxWidth(300);
-        this.add(textArea, 0, 2, 2, 1);
+        centralPane.add(textArea, 0, 2, 2, 1);
 
-        this.setMinSize(100, 100);
+        this.add(centralPane,0,0);
     }
 
     private void checkMedarbejder() {
