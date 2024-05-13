@@ -7,7 +7,8 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
- import javafx.scene.control.Tab;
+import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,6 +18,8 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 public class StartWindow extends Application {
     private Stage stage;

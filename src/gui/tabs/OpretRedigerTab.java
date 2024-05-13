@@ -5,6 +5,7 @@ import gui.motherClasses.MotherButton;
 import gui.motherClasses.MotherMainMenuButton;
 import gui.motherClasses.MotherPane;
 import gui.opretFad.OpretFadPane;
+import gui.opretForhandler.OpretForhandlerPane;
 
 public class OpretRedigerTab extends gui.motherClasses.MotherTab {
     public OpretRedigerTab(String text) {
@@ -32,8 +33,14 @@ public class OpretRedigerTab extends gui.motherClasses.MotherTab {
 
         //Opret forhandler
         MotherButton opretForhandlerButton = new MotherMainMenuButton("Opret Forhandler");
+        opretForhandlerButton.setOnAction(event -> openOpretForhandlerPane());
         pane.add(opretForhandlerButton,1,2);
 
+    }
+
+    private void openOpretForhandlerPane() {
+        MotherPane opretForhandlerPane = new OpretForhandlerPane("Opret Forhandler", this);
+        this.setContent(opretForhandlerPane);
     }
 
     @Override
@@ -41,7 +48,6 @@ public class OpretRedigerTab extends gui.motherClasses.MotherTab {
         MotherPane paneRediger = new MotherPane();
         initContentRediger(paneRediger);
         this.setContent(paneRediger);
-
     }
 
     private void openMedarbejderChecker() {
