@@ -36,4 +36,8 @@ public class Medarbejder {
         toString += "\nSignatur: " + signatur;
         return toString;
     }
+
+    public String getSignatur() {
+        return signatur;
+    }
 }

@@ -65,7 +65,7 @@ public class BekræftFadButton extends MotherButton {
         alert.setContentText(e.getMessage());
         alert.showAndWait();
     }
-    private void validerInput() {
+    private void validerInput() { //TODO skal nok håndtere errors fra controlleren, i stedet for checker herude i GUI
         if (commonClass.getTræsort() == null) {
             throw new NoSuchElementException("Ingen Træsort Valgt!");
         }
