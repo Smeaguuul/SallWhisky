@@ -2,79 +2,66 @@ package gui.opretDestillat;
 
 import application.controller.Controller;
 import application.model.*;
-import com.sun.javafx.scene.control.behavior.DatePickerBehavior;
 import gui.motherClasses.*;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 
-public class OpretDestillatWindow extends Stage {
+public class OpretDestillatPane extends MotherPane {
     private Medarbejder medarbejder;
 
-    public OpretDestillatWindow(String title, Stage owner, Medarbejder medarbejder) {
+    public OpretDestillatPane(String title, MotherTab owner, Medarbejder medarbejder) {
         this.medarbejder = medarbejder;
-        this.initOwner(owner);
-        this.setTitle(title);
-        MotherPane pane = new MotherPane();
-        this.initContent(pane);
-        Scene scene = new Scene(pane);
-        this.setScene(scene);
-    }
-
-
-    private void initContent(MotherPane pane) {
         MotherLabel instructionLabel = new MotherLabel("Udfyld venligst nedenstående for at oprette et nyt destillat: ");
-        pane.add(instructionLabel, 0, 0, 2, 1);
+        this.add(instructionLabel, 0, 0, 2, 1);
 
         //vælg startdato //TODO Kan ikke være efter slutdato eller vice versa.
         InfoLabel startDatoLabel = new InfoLabel("Start dato:");
         DatePicker startDatoDatePicker = new DatePicker(LocalDate.now().minusDays(2));
-        pane.add(startDatoLabel, 0, 1);
-        pane.add(startDatoDatePicker, 1, 1);
+        this.add(startDatoLabel, 0, 1);
+        this.add(startDatoDatePicker, 1, 1);
 
         //vælg slutdato
         InfoLabel slutDatoLabel = new InfoLabel("Slut dato:");
         DatePicker slutDatoDatePicker = new DatePicker(LocalDate.now());
-        pane.add(slutDatoLabel, 0, 2);
-        pane.add(slutDatoDatePicker, 1, 2);
+        this.add(slutDatoLabel, 0, 2);
+        this.add(slutDatoDatePicker, 1, 2);
 
         //Vælger liter væske
         InfoLabel literVæskeLabel = new InfoLabel("Liter væske produceret:");
         TextField størrelseTextField = new TextField();
         størrelseTextField.setEditable(true);
-        pane.add(literVæskeLabel, 0, 3);
-        pane.add(størrelseTextField, 1, 3);
+        this.add(literVæskeLabel, 0, 3);
+        this.add(størrelseTextField, 1, 3);
 
         //Vælger alkoholprocent
         InfoLabel alkoholProcentLabel = new InfoLabel("Endelige alkoholprocent:");
         TextField alkoholProcentTextField = new TextField();
         alkoholProcentTextField.setEditable(true);
-        pane.add(alkoholProcentLabel, 0, 4);
-        pane.add(alkoholProcentTextField, 1, 4);
+        this.add(alkoholProcentLabel, 0, 4);
+        this.add(alkoholProcentTextField, 1, 4);
 
         //Vælger rygningstype
         InfoLabel rygningstypeLabel = new InfoLabel("Rygningstype:");
         MotherComboBox rygningstypeComboBox = new MotherComboBox();
         RygningsType[] rygningsTyper = RygningsType.values();
         rygningstypeComboBox.getItems().addAll(rygningsTyper);
-        pane.add(rygningstypeLabel, 0, 5);
-        pane.add(rygningstypeComboBox, 1, 5);
+        this.add(rygningstypeLabel, 0, 5);
+        this.add(rygningstypeComboBox, 1, 5);
 
         //Vælger maltbatch
         InfoLabel maltBatchLabel = new InfoLabel("Maltbatch: ");
         MotherComboBox maltBatchComboBox = new MotherComboBox();
         ArrayList<MaltBatch> MaltBatches = Controller.getMaltBatches();
         maltBatchComboBox.getItems().addAll(MaltBatches);
-        pane.add(maltBatchLabel, 0, 6);
-        pane.add(maltBatchComboBox, 1, 6);
+        this.add(maltBatchLabel, 0, 6);
+        this.add(maltBatchComboBox, 1, 6);
 
         //Evt. en kommentar
         InfoLabel kommentarLabel = new InfoLabel("Kommentar: ");
@@ -82,8 +69,8 @@ public class OpretDestillatWindow extends Stage {
         kommentarTextArea.setEditable(true);
         kommentarTextArea.setMaxWidth(250);
         kommentarLabel.setAlignment(Pos.TOP_CENTER);
-        pane.add(kommentarLabel,0,7);
-        pane.add(kommentarTextArea,1,7, 1, 2);
+        this.add(kommentarLabel,0,7);
+        this.add(kommentarTextArea,1,7, 1, 2);
 
 
         /*
@@ -98,7 +85,7 @@ public class OpretDestillatWindow extends Stage {
 
         //Afbryd lukker blot vinduet
         afbrydButton.setOnAction(event -> {
-            this.close();
+            owner.drawDefault();
         });
 
         //Bekræft tjekker først om det indtastede information er gyldigt. Hvis det er gyldigt, så vises et bekræftelses vindue ellers vises en advarsel
@@ -106,13 +93,13 @@ public class OpretDestillatWindow extends Stage {
             CommonClass commonClass = new CommonClass(startDatoDatePicker.getValue(), slutDatoDatePicker.getValue(), størrelseTextField.getText(), alkoholProcentTextField.getText(),rygningstypeComboBox.getValue(), maltBatchComboBox.getValue(),kommentarTextArea.getText(), medarbejder);
             boolean bekræftet = bekræftButton.bekræft(commonClass);
             if (bekræftet) {
-                this.close();
+                owner.drawDefault();
             }
         });
 
         //Tilføjer knapperne til pane
         buttonBox.getChildren().addAll(afbrydButton, bekræftButton);
-        pane.add(buttonBox, 1, 9);
+        this.add(buttonBox, 1, 9);
 
     }
 }
