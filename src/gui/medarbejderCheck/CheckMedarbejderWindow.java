@@ -115,6 +115,8 @@ public class CheckMedarbejderWindow extends Stage {
             textArea.setText(e.getMessage().toString());
         } catch (NumberFormatException e) {
             textArea.setText("Indtast venligst et tal.");
+        } catch (IllegalArgumentException e) {
+            textArea.setText(e.getMessage().toString());
         }
     }
 

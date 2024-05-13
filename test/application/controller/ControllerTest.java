@@ -191,7 +191,7 @@ class ControllerTest {
     }
 
     @Test
-    void opretDestillat_TC2_Dato() {
+    void opretDestillat_TC1_Dato() {
         // Arrange
         LocalDate expectedStartdato = LocalDate.of(2024, 05, 01);
         LocalDate expectedSlutdato = LocalDate.of(2024, 05, 01);
@@ -211,7 +211,7 @@ class ControllerTest {
     }
 
     @Test
-    void opretDestillat_TC3_Dato() {
+    void opretDestillat_TC2_Dato() {
         // Arrange
         LocalDate expectedStartdato = LocalDate.of(2024, 05, 8);
         LocalDate expectedSlutdato = LocalDate.of(2024, 05, 01);

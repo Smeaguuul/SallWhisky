@@ -13,7 +13,7 @@ public class Controller {
 
         //Kaster en error hvis medarbejder nummer ikke er gyldigt
         if (!(medarbejderNummer > 0)) {
-            throw new IllegalArgumentException("MedarbejderNummer skal være positivt");
+            throw new IllegalArgumentException("Medarbejdernummer skal være positivt.");
         }
 
         //Får fat i alle medarbejdere i Storage
