@@ -2,6 +2,7 @@ package gui.tabs;
 
 import gui.medarbejderCheck.CheckMedarbejderWindow;
 import gui.motherClasses.*;
+import gui.opretAdminMedarbejder.AdminMedarbejderPane;
 import gui.opretFad.OpretFadPane;
 import gui.opretForhandler.OpretForhandlerPane;
 import javafx.geometry.Insets;
@@ -72,8 +73,8 @@ public class OpretRedigerTab extends MotherTab {
     }
 
     private void openAdminMedarbejder(){
-        //MotherPane adminMedarbejderPane = new AdminMedarbejderPane("Adminstrer Medarbejder",this);
-        //this.setContent(adminMedarbejderPane);
+        MotherPane adminMedarbejderPane = new AdminMedarbejderPane("Adminstrer Medarbejder",this);
+        this.setContent(adminMedarbejderPane);
     }
     private void openOpretForhandlerPane() {
         MotherPane opretForhandlerPane = new OpretForhandlerPane("Opret Forhandler", this);
