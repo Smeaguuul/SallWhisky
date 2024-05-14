@@ -38,4 +38,19 @@ public class CommonClass {
     public String getKommentar() {
         return kommentar;
     }
+
+    @Override
+    public String toString() {
+        String info = "";
+        info += "Træsort : " + this.getTræsort();
+        info += "\nForhandler: " + this.getForhandler();
+        info += "\nTidligere indhold: " + this.getTidligereIndhold();
+        info += "\nAntal liter i fad: " + this.getLiterStørrelse();
+        if (this.getKommentar().isEmpty()) {
+            info += "\nIngen ydeligere kommentarer.";
+        } else {
+            info += "\nKommentar: " + this.getKommentar();
+        }
+        return info;
+    }
 }

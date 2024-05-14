@@ -13,6 +13,15 @@ public class Controller {
         if (literStørrelse <= 0) {
             throw new IllegalArgumentException("Liter størrelse skal være over 0");
         }
+        if (træsort == null) {
+            throw new NoSuchElementException("Ingen Træsort Valgt!");
+        }
+        if (forhandler == null) {
+            throw new NoSuchElementException("Intet Tidligere Indhold Valgt!");
+        }
+        if (tidligereIndhold == null) {
+            throw new NoSuchElementException("Ingen Forhandler Valgt!");
+        }
         Fad fad = new Fad(træsort, bemærkning, tidligereIndhold, literStørrelse, forhandler);
         Storage.addFad(fad);
         return fad;
@@ -27,6 +36,9 @@ public class Controller {
         }
         if (startDato.isAfter(slutDato) || startDato.isEqual(slutDato)) {
             throw new IllegalArgumentException("Startdato skal være før slutdato.");
+        }
+        if (rygningsType == null) {
+            throw new IllegalArgumentException("Der skal vælges en rygningstype.");
         }
         Destillat destillat = new Destillat(startDato, slutDato, literVæske, alkoholProcent, rygningsType, kommentar, medarbejder, maltbatch);
         Storage.addDestillat(destillat);

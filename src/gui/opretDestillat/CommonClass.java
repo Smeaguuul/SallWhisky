@@ -56,4 +56,24 @@ public class CommonClass {
     public Medarbejder getMedarbejder() {
         return medarbejder;
     }
+
+    //Giver et fint overview over den indtastede information
+    @Override
+    public String toString() {
+        String info = "";
+        info += "Startdato : " + this.getStartDato();
+        info += "\nSlutdato: " + this.getSlutDato();
+        info += "\nAntal liter: " + this.getAntalLiter();
+        info += "\nAlkoholprocent: " + this.getAlkoholProcent();
+        info += "\nRygningstype: " + this.getRygningsType();
+        info += "\nMaltbatch: " + this.getMaltBatch();
+        info += "\nMedarbejder signatur: " + this.getMedarbejder().getSignatur();
+        if (this.getKommentar().isEmpty()) {
+            info += "\nIngen ydeligere kommentarer.";
+        } else {
+            info += "\nKommentar: " + this.getKommentar();
+        }
+        return info;
+    }
+
 }
