@@ -43,7 +43,7 @@ public class BekræftDestillatButton extends MotherButton {
         return false;
     }
 
-    private void visAdvarsel(Exception e) { //TODO Duplikeret kode med anden bekræft button
+    private void visAdvarsel(Exception e) { //TODO Duplikeret kode med anden bekræft button. Skal nok have en super klasse, og så kan denne metoder være statisk eller bare ligge i superklassen
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setHeaderText("Der er sket en fejl. Se nedenstående for ydeligere information.");
         alert.setContentText(e.getMessage());
@@ -51,7 +51,20 @@ public class BekræftDestillatButton extends MotherButton {
     }
 
     private String getIndtastedeInformation() {
-        return "En masse information"; //TODO tilføj information om den indtastede information
+        String info = "";
+        info += "Startdato : " + commonClass.getStartDato();
+        info += "\nSlutdato: " + commonClass.getSlutDato();
+        info += "\nAntal liter: " + commonClass.getAntalLiter();
+        info += "\nAlkoholprocent: " + commonClass.getAlkoholProcent();
+        info += "\nRygningstype: " + commonClass.getRygningsType();
+        info += "\nMaltbatch: " + commonClass.getMaltBatch();
+        info += "\nMedarbejder signatur: " + commonClass.getMedarbejder().getSignatur();
+        if (commonClass.getKommentar().isEmpty()) {
+            info += "\nIngen ydeligere kommentarer.";
+        } else {
+            info += "\nKommentar: " + commonClass.getKommentar();
+        }
+        return info; //TODO Skal måske ligge som en toString i commonclass.
     }
 
     private void validerInput() { //TODO (SKal nok ligge i controller i form af en error den kaster)
