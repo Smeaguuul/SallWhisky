@@ -114,7 +114,7 @@ public class Controller {
         if (medarbejder instanceof Adminstrator && ((Adminstrator) medarbejder).verficerKode(kodeord)){
             return (Adminstrator) medarbejder;
         } else {
-            throw new LoginException("Forkert Login information");
+            throw new LoginException("Forkert Login information.");
         }
     }
 }

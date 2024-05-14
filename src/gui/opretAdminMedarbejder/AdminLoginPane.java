@@ -84,14 +84,21 @@ public class AdminLoginPane extends MotherPane {
 
     private void checkLogin() {
         try {
+            //Kaster en error hvis informationerne ikke passe
             aktuelMedarbejder = Controller.forsøgLogin(Integer.parseInt(nummerTextField.getText()), kodeTextField.getText());
             openMedarbejderAdminPane();
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText("Nej");
-            alert.setContentText("Nej * 2");
+            alert.setContentText(e.getMessage());
             alert.showAndWait(); //TODO Skal cleanes op og have clear textfields osv
+            clearTextFields();
         }
+    }
+
+    private void clearTextFields() {
+        this.kodeTextField.clear();
+        this.nummerTextField.clear();
     }
 
     private void openMedarbejderAdminPane() {
