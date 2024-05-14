@@ -3,6 +3,7 @@ package application.controller;
 import application.model.*;
 import storage.Storage;
 
+import javax.security.auth.login.LoginException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -94,5 +95,14 @@ public class Controller {
         medarbejder.setNavn(navn);
         medarbejder.setCpr(cpr);
         medarbejder.setSignatur(signatur);
+    }
+
+    public static Adminstrator forsøgLogin(int medarbejderNummer, String kodeord) throws Exception {
+        Medarbejder medarbejder = Controller.getMedarbejder(medarbejderNummer);
+        if (medarbejder instanceof Adminstrator && ((Adminstrator) medarbejder).verficerKode(kodeord)){
+            return (Adminstrator) medarbejder;
+        } else {
+            throw new LoginException("Forkert Login information");
+        }
     }
 }

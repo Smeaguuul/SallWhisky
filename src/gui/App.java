@@ -13,7 +13,8 @@ public class App {
     }
 
     private static void initStorage() {
-        Storage.addMedarbejder(new Medarbejder(1, "Mads Medarbejder", "010203-4555", "MAM"));
+        Storage.addMedarbejder(new Adminstrator("Snævar Albertsson", "130676-1234","SNA", "kode"));
+        Storage.addMedarbejder(new Medarbejder("Mads Medarbejder", "010203-4555", "MAM"));
         Storage.addMedarbejder(new Medarbejder("Thor Testesen","020304-6969","TOT"));
         Storage.addForhandler(new Forhandler("Juan Igleasas", "Catalonien", "Spanien"));
         Storage.addForhandler(new Forhandler("Donald Duck", "Scotland", "UK"));

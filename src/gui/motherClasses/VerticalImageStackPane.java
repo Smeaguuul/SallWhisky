@@ -22,7 +22,7 @@ public class VerticalImageStackPane extends StackPane {
         imageView.setPreserveRatio(false);
 
         //Sætter et viewport, så vi blot ser en del af billedet. Viewport starter fra 600, 0 og har en bredde på 360 og en højde på 720
-        imageView.setViewport(new Rectangle2D(600,0,240,400 ));
+        imageView.setViewport(new Rectangle2D(600,0,240,300 ));
         this.setPadding(new Insets(5));
 
         //Laver en border omkring billedet
