@@ -43,7 +43,7 @@ public class StartWindow extends Application {
         ImageView imageView = new ImageView();
         imageView.setImage(image);
         imageView.setPreserveRatio(true);
-        imageView.setFitWidth(400);
+        imageView.setFitWidth(300);
         HBox imageHBox = new HBox(imageView);
         imageHBox.setBackground(new Background(new BackgroundFill(Color.rgb(98,111,134), new CornerRadii(5), new Insets(-10))));
         imageHBox.setAlignment(Pos.TOP_CENTER);
