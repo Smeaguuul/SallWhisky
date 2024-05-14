@@ -67,7 +67,7 @@ class ControllerTest {
         //Arrange
         Medarbejder medarbejder = new Medarbejder(1, "Mads Medarbejder", "010203-4555", "NAM");
         Storage.addMedarbejder(medarbejder);
-        String expected = "MedarbejderNummer skal være positivt";
+        String expected = "Medarbejdernummer skal være positivt.";
 
         //Act
         Exception actual = assertThrows(IllegalArgumentException.class, () -> {
@@ -87,7 +87,7 @@ class ControllerTest {
         //Arrange
         Medarbejder medarbejder = new Medarbejder(1, "Mads Medarbejder", "010203-4555", "NAM");
         Storage.addMedarbejder(medarbejder);
-        String expected = "MedarbejderNummer skal være positivt";
+        String expected = "Medarbejdernummer skal være positivt.";
 
         //Act
         Exception actual = assertThrows(IllegalArgumentException.class, () -> {
@@ -170,7 +170,7 @@ class ControllerTest {
         double expectedAlkoholProcent = 40.5;
 
         // Act
-        Destillat actualDestilat = Controller.opretDestillat(expectedStartdato, expectedSlutdato, 35, 99, RygningsType.IKKERØGET, "Meget fint destillat", maltBatch, medarbejder);
+        Destillat actualDestilat = Controller.opretDestillat(expectedStartdato, expectedSlutdato, 35.7, 99, RygningsType.IKKERØGET, "Meget fint destillat", maltBatch, medarbejder);
 
         Medarbejder actualMedarbejder = actualDestilat.getMedarbejder();
         MaltBatch actualMaltbatch = actualDestilat.getMaltBatch();
