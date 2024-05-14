@@ -14,7 +14,7 @@ public class MotherPane extends GridPane {
     public MotherPane() {
         Background background = getBackgroundTheme();
         this.setBackground(background);
-        this.setMinSize(1280, 600);
+        this.setMinSize(1080, 600);
 
         this.setGridLinesVisible(false);
         this.setPadding(new Insets(20));
