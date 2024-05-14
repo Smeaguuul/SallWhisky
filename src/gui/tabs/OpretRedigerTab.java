@@ -54,7 +54,7 @@ public class OpretRedigerTab extends MotherTab {
         VerticalImageStackPane medarbejderImage = new VerticalImageStackPane("/gui/images/medarbejder.png");
         medarbejderVBox.getChildren().add(medarbejderImage);
         MotherButton redigerMedarbejderButton = new MainMenuButton("Adminstrer Medarbejdere");
-        redigerMedarbejderButton.setOnAction(event -> openRedigerMedarbejdereWindow());
+        redigerMedarbejderButton.setOnAction(event -> openAdminMedarbejder());
         medarbejderVBox.getChildren().add(redigerMedarbejderButton);
         pane.add(medarbejderVBox,2,1);
 
@@ -71,9 +71,10 @@ public class OpretRedigerTab extends MotherTab {
 
     }
 
-    private void openRedigerMedarbejdereWindow() {
+    private void openAdminMedarbejder(){
+        //MotherPane adminMedarbejderPane = new AdminMedarbejderPane("Adminstrer Medarbejder",this);
+        //this.setContent(adminMedarbejderPane);
     }
-
     private void openOpretForhandlerPane() {
         MotherPane opretForhandlerPane = new OpretForhandlerPane("Opret Forhandler", this);
         this.setContent(opretForhandlerPane);
