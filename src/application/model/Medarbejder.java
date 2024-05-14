@@ -36,4 +36,28 @@ public class Medarbejder {
         toString += "\nSignatur: " + signatur;
         return toString;
     }
+
+    public String getNavn() {
+        return navn;
+    }
+
+    public String getCpr() {
+        return cpr;
+    }
+
+    public String getSignatur() {
+        return signatur;
+    }
+
+    public void setNavn(String navn) {
+        this.navn = navn;
+    }
+
+    public void setCpr(String cpr) {
+        this.cpr = cpr;
+    }
+
+    public void setSignatur(String signatur) {
+        this.signatur = signatur;
+    }
 }

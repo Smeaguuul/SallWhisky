@@ -44,6 +44,10 @@ public class Storage {
     public static void addMedarbejder(Medarbejder medarbejder){
         medarbejdere.add(medarbejder);
     }
+    public static Medarbejder removeMedarbejder(Medarbejder medarbejder){
+        medarbejdere.remove(medarbejder);
+        return medarbejder;
+    }
     //------------------------------------------------------------------------------------------------------------------
     private static ArrayList<Forhandler> forhandlere = new ArrayList<>();
     public static ArrayList<Forhandler> getForhandlere(){

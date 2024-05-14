@@ -14,6 +14,7 @@ public class App {
 
     private static void initStorage() {
         Storage.addMedarbejder(new Medarbejder(1, "Mads Medarbejder", "010203-4555", "MAM"));
+        Storage.addMedarbejder(new Medarbejder("Thor Testesen","020304-6969","TOT"));
         Storage.addForhandler(new Forhandler("Juan Igleasas", "Catalonien", "Spanien"));
         Storage.addForhandler(new Forhandler("Donald Duck", "Scotland", "UK"));
         Storage.addMark(new Mark("En meget fin Økologisk mark, som dyrkes af Lars Landmand", "Langdahl", new Adresse("3","Nørre allé","8000","dk")));

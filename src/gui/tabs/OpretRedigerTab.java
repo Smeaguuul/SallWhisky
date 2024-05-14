@@ -4,6 +4,7 @@ import gui.medarbejderCheck.CheckMedarbejderWindow;
 import gui.motherClasses.MotherButton;
 import gui.motherClasses.MotherMainMenuButton;
 import gui.motherClasses.MotherPane;
+import gui.opretAdminMedarbejder.AdminMedarbejderPane;
 import gui.opretFad.OpretFadPane;
 import gui.opretForhandler.OpretForhandlerPane;
 
@@ -29,6 +30,7 @@ public class OpretRedigerTab extends gui.motherClasses.MotherTab {
 
         //Opretter knap til opretning af medarbejder
         MotherButton redigerMedarbejderButton = new MotherMainMenuButton("Adminstrer Medarbejdere");
+        redigerMedarbejderButton.setOnAction(event -> openAdminMedarbejder());
         pane.add(redigerMedarbejderButton,0,2);
 
         //Opret forhandler
@@ -58,5 +60,10 @@ public class OpretRedigerTab extends gui.motherClasses.MotherTab {
     private void openOpretFadWindow() {
         OpretFadPane opretFadPane = new OpretFadPane("Opret Fad Vindue", this);
         this.setContent(opretFadPane);
+    }
+
+    private void openAdminMedarbejder(){
+        MotherPane adminMedarbejderPane = new AdminMedarbejderPane("Adminstrer Medarbejder",this);
+        this.setContent(adminMedarbejderPane);
     }
 }

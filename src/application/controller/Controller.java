@@ -85,4 +85,14 @@ public class Controller {
         Storage.addForhandler(hand);
         return hand;
     }
+    public static Medarbejder fjernMedarbejder(Medarbejder medarbejder){
+        Storage.removeMedarbejder(medarbejder);
+        return medarbejder;
+    }
+
+    public static void rediger(Medarbejder medarbejder,String navn, String cpr, String signatur) {
+        medarbejder.setNavn(navn);
+        medarbejder.setCpr(cpr);
+        medarbejder.setSignatur(signatur);
+    }
 }
