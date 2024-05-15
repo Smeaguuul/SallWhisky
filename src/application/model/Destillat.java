@@ -1,26 +1,28 @@
 package application.model;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 
-public class Destillat {
+public class Destillat extends Væske {
     private LocalDate startDato;
     private LocalDate slutDato;
-    private double literVæske;
     private double alkoholprocent;
     private RygningsType rygningsType;
     private String kommentar;
     private MaltBatch maltBatch;
 
+
     private Medarbejder medarbejder;
     public Destillat(LocalDate startDato, LocalDate slutDato, double literVæske, double alkoholprocent, RygningsType rygningsType, String kommentar, Medarbejder medarbejder, MaltBatch maltBatch) {
         this.startDato = startDato;
         this.slutDato = slutDato;
-        this.literVæske = literVæske;
         this.alkoholprocent = alkoholprocent;
         this.rygningsType = rygningsType;
         this.kommentar = kommentar;
         this.medarbejder = medarbejder;
         this.maltBatch = maltBatch;
+        this.startmængde = literVæske;
+        this.nuværendeMængde = startmængde;
     }
 
     public Medarbejder getMedarbejder() {
@@ -35,8 +37,11 @@ public class Destillat {
         return slutDato;
     }
 
-    public double getLiterVæske() {
-        return literVæske;
+    public double getNuværendemængde() {
+        return nuværendeMængde;
+    }
+    public double getStartMængde(){
+        return startmængde;
     }
 
     public double getAlkoholprocent() {
@@ -53,5 +58,10 @@ public class Destillat {
 
     public MaltBatch getMaltBatch() {
         return maltBatch;
+    }
+
+    @Override
+    public HashMap<HashMap,Double> getOpbygning() {
+        return null;
     }
 }

@@ -18,7 +18,7 @@ class ControllerTest {
     @BeforeEach
     void setUp() {
         juan = new Forhandler("Juan iglesias", "Catalonien", "Spanien");
-        medarbejder = new Medarbejder(1, "Mads Medarbejder", "010203-4555", "MAM");
+        medarbejder = new Medarbejder( "Mads Medarbejder", "010203-4555", "MAM");
         Adresse adresse = new Adresse("1", "Landmandvej", "6960", "Danmark");
         Mark mark = new Mark("En meget fin Økologisk mark, som dyrkes af Lars Landmand", "Langdahl", adresse);
         Malteri malteri = new Malteri("Thy Whisky Malteri", "Et stort malteri i Thy, som opereres af Thy Whisky.", adresse);
@@ -28,7 +28,7 @@ class ControllerTest {
     @Test
     void getMedarbejder_TC1() {
         //Arrange
-        Medarbejder expected = medarbejder;
+        Medarbejder expected = new Medarbejder("Mads Medarbejder", "010203-4555", "NAM");
         Storage.addMedarbejder(expected);
 
         //Act
@@ -45,7 +45,7 @@ class ControllerTest {
     @Test
     void getMedarbejder_TC2() {
         //Arrange
-        Medarbejder medarbejder = new Medarbejder(1, "Mads Medarbejder", "010203-4555", "NAM");
+        Medarbejder medarbejder = new Medarbejder( "Mads Medarbejder", "010203-4555", "NAM");
         Storage.addMedarbejder(medarbejder);
         String expected = "Medarbejder eksistere ikke";
 
@@ -65,7 +65,7 @@ class ControllerTest {
     @Test
     void getMedarbejder_Ugyldig_TC1() {
         //Arrange
-        Medarbejder medarbejder = new Medarbejder(1, "Mads Medarbejder", "010203-4555", "NAM");
+        Medarbejder medarbejder = new Medarbejder( "Mads Medarbejder", "010203-4555", "NAM");
         Storage.addMedarbejder(medarbejder);
         String expected = "Medarbejdernummer skal være positivt.";
 
@@ -85,7 +85,7 @@ class ControllerTest {
     @Test
     void getMedarbejder_Ugyldig_TC2() {
         //Arrange
-        Medarbejder medarbejder = new Medarbejder(1, "Mads Medarbejder", "010203-4555", "NAM");
+        Medarbejder medarbejder = new Medarbejder( "Mads Medarbejder", "010203-4555", "NAM");
         Storage.addMedarbejder(medarbejder);
         String expected = "Medarbejdernummer skal være positivt.";
 
@@ -176,7 +176,7 @@ class ControllerTest {
         MaltBatch actualMaltbatch = actualDestilat.getMaltBatch();
         LocalDate actualStartDato = actualDestilat.getStartDato();
         LocalDate actualSlutDato = actualDestilat.getSlutDato();
-        double actualLiterVæske = actualDestilat.getLiterVæske();
+        double actualLiterVæske = actualDestilat.getNuværendemængde();
         double actualAlkoholProcent = actualDestilat.getAlkoholprocent();
         Destillat actualDestillat = actualDestilat;
 
@@ -304,7 +304,7 @@ class ControllerTest {
         // Act
         Destillat actualDestillat = Storage.getDestillater().get(0);
         double actualAlkohol = actualDestillat.getAlkoholprocent();
-        double actualLiter = actualDestillat.getLiterVæske();
+        double actualLiter = actualDestillat.getNuværendemængde();
 
         // Assert
         System.out.println("Opretdestillat TC4");
@@ -331,5 +331,25 @@ class ControllerTest {
         System.out.println("Actual: " + actual.getMessage());
         System.out.println("Expected: " + expected);
         assertTrue(actual.getMessage().contains(expected));
+    }
+
+    @Test
+    void forsøgLogin_TC1() {
+        // Arrange
+        Medarbejder expectedMedarbejder = new Adminstrator("Snævar Albertsson", "123456-7890", "SNA", "kodeord123");
+
+        // Act
+        Medarbejder actualMedarbejder;
+        try {
+            actualMedarbejder = Controller.forsøgLogin(1, "kodeord123");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        // Assert
+        System.out.println("ForsøgLogin TC1");
+        System.out.println("Actual: " + actualMedarbejder);
+        System.out.println("Expected: " + expectedMedarbejder);
+        assertEquals(expectedMedarbejder, actualMedarbejder);
+
     }
 }
