@@ -36,7 +36,7 @@ public class BekræftDestillatButton extends MotherButton {
             //Og eftersom vi kun har at gøre med en bruger af gangen, og ikke en delt database mellem flere brugere, så føler vi det er fin løsning.
             boolean bekræftet = alert.getResult() == ButtonType.OK;
             if (!bekræftet) {
-                Storage.removeDestillat(destillat);
+                Storage.removeVæske(destillat);
             }
 
             //Returnere true, så det forrige pane ved at det lykkedes.

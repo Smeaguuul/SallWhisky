@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import storage.Storage;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,7 +19,7 @@ class ControllerTest {
     @BeforeEach
     void setUp() {
         juan = new Forhandler("Juan iglesias", "Catalonien", "Spanien");
-        medarbejder = new Medarbejder( "Mads Medarbejder", "010203-4555", "MAM");
+        medarbejder = new Medarbejder("Mads Medarbejder", "010203-4555", "MAM");
         Adresse adresse = new Adresse("1", "Landmandvej", "6960", "Danmark");
         Mark mark = new Mark("En meget fin Økologisk mark, som dyrkes af Lars Landmand", "Langdahl", adresse);
         Malteri malteri = new Malteri("Thy Whisky Malteri", "Et stort malteri i Thy, som opereres af Thy Whisky.", adresse);
@@ -45,7 +46,7 @@ class ControllerTest {
     @Test
     void getMedarbejder_TC2() {
         //Arrange
-        Medarbejder medarbejder = new Medarbejder( "Mads Medarbejder", "010203-4555", "NAM");
+        Medarbejder medarbejder = new Medarbejder("Mads Medarbejder", "010203-4555", "NAM");
         Storage.addMedarbejder(medarbejder);
         String expected = "Medarbejder eksistere ikke";
 
@@ -65,7 +66,7 @@ class ControllerTest {
     @Test
     void getMedarbejder_Ugyldig_TC1() {
         //Arrange
-        Medarbejder medarbejder = new Medarbejder( "Mads Medarbejder", "010203-4555", "NAM");
+        Medarbejder medarbejder = new Medarbejder("Mads Medarbejder", "010203-4555", "NAM");
         Storage.addMedarbejder(medarbejder);
         String expected = "Medarbejdernummer skal være positivt.";
 
@@ -85,7 +86,7 @@ class ControllerTest {
     @Test
     void getMedarbejder_Ugyldig_TC2() {
         //Arrange
-        Medarbejder medarbejder = new Medarbejder( "Mads Medarbejder", "010203-4555", "NAM");
+        Medarbejder medarbejder = new Medarbejder("Mads Medarbejder", "010203-4555", "NAM");
         Storage.addMedarbejder(medarbejder);
         String expected = "Medarbejdernummer skal være positivt.";
 
@@ -181,7 +182,7 @@ class ControllerTest {
         Destillat actualDestillat = actualDestilat;
 
         // Assert
-        assertTrue(Storage.getDestillater().get(0).equals(actualDestillat));
+        assertTrue(Storage.getVæsker().get(0).equals(actualDestillat));
         assertEquals(medarbejder, actualMedarbejder);
         assertEquals(maltBatch, actualMaltbatch);
         assertEquals(expectedStartdato, actualStartDato);
@@ -302,7 +303,7 @@ class ControllerTest {
 
 
         // Act
-        Destillat actualDestillat = Storage.getDestillater().get(0);
+        Destillat actualDestillat = (Destillat) Storage.getVæsker().get(0);
         double actualAlkohol = actualDestillat.getAlkoholprocent();
         double actualLiter = actualDestillat.getNuværendemængde();
 
@@ -310,10 +311,11 @@ class ControllerTest {
         System.out.println("Opretdestillat TC4");
         System.out.println("Actual: " + actualDestillat + ", Liter: " + actualLiter + ", Alkohol%: " + actualAlkohol + "%");
         System.out.println("Expected: " + expectedDestillat + ", Liter: " + expectedAntalLiter + ", Alkohol%: " + expectedAlkoholprocent + "%");
-        assertEquals(expectedDestillat,actualDestillat);
-        assertEquals(expectedAntalLiter,actualLiter);
-        assertEquals(expectedAlkoholprocent,actualAlkohol);
+        assertEquals(expectedDestillat, actualDestillat);
+        assertEquals(expectedAntalLiter, actualLiter);
+        assertEquals(expectedAlkoholprocent, actualAlkohol);
     }
+
     @Test
     void opretDestillat_LiterOgAlkoholProcent_TC5() {
         //Arrange
@@ -350,6 +352,33 @@ class ControllerTest {
         System.out.println("Actual: " + actualMedarbejder);
         System.out.println("Expected: " + expectedMedarbejder);
         assertEquals(expectedMedarbejder, actualMedarbejder);
+
+    }
+
+    @Test
+    void test() {
+        Destillat destillat = new Destillat(LocalDate.now().minusDays(2), LocalDate.now(), 35, 75, RygningsType.IKKERØGET, "", medarbejder, maltBatch);
+        Destillat destillat2 = new Destillat(LocalDate.now().minusDays(2), LocalDate.now(), 35, 90, RygningsType.TØRVRØGET, "", medarbejder, maltBatch);
+        Destillat destillat3 = new Destillat(LocalDate.now().minusDays(4), LocalDate.now(), 50, 45, RygningsType.TØRVRØGET, "", medarbejder, maltBatch);
+        Destillat destillat4 = new Destillat(LocalDate.now().minusDays(4), LocalDate.now(), 35, 69, RygningsType.TØRVRØGET, "", medarbejder, maltBatch);
+        Fad fad = new Fad(Træsort.QUERCUSALBA,"",TidligereIndhold.SHERRY,100,juan);
+
+        HashMap<Væske,Double> hashMap = new HashMap<Væske,Double>();
+        hashMap.put(destillat,35.00);
+        Make make = Controller.opretMake(fad ,hashMap);
+
+        HashMap<Væske,Double> hashMap2 = new HashMap<Væske,Double>();
+        hashMap2.put(destillat2,35.00);
+        hashMap2.put(destillat4,35.00);
+        Make make2 = Controller.opretMake(fad, hashMap2);
+
+        HashMap<Væske,Double> hashMap3 = new HashMap<Væske,Double>();
+        hashMap3.put(make, 35.00);
+        hashMap3.put(make2, 35.00);
+        hashMap3.put(destillat3,50.00);
+        Make make3 = Controller.opretMake(fad, hashMap3);
+
+        System.out.println(make3.getOpbygning());
 
     }
 }

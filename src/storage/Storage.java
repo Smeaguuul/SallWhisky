@@ -17,15 +17,15 @@ public class Storage {
         fade.remove(fad);
     }
     //------------------------------------------------------------------------------------------------------------------
-    private static ArrayList<Destillat> destillater = new ArrayList<>();
-    public static ArrayList<Destillat> getDestillater(){
-        return new ArrayList<Destillat>(destillater);
+    private static ArrayList<Væske> væsker = new ArrayList<>();
+    public static ArrayList<Væske> getVæsker(){
+        return new ArrayList<Væske>(væsker);
     }
-    public static void addDestillat(Destillat destillat){
-        destillater.add(destillat);
+    public static void addvæske(Væske væske){
+        væsker.add(væske);
     }
-    public static void removeDestillat(Destillat destillat) {
-        destillater.remove(destillat);
+    public static void removeVæske(Væske væske) {
+        væsker.remove(væske);
     }
     //------------------------------------------------------------------------------------------------------------------
     private static ArrayList<Malteri> malterier = new ArrayList<>();

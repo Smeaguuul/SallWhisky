@@ -10,10 +10,19 @@ public class Destillat extends Væske {
     private RygningsType rygningsType;
     private String kommentar;
     private MaltBatch maltBatch;
+    private static int antalBatches = 0;
+    private int destillatnummer;
 
 
     private Medarbejder medarbejder;
+
+    public int getDestillatnummer() {
+        return destillatnummer;
+    }
+
     public Destillat(LocalDate startDato, LocalDate slutDato, double literVæske, double alkoholprocent, RygningsType rygningsType, String kommentar, Medarbejder medarbejder, MaltBatch maltBatch) {
+        antalBatches++;
+        destillatnummer = antalBatches;
         this.startDato = startDato;
         this.slutDato = slutDato;
         this.alkoholprocent = alkoholprocent;
@@ -40,7 +49,8 @@ public class Destillat extends Væske {
     public double getNuværendemængde() {
         return nuværendeMængde;
     }
-    public double getStartMængde(){
+
+    public double getStartMængde() {
         return startmængde;
     }
 
@@ -61,7 +71,16 @@ public class Destillat extends Væske {
     }
 
     @Override
-    public HashMap<HashMap,Double> getOpbygning() {
-        return null;
+    public String getOpbygning() {
+        return this.toString();
+    }
+
+    @Override
+    public String toString() {
+        String toString = "Destillat " + this.destillatnummer;
+        toString += "\n\t" + maltBatch.toString();
+        toString += "\n\tRygningstype: " + rygningsType.toString();
+        toString += "\n\tAlkoholprocent: " + alkoholprocent + "%";
+        return toString;
     }
 }
