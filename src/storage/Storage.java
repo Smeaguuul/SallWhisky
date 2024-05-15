@@ -12,6 +12,10 @@ public class Storage {
     public static void addFad(Fad fad){
         fade.add(fad);
     }
+
+    public static void removeFad(Fad fad) {
+        fade.remove(fad);
+    }
     //------------------------------------------------------------------------------------------------------------------
     private static ArrayList<Destillat> destillater = new ArrayList<>();
     public static ArrayList<Destillat> getDestillater(){
@@ -19,6 +23,9 @@ public class Storage {
     }
     public static void addDestillat(Destillat destillat){
         destillater.add(destillat);
+    }
+    public static void removeDestillat(Destillat destillat) {
+        destillater.remove(destillat);
     }
     //------------------------------------------------------------------------------------------------------------------
     private static ArrayList<Malteri> malterier = new ArrayList<>();
@@ -64,4 +71,5 @@ public class Storage {
     public static void addMaltbatch(MaltBatch maltBatch){
         maltBatches.add(maltBatch);
     }
+
 }

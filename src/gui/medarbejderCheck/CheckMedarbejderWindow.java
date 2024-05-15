@@ -45,7 +45,7 @@ public class CheckMedarbejderWindow extends MotherPane {
         textField.setMaxWidth(50);
         textField.textProperty().addListener(new ChangeListener<String>() {
             @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
+            public void changed(ObservableValue<? extends String> observable, String oldValue, //TODO skal måske også bruges i opretFad og opretDestillat vinduerne, i stedet for bare at håndtere de fejl der nu engang kommer
                                 String newValue) {
                 if (!newValue.matches("\\d*")) {
                     textField.setText(newValue.replaceAll("[^\\d]", ""));

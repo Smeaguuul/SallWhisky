@@ -1,12 +1,16 @@
 package gui.opretFad;
 
 import application.controller.Controller;
+import application.model.Fad;
 import application.model.Forhandler;
 import application.model.TidligereIndhold;
 import application.model.Træsort;
+import gui.motherClasses.BekræftAlertMedInfo;
+import gui.motherClasses.BekræftWarningMedFejlInfo;
 import gui.motherClasses.MotherButton;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import storage.Storage;
 
 import java.util.NoSuchElementException;
 
@@ -22,61 +26,29 @@ public class BekræftFadButton extends MotherButton {
         this.commonClass = commonClass;
 
         try {
-            validerInput();
-            //Viser et alert vindue af typen Confirmation
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Bekræft Oprettelse");
-            alert.setHeaderText("Bekræft nedenstående information:");
-            String fadBekræftTekst = getIndtastedeInformation();
-            alert.setContentText(fadBekræftTekst);
+            Fad fad = Controller.opretFad(commonClass.getTræsort(), commonClass.getForhandler(), commonClass.getTidligereIndhold(), Integer.parseInt(commonClass.getLiterStørrelse()), commonClass.getKommentar());
+
+            //Viser et alert vindue af typen Confirmation, som viser alt indtastede information
+            Alert alert = new BekræftAlertMedInfo(commonClass.toString());
             alert.showAndWait();
 
-            //Hvis der bliver trykket ok
-            boolean bekræftet = false;
-            if (alert.getResult() == ButtonType.OK) {
-                //Vi tjekker om tidligere om commonclass' literstørrelse kun består af tal. Så vi kan med ro parse den til en int.
-                Controller.opretFad(commonClass.getTræsort(), commonClass.getForhandler(), commonClass.getTidligereIndhold(), Integer.parseInt(commonClass.getLiterStørrelse()), commonClass.getKommentar());
-                bekræftet = true;
+            //Lidt en baglens måde at gøre det på, at slette efter man allerede har oprettet, men det gør det markant mere simpelt.
+            //Og eftersom vi kun har at gøre med en bruger af gangen, og ikke en delt database mellem flere brugere, så føler vi det er fin løsning.
+            boolean bekræftet = alert.getResult() == ButtonType.OK;
+            if (!bekræftet) {
+                Storage.removeFad(fad);
             }
+
+            //Returnere true, så det forrige pane ved at det lykkedes.
             return bekræftet;
+        } catch (NumberFormatException e) {
+            Alert warning = new BekræftWarningMedFejlInfo(new Exception("Antal liter skal kun bestå af tal."));
+            warning.showAndWait();
         } catch (Exception e) {
-            visAdvarsel(e);
+            Alert warning = new BekræftWarningMedFejlInfo(e);
+            warning.showAndWait();
+            ;
         }
         return false;
-    }
-
-    private String getIndtastedeInformation() {
-        String info = "";
-        info += "Træsort : " + commonClass.getTræsort();
-        info += "\nForhandler: " + commonClass.getForhandler();
-        info += "\nTidligere indhold: " + commonClass.getTidligereIndhold();
-        info += "\nAntal liter i fad: " + commonClass.getLiterStørrelse();
-        if (commonClass.getKommentar().isEmpty()) {
-            info += "\nIngen ydeligere kommentarer.";
-        } else {
-            info += "\nKommentar: " + commonClass.getKommentar();
-        }
-        return info;
-    }
-
-    private static void visAdvarsel(Exception e) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setHeaderText("Der er sket en fejl. Se nedenstående for ydeligere information.");
-        alert.setContentText(e.getMessage());
-        alert.showAndWait();
-    }
-    private void validerInput() { //TODO skal nok håndtere errors fra controlleren, i stedet for checker herude i GUI
-        if (commonClass.getTræsort() == null) {
-            throw new NoSuchElementException("Ingen Træsort Valgt!");
-        }
-        if (commonClass.getForhandler() == null) {
-            throw new NoSuchElementException("Intet Tidligere Indhold Valgt!");
-        }
-        if (commonClass.getTidligereIndhold() == null) {
-            throw new NoSuchElementException("Ingen Forhandler Valgt!");
-        }
-        if (commonClass.getLiterStørrelse() == null || commonClass.getLiterStørrelse().matches(".*[^0-9].*")) {
-            throw new NoSuchElementException("Ikke En Gyldig Størrelse!");
-        }
     }
 }

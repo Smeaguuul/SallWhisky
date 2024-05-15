@@ -1,11 +1,15 @@
 package gui.opretDestillat;
 
 import application.controller.Controller;
+import application.model.Destillat;
 import application.model.MaltBatch;
 import application.model.RygningsType;
+import gui.motherClasses.BekræftAlertMedInfo;
+import gui.motherClasses.BekræftWarningMedFejlInfo;
 import gui.motherClasses.MotherButton;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import storage.Storage;
 
 public class BekræftDestillatButton extends MotherButton {
     private CommonClass commonClass;
@@ -18,56 +22,37 @@ public class BekræftDestillatButton extends MotherButton {
     public boolean bekræft(CommonClass commonClass) {
         //Gemmer commonClass
         this.commonClass = commonClass;
-
         try {
-            validerInput(); //TODO smid det her ud i en Lambda Expressions så vi kan simplificere disse to "Bekræft klasser" ned i én
-            //Viser et alert vindue af typen Confirmation
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Bekræft Oprettelse");
-            alert.setHeaderText("Bekræft nedenstående information:");
-            String fadBekræftTekst = getIndtastedeInformation();
-            alert.setContentText(fadBekræftTekst);
+            //Vi prøver at oprette et destillat, og håndtere eventuelle errors, som controlleren kaster ved forkert input
+            Destillat destillat = Controller.opretDestillat(commonClass.getStartDato(), commonClass.getSlutDato(), Integer.parseInt(commonClass.getAntalLiter()), Double.parseDouble(commonClass.getAlkoholProcent()), (RygningsType) commonClass.getRygningsType(), commonClass.getKommentar(), (MaltBatch) commonClass.getMaltBatch(), commonClass.getMedarbejder());
+            //TODO Eventuelt lave et textfield som automatisk trimmer gettext, så vi ikke skal kalde det hele tiden
+            //TODO smid det her ud i en Lambda Expressions så vi kan simplificere disse to "Bekræft klasser" ned i én
+
+            //Viser et alert vindue af typen Confirmation, som viser alt indtastede information
+            Alert alert = new BekræftAlertMedInfo(commonClass.toString());
             alert.showAndWait();
 
-            //Hvis der bliver trykket ok
-            boolean bekræftet = false;
-            if (alert.getResult() == ButtonType.OK) {
-                //Vi tjekker om tidligere om commonclass' literstørrelse og alkoholprocent kun består af tal. Så vi kan med ro parse den til en int.
-                Controller.opretDestillat(commonClass.getStartDato(), commonClass.getSlutDato(), Integer.parseInt(commonClass.getAntalLiter()),Double.parseDouble(commonClass.getAlkoholProcent()), (RygningsType) commonClass.getRygningsType(), commonClass.getKommentar(), (MaltBatch) commonClass.getMaltBatch(), commonClass.getMedarbejder());
-                bekræftet = true;
+            //Lidt en baglens måde at gøre det på, at slette efter man allerede har oprettet, men det gør det markant mere simpelt.
+            //Og eftersom vi kun har at gøre med en bruger af gangen, og ikke en delt database mellem flere brugere, så føler vi det er fin løsning.
+            boolean bekræftet = alert.getResult() == ButtonType.OK;
+            if (!bekræftet) {
+                Storage.removeDestillat(destillat);
             }
+
+            //Returnere true, så det forrige pane ved at det lykkedes.
             return bekræftet;
+        } catch (NumberFormatException e) {
+            Alert warning = new BekræftWarningMedFejlInfo(new Exception("Antal liter og alkoholprocent skal kun bestå af tal."));
+            warning.showAndWait();
         } catch (Exception e) {
-            visAdvarsel(e);
+            Alert warning = new BekræftWarningMedFejlInfo(e);
+            warning.showAndWait();
         }
         return false;
     }
 
-    private void visAdvarsel(Exception e) { //TODO Duplikeret kode med anden bekræft button. Skal nok have en super klasse, og så kan denne metoder være statisk eller bare ligge i superklassen
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setHeaderText("Der er sket en fejl. Se nedenstående for ydeligere information.");
-        alert.setContentText(e.getMessage());
-        alert.showAndWait();
-    }
-
     private String getIndtastedeInformation() {
-        String info = "";
-        info += "Startdato : " + commonClass.getStartDato();
-        info += "\nSlutdato: " + commonClass.getSlutDato();
-        info += "\nAntal liter: " + commonClass.getAntalLiter();
-        info += "\nAlkoholprocent: " + commonClass.getAlkoholProcent();
-        info += "\nRygningstype: " + commonClass.getRygningsType();
-        info += "\nMaltbatch: " + commonClass.getMaltBatch();
-        info += "\nMedarbejder signatur: " + commonClass.getMedarbejder().getSignatur();
-        if (commonClass.getKommentar().isEmpty()) {
-            info += "\nIngen ydeligere kommentarer.";
-        } else {
-            info += "\nKommentar: " + commonClass.getKommentar();
-        }
-        return info; //TODO Skal måske ligge som en toString i commonclass.
-    }
-
-    private void validerInput() { //TODO (SKal nok ligge i controller i form af en error den kaster)
-
+        String info = commonClass.toString();
+        return info;
     }
 }
