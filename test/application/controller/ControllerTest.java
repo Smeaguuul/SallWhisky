@@ -382,6 +382,30 @@ class ControllerTest {
         Make make3 = Controller.opretMake(fad3, hashMap3);
 
         System.out.println(make3.getOpbygning());
+    }
 
+    @Test
+    void test2() {
+        Destillat destillat = new Destillat(LocalDate.now().minusDays(2), LocalDate.now(), 35, 75, RygningsType.IKKERØGET, "", medarbejder, maltBatch);
+        Destillat destillat2 = new Destillat(LocalDate.now().minusDays(2), LocalDate.now(), 35, 90, RygningsType.TØRVRØGET, "", medarbejder, maltBatch);
+        Destillat destillat3 = new Destillat(LocalDate.now().minusDays(4), LocalDate.now(), 50, 45, RygningsType.TØRVRØGET, "", medarbejder, maltBatch);
+        Destillat destillat4 = new Destillat(LocalDate.now().minusDays(4), LocalDate.now(), 35, 69, RygningsType.TØRVRØGET, "", medarbejder, maltBatch);
+        Fad fad = new Fad(Træsort.QUERCUSALBA,"",TidligereIndhold.SHERRY,200,juan);
+
+
+        HashMap<Væske,Double> hashMap = new HashMap<Væske,Double>();
+        hashMap.put(destillat,35.00);
+        Make make = Controller.opretMake(fad ,hashMap);
+
+        HashMap<Væske,Double> hashMap2 = new HashMap<Væske,Double>();
+        hashMap2.put(destillat2,35.00);
+        hashMap2.put(destillat4,35.00);
+        Make make2 = Controller.opretMake(fad, hashMap2);
+
+        HashMap<Væske,Double> hashMap3 = new HashMap<Væske,Double>();
+        hashMap3.put(destillat3,50.00);
+        Make make3 = Controller.opretMake(fad, hashMap3);
+
+        System.out.println(make3.getOpbygning());
     }
 }
