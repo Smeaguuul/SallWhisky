@@ -28,7 +28,7 @@ class ControllerTest {
     @Test
     void getMedarbejder_TC1() {
         //Arrange
-        Medarbejder expected = new Medarbejder(1, "Mads Medarbejder", "010203-4555", "NAM");
+        Medarbejder expected = medarbejder;
         Storage.addMedarbejder(expected);
 
         //Act
@@ -67,7 +67,7 @@ class ControllerTest {
         //Arrange
         Medarbejder medarbejder = new Medarbejder(1, "Mads Medarbejder", "010203-4555", "NAM");
         Storage.addMedarbejder(medarbejder);
-        String expected = "MedarbejderNummer skal være positivt";
+        String expected = "Medarbejdernummer skal være positivt.";
 
         //Act
         Exception actual = assertThrows(IllegalArgumentException.class, () -> {
@@ -87,7 +87,7 @@ class ControllerTest {
         //Arrange
         Medarbejder medarbejder = new Medarbejder(1, "Mads Medarbejder", "010203-4555", "NAM");
         Storage.addMedarbejder(medarbejder);
-        String expected = "MedarbejderNummer skal være positivt";
+        String expected = "Medarbejdernummer skal være positivt.";
 
         //Act
         Exception actual = assertThrows(IllegalArgumentException.class, () -> {
