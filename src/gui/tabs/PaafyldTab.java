@@ -26,7 +26,7 @@ public class PaafyldTab extends MotherTab {
         VBox fadVBox = new VBox();
         fadVBox.setSpacing(10);
         fadVBox.setAlignment(Pos.BOTTOM_CENTER);
-        VerticalImageStackPane påfyldImage = new VerticalImageStackPane("/gui/images/tapning.png");
+        VerticalImageStackPane påfyldImage = new VerticalImageStackPane("/gui/images/fad.png");
         fadVBox.getChildren().add(påfyldImage);
         MotherButton fyldpaaFadButton = new MainMenuButton("Fyld På Fad");
         fyldpaaFadButton.setOnAction(event -> fyldpaaFad());

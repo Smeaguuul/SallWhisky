@@ -19,8 +19,8 @@ public class FraFadTilWhiskyTab extends MotherTab {
         //Opretter knap og billede til TapFad og sætter det i en VBox
         VBox tapFadVBox = new VBox();
         tapFadVBox.setSpacing(10);
-        VerticalImageStackPane fieldImage = new VerticalImageStackPane("/gui/images/markLogo.jpg");
-        tapFadVBox.getChildren().add(fieldImage);
+        VerticalImageStackPane tapningsImage = new VerticalImageStackPane("/gui/images/tapning.png");
+        tapFadVBox.getChildren().add(tapningsImage);
         MotherButton tadFadButton = new MainMenuButton("Lav Tapning");
         tadFadButton.setOnAction(event -> drawTapFadPane());
         tapFadVBox.getChildren().add(tadFadButton);
@@ -30,7 +30,7 @@ public class FraFadTilWhiskyTab extends MotherTab {
         //Opretter knap og billede til Opret Whiskey og sætter det i en VBox
         VBox opretWhiskyVBox = new VBox();
         opretWhiskyVBox.setSpacing(10);
-        VerticalImageStackPane fieldImage2 = new VerticalImageStackPane("/gui/images/markLogo.jpg");
+        VerticalImageStackPane fieldImage2 = new VerticalImageStackPane("/gui/images/flaske.png");
         opretWhiskyVBox.getChildren().add(fieldImage2);
         MotherButton opretWhiskyButton = new MainMenuButton("Opret Whisky");
         opretWhiskyButton.setOnAction(event -> drawOpretWhiskyPane());
