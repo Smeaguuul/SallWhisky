@@ -1,5 +1,6 @@
 package gui.fyldPaafad;
 
+import application.controller.Controller;
 import application.model.Destillat;
 import application.model.Fad;
 import application.model.Make;
@@ -8,6 +9,8 @@ import gui.motherClasses.InfoLabel;
 import gui.motherClasses.MotherButton;
 import gui.motherClasses.MotherPane;
 import gui.motherClasses.MotherTab;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -22,7 +25,6 @@ public class FyldPaaFad extends MotherPane {
     private ListView<Væske> destillatListview = new ListView<>();
     private ListView<Væske> makeListview = new ListView<>();
     private ListView<Fad> fadListView = new ListView<>();
-    private TextArea kommendeMakeTextArea = new TextArea();
     private TextArea fadInfoTextArea = new TextArea();
     private TextArea væskeInfoTextArea = new TextArea();
     private TextField literTextfield = new TextField();
@@ -31,20 +33,13 @@ public class FyldPaaFad extends MotherPane {
     private ArrayList<Væske> arrayListTilHashMap = new ArrayList<>();
     private ArrayList<Destillat> destlliatArraylist = new ArrayList<>();
     private ArrayList<Make> makeArrayList = new ArrayList<>();
+    private Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
     public FyldPaaFad(String title, MotherTab owner) {
         this.owner = owner;
 
         // Opdeler de to væsketyper "destillat og make" i to arraylister
-        for (int i = 0; i < Storage.getVæsker().size(); i++) {
-            if (Storage.getVæsker().get(i) instanceof Destillat) {
-                Destillat destillat = (Destillat) Storage.getVæsker().get(i);
-                this.destlliatArraylist.add(destillat);
-            } else {
-                Make make = (Make) Storage.getVæsker().get(i);
-                this.makeArrayList.add(make);
-            }
-        }
+        vaerdierTilVaeskeListviews();
 
         // Tilføjer labels med tilhørende listview
         this.add(new InfoLabel("Destillater:"), 0, 0);
@@ -92,10 +87,16 @@ public class FyldPaaFad extends MotherPane {
         væskeInfoTextArea.editableProperty().setValue(false);
         this.add(fadOgVæskeInfoHbox, 3, 0, 1, 2);
 
-        // Textarea til kommende make
-        this.add(new InfoLabel("Potentielt kommende make:"), 0, 2, 3, 1);
-        this.add(kommendeMakeTextArea, 0, 3, 3, 1);
-        kommendeMakeTextArea.editableProperty().setValue(false);
+        // Sørger for at man kun kan inputte tal i liter texfieldet
+        literTextfield.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, //TODO skal måske også bruges i opretFad og opretDestillat vinduerne, i stedet for bare at håndtere de fejl der nu engang kommer
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    literTextfield.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
 
         // Label, textfield og knap til tilføjelse af væske med valgte litermængde
         Button tilføjVæskeButton = new MotherButton("Tilføj");
@@ -112,7 +113,8 @@ public class FyldPaaFad extends MotherPane {
         // Knapper til oprettelse og afbryd
         Button afbrydButton = new MotherButton("Afbryd");
         afbrydButton.setOnAction(e -> afbryd());
-        Button opretButton = new MotherButton("Opret fad");
+        Button opretButton = new MotherButton("Opret Make");
+        opretButton.setOnAction(e -> opretMake());
         HBox afbrydOpretHbox = new HBox();
         afbrydOpretHbox.setSpacing(20);
         afbrydOpretHbox.getChildren().addAll(afbrydButton, opretButton);
@@ -124,8 +126,33 @@ public class FyldPaaFad extends MotherPane {
         this.add(new InfoLabel("Væsker i kommende make: "), 4, 0);
         this.add(indholdListview, 4, 1);
         this.add(fjernVaeskeButton, 4, 2);
+    }
 
+    private void vaerdierTilVaeskeListviews() {
+        for (int i = 0; i < Storage.getVæsker().size(); i++) {
+            if (Storage.getVæsker().get(i) instanceof Destillat) {
+                Destillat destillat = (Destillat) Storage.getVæsker().get(i);
+                this.destlliatArraylist.add(destillat);
+            } else {
+                Make make = (Make) Storage.getVæsker().get(i);
+                this.makeArrayList.add(make);
+            }
+        }
+    }
 
+    private void opretMake() {
+        if (fadListView.getSelectionModel().isEmpty()) {
+            alert.setHeaderText("Vælg venligst et fad");
+            alert.setContentText("Vælg venligst et fad");
+            alert.showAndWait();
+        } else if (midlertidigHashMap.size() == 0) {
+            alert.setHeaderText("Vælg venligst en væske");
+            alert.setContentText("Vælg venligst en væske");
+            alert.showAndWait();
+        } else {
+            Controller.opretMake(fadListView.getSelectionModel().getSelectedItem(), midlertidigHashMap);
+            vaerdierTilVaeskeListviews();
+        }
     }
 
     // Fjerner væske fra væskeindholdslisten
@@ -145,30 +172,40 @@ public class FyldPaaFad extends MotherPane {
 
     // Metode finder hvilke væsker man har valgt og tilføjer dem til et hashmap
     private void tilfoejVaeske() {
-        String literString = literTextfield.getText().trim();
-        double liter = Double.parseDouble(literString);
-        if (!destillatListview.getSelectionModel().isEmpty()) {
-            Destillat valgtDestillat = (Destillat) destillatListview.getSelectionModel().getSelectedItem();
-            midlertidigHashMap.put(valgtDestillat, liter);
-            arrayListTilHashMap.clear();
-            arrayListTilHashMap.add(valgtDestillat);
-            System.out.println("midlertidigHashMap.size() = " + midlertidigHashMap.size());
-            indholdListview.getItems().addAll(arrayListTilHashMap);
-        } else if (!makeListview.getSelectionModel().isEmpty()) {
-            Make valgtMake = (Make) makeListview.getSelectionModel().getSelectedItem();
-            midlertidigHashMap.put(valgtMake, liter);
-            arrayListTilHashMap.clear();
-            arrayListTilHashMap.add(valgtMake);
-            System.out.println("midlertidigHashMap.size() = " + midlertidigHashMap.size());
-            indholdListview.getItems().addAll(arrayListTilHashMap);
-        } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("Vælg venligst en væske");
-            alert.setContentText("Vælg venligst en væske");
+
+        if (literTextfield.getText().isEmpty()) {
+            alert.setHeaderText("Mangler en valgt mængde");
+            alert.setContentText("Mangler en valgt mængde");
             alert.showAndWait();
+        } else {
+            String literString = literTextfield.getText().trim();
+            double liter = Double.parseDouble(literString);
+            if (!destillatListview.getSelectionModel().isEmpty() && !indholderVæske(destillatListview)) {
+                Destillat valgtDestillat = (Destillat) destillatListview.getSelectionModel().getSelectedItem();
+                midlertidigHashMap.put(valgtDestillat, liter);
+                arrayListTilHashMap.clear();
+                arrayListTilHashMap.add(valgtDestillat);
+                indholdListview.getItems().addAll(arrayListTilHashMap);
+                literTextfield.clear();
+            } else if (!makeListview.getSelectionModel().isEmpty() && !indholderVæske(makeListview)) {
+                Make valgtMake = (Make) makeListview.getSelectionModel().getSelectedItem();
+                midlertidigHashMap.put(valgtMake, liter);
+                arrayListTilHashMap.clear();
+                arrayListTilHashMap.add(valgtMake);
+                indholdListview.getItems().addAll(arrayListTilHashMap);
+                literTextfield.clear();
+            } else {
+                alert.setHeaderText("Vælg venligst en valid væske");
+                alert.setContentText("Vælg venligst en valid væske");
+                alert.showAndWait();
+            }
         }
     }
-    //private Boolean checkDobbeltIndhold(){
-    //det skal være i metoden oven over. for at sikre der ikke kommer to af den samme væske
-    //}
+
+    // Tjekker om hasmappet indeholder den valgte væske man vil indeholder.
+    private Boolean indholderVæske(ListView<Væske> væskeListView) {
+        if (midlertidigHashMap.containsKey(væskeListView.getSelectionModel().getSelectedItem())) {
+            return true;
+        } else return false;
+    }
 }
