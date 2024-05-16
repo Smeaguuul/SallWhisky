@@ -74,13 +74,16 @@ public class Fad {
                 " L, " + forhandler;
     }
     public String allFadInfo(){
-        return
-                "Nr: " + fadNr +
-                "\n Liter: " + literStørrelse +
-                "\n Træsort: " + træsort +
-                "\n Tidligere indhold: " + tidligereIndhold +
-                "\n Forhandler: " + forhandler +
-                //"\n Nuværende make " + this.tidsperioder.get(lastIndex()).getMake() + //TODO lav check om det har et nuværende make
-                "\n Bemærkning: " + bemærkning;
+        StringBuilder stBuilder = new StringBuilder();
+        stBuilder.append("Nr: " + fadNr);
+        stBuilder.append("\n Liter: " + literStørrelse);
+        stBuilder.append("\n Træsort: " + træsort);
+        stBuilder.append("\n Tidligere indhold: " + tidligereIndhold);
+        stBuilder.append("\n Forhandler: " + forhandler);
+        if(getLiterStørrelse() != 0) {
+            stBuilder.append("\n Nuværende make " + this.tidsperioder.get(lastIndex()).getMake());
+        }
+        stBuilder.append("\n Bemærkning: " + bemærkning);
+        return stBuilder.toString();
     }
 }
