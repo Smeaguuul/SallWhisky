@@ -30,6 +30,7 @@ public class App {
         HashMap<Væske,Double> hashMap = new HashMap<>();
         hashMap.put(Storage.getVæsker().get(0),10.00);
         Storage.addvæske(new Make(Storage.getFade().get(1), hashMap));
+        Storage.addvæske(new Destillat(LocalDate.now().minusDays(5),LocalDate.now(),50,60,RygningsType.TØRVRØGET,"",Storage.getMedarbejdere().get(0),Storage.getMaltBatches().get(0)));
 
     }
 }
