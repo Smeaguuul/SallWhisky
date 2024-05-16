@@ -31,6 +31,7 @@ public class TapFadPane extends MotherPaneWithImageBackground {
 
         //Laver et textArea til ekstra info som det valgte fad
         TextArea fadInfoTextArea = new TextArea();
+        fadInfoTextArea.setMaxSize(310,200);
         fadInfoTextArea.setEditable(false);
         InfoLabel fadInfoLabel = new InfoLabel("Ekstra info om dit valgte fad:");
         centralPane.addColumn(1, fadInfoLabel, fadInfoTextArea);

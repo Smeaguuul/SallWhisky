@@ -95,7 +95,7 @@ public class Fad {
         stBuilder.append("\n Tidligere indhold: " + tidligereIndhold);
         stBuilder.append("\n Forhandler: " + forhandler);
         if (this.tidsperioder.size() != 0) {
-            stBuilder.append("\n Nuværende make " + this.tidsperioder.get(lastIndex()).getMake());
+            stBuilder.append("\n Nuværende make " + this.tidsperioder.get(lastIndex()).getMake().toStringWithoutFad());
         }
         stBuilder.append("\n Bemærkning: " + bemærkning);
         return stBuilder.toString();
