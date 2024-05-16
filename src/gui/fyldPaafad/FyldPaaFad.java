@@ -31,8 +31,7 @@ public class FyldPaaFad extends MotherPane {
     private ListView<Væske> indholdListview = new ListView<>();
     private HashMap<Væske, Double> midlertidigHashMap = new HashMap<>();
     private ArrayList<Væske> arrayListTilHashMap = new ArrayList<>();
-    private ArrayList<Destillat> destlliatArraylist = new ArrayList<>();
-    private ArrayList<Make> makeArrayList = new ArrayList<>();
+
     private Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
     public FyldPaaFad(String title, MotherTab owner) {
@@ -50,7 +49,6 @@ public class FyldPaaFad extends MotherPane {
         this.add(fadListView, 2, 1);
 
         // Listeners til listview, som sender info om valgte objekter til info feltene
-        //destillatListview.getItems().addAll(destlliatArraylist);
         destillatListview.getSelectionModel()
                 .selectedIndexProperty()
                 .addListener(observable -> {
@@ -59,7 +57,6 @@ public class FyldPaaFad extends MotherPane {
                         væskeInfoTextArea.setText(destillatListview.getSelectionModel().getSelectedItem().toString());
                     }
                 });
-        //makeListview.getItems().addAll(makeArrayList);
         makeListview.getSelectionModel()
                 .selectedIndexProperty()
                 .addListener(observable -> {
@@ -129,21 +126,21 @@ public class FyldPaaFad extends MotherPane {
     }
 
     private void vaerdierTilVaeskeListviews() {
+        ArrayList<Destillat> destlliatArraylist = new ArrayList<>();
+        ArrayList<Make> makeArrayList = new ArrayList<>();
         for (int i = 0; i < Storage.getVæsker().size(); i++) {
-            if (Storage.getVæsker().get(i) instanceof Destillat &&
-                    Storage.getVæsker().get(i).getNuværendeMængde() > 0) {
-
+            if (Storage.getVæsker().get(i) instanceof Destillat && Storage.getVæsker().get(i).getNuværendeMængde() > 0) {
                 Destillat destillat = (Destillat) Storage.getVæsker().get(i);
-                this.destlliatArraylist.add(destillat);
+                destlliatArraylist.add(destillat);
             } else if (Storage.getVæsker().get(i).getNuværendeMængde() > 0){ //TODO smid det her ud i en fælles ydre if
                 Make make = (Make) Storage.getVæsker().get(i);
-                this.makeArrayList.add(make);
+                makeArrayList.add(make);
             }
         }
-        destillatListview.getItems().clear();
-        makeListview.getItems().clear();
-        destillatListview.getItems().addAll(destlliatArraylist);
-        makeListview.getItems().addAll(makeArrayList);
+        this.makeListview.getItems().clear();
+        this.destillatListview.getItems().clear();
+        this.destillatListview.getItems().addAll(destlliatArraylist);
+        this.makeListview.getItems().addAll(makeArrayList);
     }
 
     private void opretMake() {
