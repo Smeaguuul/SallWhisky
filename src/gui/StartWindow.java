@@ -3,6 +3,7 @@ package gui;
 
 import gui.motherClasses.MotherPane;
 import gui.tabs.OpretRedigerTab;
+import gui.tabs.PaafyldTab;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -67,7 +68,11 @@ public class StartWindow extends Application {
         tabUdtræk.setContent(paneUdtræk);
         tabPane.getTabs().add(tabUdtræk);
 
+        //tab til påfyldning
+        Tab tabPaaefyld = new PaafyldTab("Paafyldning");
+        tabPane.getTabs().add(tabPaaefyld);
 
+        //MotherPane
         motherPane.add(tabPane, 0, 1);
         Scene scene = new Scene(motherPane);
         stage.setScene(scene);

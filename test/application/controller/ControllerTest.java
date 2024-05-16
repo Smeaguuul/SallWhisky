@@ -361,7 +361,7 @@ class ControllerTest {
         Destillat destillat2 = new Destillat(LocalDate.now().minusDays(2), LocalDate.now(), 35, 90, RygningsType.TØRVRØGET, "", medarbejder, maltBatch);
         Destillat destillat3 = new Destillat(LocalDate.now().minusDays(4), LocalDate.now(), 50, 45, RygningsType.TØRVRØGET, "", medarbejder, maltBatch);
         Destillat destillat4 = new Destillat(LocalDate.now().minusDays(4), LocalDate.now(), 35, 69, RygningsType.TØRVRØGET, "", medarbejder, maltBatch);
-        Fad fad = new Fad(Træsort.QUERCUSALBA,"",TidligereIndhold.SHERRY,100,juan);
+        Fad fad = new Fad(Træsort.QUERCUSALBA,"",TidligereIndhold.SHERRY,200,juan);
 
         HashMap<Væske,Double> hashMap = new HashMap<Væske,Double>();
         hashMap.put(destillat,35.00);

@@ -45,7 +45,17 @@ public class Make extends Væske {
         }
 
         this.væskeDoubleHashMap = væskeDoubleHashMap;
+        this.startmængde = startmængde;
         this.påfyldningsdato = LocalDate.now();
         this.nuværendeMængde = startmængde;
+    }
+
+    @Override
+    public String toString() {
+        return "Nr. " + makeNummer +
+                ", " + fad +
+                ", " + påfyldningsdato +
+                ", startmængde: " + startmængde +
+                ", nuværende mængde: " + nuværendeMængde;
     }
 }

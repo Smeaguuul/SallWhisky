@@ -9,8 +9,12 @@ public class Fad {
     private int literStørrelse;
     private Forhandler forhandler;
     private Make make;
+    private static int antalFade = 0;
+    private int fadNr = 0;
 
     public Fad(Træsort træSort, String bemærkning, TidligereIndhold tidligereIndhold, int literStørrelse, Forhandler forhandler) {
+        antalFade++;
+        this.fadNr = antalFade;
         this.træsort = træSort;
         this.tidligereIndhold = tidligereIndhold;
         this.literStørrelse = literStørrelse;
@@ -50,5 +54,24 @@ public class Fad {
             throw new NoSuchElementException("Intet make i dette fad.");
         }
         return this.make;
+    }
+
+    @Override
+    public String toString() {
+        return "Nr: " + fadNr +
+                ", " + træsort +
+                ", " + tidligereIndhold +
+                ", " + literStørrelse +
+                " L, " + forhandler;
+    }
+    public String allFadInfo(){
+        return
+                "Nr: " + fadNr +
+                "\n Liter: " + literStørrelse +
+                "\n Træsort: " + træsort +
+                "\n Tidligere indhold: " + tidligereIndhold +
+                "\n Forhandler: " + forhandler +
+                "\n Nuværende make " + make +
+                "\n Bemærkning: " + bemærkning;
     }
 }
