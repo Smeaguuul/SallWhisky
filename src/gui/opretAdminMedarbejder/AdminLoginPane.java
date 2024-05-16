@@ -11,16 +11,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 
-public class AdminLoginPane extends MotherPane {
+public class AdminLoginPane extends MotherPaneWithImageBackground {
     private final MotherTab owner;
     private TextField nummerTextField = new TextField();
     private Medarbejder aktuelMedarbejder;
     private TextField kodeTextField = new TextField();
 
     public AdminLoginPane(String title, MotherTab owner) {
+        super("/gui/images/mark.jpg");
         this.owner = owner;
-        this.setBackground(new Background(new BackgroundImage(new Image("/gui/images/mark.jpg"), null, null, null, new BackgroundSize(1600, 900, false, false, true, true)), null, null));
-        this.setAlignment(Pos.CENTER);
 
         //Titel
         GridPane centralPane = new CentralPane();

@@ -12,8 +12,9 @@ import javafx.scene.text.FontWeight;
 public class MotherLabel extends Label {
     public MotherLabel(String s) {
         super(s);
+        this.setStyle("-fx-text-alignment: center; -fx-alignment: center; -fx-max-width:Infinity; -fx-padding: 5;");
         this.setTextFill(Color.BLACK);
-        this.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 18));
+        this.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 20));
         this.setWrapText(true);
         this.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(5), BorderStroke.DEFAULT_WIDTHS, new Insets(-10))));
     }

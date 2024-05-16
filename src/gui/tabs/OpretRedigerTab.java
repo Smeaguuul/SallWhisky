@@ -18,7 +18,6 @@ import javafx.scene.paint.Paint;
 public class OpretRedigerTab extends MotherTab {
     public OpretRedigerTab(String text) {
         super(text);
-        this.setStyle(" -fx-background-color: rgb(" + 133 + "," + 144 + ", " + 162 + ");");
         //Laver tab til opret og rediger
         MotherPane paneRediger = new MotherPane();
         this.initContentRediger(paneRediger);
@@ -29,7 +28,7 @@ public class OpretRedigerTab extends MotherTab {
         //Opretter knap og billede til opretDestillat og sætter det i en VBox
         VBox destillatVBox = new VBox();
         destillatVBox.setSpacing(10);
-        VerticalImageStackPane fieldImage = new VerticalImageStackPane("/gui/images/mark.jpg");
+        VerticalImageStackPane fieldImage = new VerticalImageStackPane("/gui/images/markLogo.jpg");
         destillatVBox.getChildren().add(fieldImage);
         MotherButton opretDestillatButton = new MainMenuButton("Opret Destillat");
         opretDestillatButton.setOnAction(event -> openMedarbejderChecker());
@@ -42,7 +41,7 @@ public class OpretRedigerTab extends MotherTab {
         VBox fadVBox = new VBox();
         fadVBox.setSpacing(10);
         fadVBox.setAlignment(Pos.BOTTOM_CENTER);
-        VerticalImageStackPane fadImage = new VerticalImageStackPane("/gui/images/fad.jpg");
+        VerticalImageStackPane fadImage = new VerticalImageStackPane("/gui/images/fad.png");
         fadVBox.getChildren().add(fadImage);
         MotherButton opretFadButton = new MainMenuButton("Opret Fad");
         opretFadButton.setOnAction(event -> openOpretFadWindow());
@@ -55,7 +54,7 @@ public class OpretRedigerTab extends MotherTab {
         medarbejderVBox.setAlignment(Pos.BOTTOM_CENTER);
         VerticalImageStackPane medarbejderImage = new VerticalImageStackPane("/gui/images/medarbejder.png");
         medarbejderVBox.getChildren().add(medarbejderImage);
-        MotherButton redigerMedarbejderButton = new MainMenuButton("Adminstrer Medarbejdere");
+        MotherButton redigerMedarbejderButton = new MainMenuButton("Admin. Medarbejdere");
         redigerMedarbejderButton.setOnAction(event -> openAdminMedarbejder());
         medarbejderVBox.getChildren().add(redigerMedarbejderButton);
         pane.add(medarbejderVBox,2,1);
@@ -64,7 +63,7 @@ public class OpretRedigerTab extends MotherTab {
         VBox forhandlerVBox = new VBox();
         forhandlerVBox.setSpacing(10);
         forhandlerVBox.setAlignment(Pos.BOTTOM_CENTER);
-        VerticalImageStackPane forhandlerImage = new VerticalImageStackPane("/gui/images/forhandler.jpg");
+        VerticalImageStackPane forhandlerImage = new VerticalImageStackPane("/gui/images/forhandler.png");
         forhandlerVBox.getChildren().add(forhandlerImage);
         MotherButton opretForhandlerButton = new MainMenuButton("Opret Forhandler");
         opretForhandlerButton.setOnAction(event -> openOpretForhandlerPane());

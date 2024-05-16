@@ -1,6 +1,7 @@
 package gui.motherClasses;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -15,7 +16,7 @@ public class MotherPane extends GridPane {
         Background background = getBackgroundTheme();
         this.setBackground(background);
         this.setMinSize(1080, 480);
-
+        this.setAlignment(Pos.CENTER);
         this.setGridLinesVisible(false);
         this.setPadding(new Insets(20));
         this.setHgap(30);

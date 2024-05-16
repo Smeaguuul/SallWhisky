@@ -16,13 +16,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 
-public class OpretDestillatPane extends MotherPane {
+public class OpretDestillatPane extends MotherPaneWithImageBackground {
     private Medarbejder medarbejder;
 
     public OpretDestillatPane(String title, MotherTab owner, Medarbejder medarbejder) {
+        super("/gui/images/mark.jpg");
         this.medarbejder = medarbejder;
-        this.setBackground(new Background(new BackgroundImage(new Image("/gui/images/mark.jpg"), null, null, null, new BackgroundSize(1600,900,false,false,true,true)), null, null));
-        this.setAlignment(Pos.CENTER);
 
         //Laver et gridpane til at holde de centrale elementer
         GridPane centralPane = new CentralPane();

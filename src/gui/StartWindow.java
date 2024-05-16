@@ -2,6 +2,7 @@ package gui;
 
 
 import gui.motherClasses.MotherPane;
+import gui.tabs.FraFadTilWhiskyTab;
 import gui.tabs.OpretRedigerTab;
 import gui.tabs.PaafyldTab;
 import javafx.application.Application;
@@ -60,6 +61,10 @@ public class StartWindow extends Application {
         //Tab til CRUD
         OpretRedigerTab opretRedigerTab = new OpretRedigerTab("Opret og Rediger");
         tabPane.getTabs().add(opretRedigerTab);
+
+        //Tab til "Fra fad til whisky"
+        FraFadTilWhiskyTab fraFadTilWhiskyTab = new FraFadTilWhiskyTab("Fra fad til Whisky");
+        tabPane.getTabs().add(fraFadTilWhiskyTab);
 
         //Laver tab til udtræk
         Tab tabUdtræk = new Tab("Udtræk");

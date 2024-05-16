@@ -5,10 +5,8 @@ import storage.Storage;
 
 import javax.security.auth.login.LoginException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.*;
+import java.util.function.Predicate;
 
 public class Controller {
     public static Fad opretFad(Træsort træsort, Forhandler forhandler, TidligereIndhold tidligereIndhold, int literStørrelse, String bemærkning) throws IllegalArgumentException {
@@ -169,10 +167,81 @@ public class Controller {
         ArrayList<Fad> fade = Storage.getFade();
         ArrayList<Fad> modneFade = new ArrayList<>();
         for (int i = 0; i < fade.size(); i++) {
-            if (fade.get(i).erKlar()){
+            if (fade.get(i).erKlar()) {
                 modneFade.add(fade.get(i));
             }
         }
         return modneFade; //TODO Eventuelt smid en error så vi i GUI kan sige at der ikker er nogle klar
     }
+
+    public static TapningsVæske opretTapningsVæske(Fad fad, double alkoholprocent, double mængde) throws Exception {
+        //Får fat i det make vi skal tappe
+        Make make;
+        make = fad.getMake();
+
+
+        //Tester om det er gyldige tal vi får
+        if (alkoholprocent < 40 || alkoholprocent > 100) {
+            throw new IllegalArgumentException("Alkoholprocent skal være mellem 40 og 100.");
+        }
+        if (mængde > make.getNuværendeMængde()) {
+            throw new IllegalArgumentException("Ikke nok resterende væske i Make.");
+        }
+
+        //Opretter tapningsvæske
+        TapningsVæske tapningsVæske = new TapningsVæske(alkoholprocent, mængde, make);
+
+        //Tilføjer det til Storage
+        Storage.addTapningsVæske(tapningsVæske);
+
+        return tapningsVæske;
+    }
+
+    /*
+    Returnere alle de tapningsvæsker, som stadig har >0 liter tilbage
+     */
+    public static ArrayList<TapningsVæske> getTapningsVæskerTilWhisky() {
+        ArrayList<TapningsVæske> tapningsVæsker = Storage.getTapningsVæsker();
+        ArrayList<TapningsVæske> tapningsVæskerMedResterendeVæske = new ArrayList<>();
+
+        //Filtrere listen efter ikke brugte tapninger
+        tapningsVæsker.stream().filter(Predicate.not(tapningsVæske -> tapningsVæske.isErBrugt())).forEach(tapningsVæske -> tapningsVæskerMedResterendeVæske.add(tapningsVæske));
+
+        return tapningsVæskerMedResterendeVæske;
+    }
+
+    public static Whisky opretWhisky(List<TapningsVæske> tapningsVæsker, int literVand, String kommentar) throws Exception{
+        double estimeretAlkoholprocent = udregnAlkoholProcent(new ArrayList<>(tapningsVæsker), literVand);
+        if (estimeretAlkoholprocent < 40 || estimeretAlkoholprocent > 100) {
+            throw new IllegalArgumentException("En whisky skal have en alkoholprocent over 40");
+        }
+
+        double totalMængdeTapningsVæske = 0;
+        for (TapningsVæske tapningsVæske : tapningsVæsker) {
+            totalMængdeTapningsVæske += tapningsVæske.getMængde();
+        }
+        double fortyndingsFaktor = literVand / totalMængdeTapningsVæske;
+
+        Whisky whisky = new Whisky(fortyndingsFaktor, kommentar, new ArrayList<>(tapningsVæsker));
+
+        return whisky;
+    }
+
+    public static double udregnAlkoholProcent(ArrayList<TapningsVæske> tapningsVæsker, double literVandTilFortynding) {
+        //Findet total antal liter
+        double totalLiter = 0;
+        for (TapningsVæske tapningsVæske : tapningsVæsker) {
+            totalLiter += tapningsVæske.getMængde();
+        }
+        totalLiter += literVandTilFortynding;
+
+        //Udregner procent alkohol i en vægtede udregning
+        double estimeretAlkoholProcent = 0;
+        for (TapningsVæske tapningsVæske : tapningsVæsker) {
+            estimeretAlkoholProcent += tapningsVæske.getAlkoholprocent() * (tapningsVæske.getMængde() / totalLiter);
+        }
+
+        return estimeretAlkoholProcent;
+    }
+
 }

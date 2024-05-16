@@ -3,11 +3,15 @@ package application.model;
 import java.util.ArrayList;
 
 public class Whisky {
-    private double fortyndningsFaktor;
+    private double fortyndningsFaktor; //Er i procent
     private String kommentar;
     private ArrayList<TapningsVæske> tapningsVæsker = new ArrayList<>();
 
     public Whisky(double fortyndningsFaktor, String kommentar, ArrayList<TapningsVæske> tapningsVæsker) {
+        //Sætter alle tapningsVæsker til 0
+        for (TapningsVæske tapningsVæske : tapningsVæsker) {
+            tapningsVæske.setErBrugt(true);
+        }
         this.fortyndningsFaktor = fortyndningsFaktor;
         this.kommentar = kommentar;
         this.tapningsVæsker = new ArrayList<>(tapningsVæsker);
