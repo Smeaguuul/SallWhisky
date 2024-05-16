@@ -4,7 +4,10 @@ import application.model.Destillat;
 import application.model.Fad;
 import application.model.Make;
 import application.model.Væske;
-import gui.motherClasses.*;
+import gui.motherClasses.InfoLabel;
+import gui.motherClasses.MotherButton;
+import gui.motherClasses.MotherPane;
+import gui.motherClasses.MotherTab;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -56,15 +59,19 @@ public class FyldPaaFad extends MotherPane {
         destillatListview.getSelectionModel()
                 .selectedIndexProperty()
                 .addListener(observable -> {
-                    makeListview.getSelectionModel().select(-1);
-                    væskeInfoTextArea.setText(destillatListview.getSelectionModel().getSelectedItem().toString());
+                    if ((destillatListview.getSelectionModel().getSelectedItem() != null)) {
+                        makeListview.getSelectionModel().select(null);
+                        væskeInfoTextArea.setText(destillatListview.getSelectionModel().getSelectedItem().toString());
+                    }
                 });
         makeListview.getItems().addAll(makeArrayList);
         makeListview.getSelectionModel()
                 .selectedIndexProperty()
                 .addListener(observable -> {
-                    destillatListview.getSelectionModel().select(-1);
-                    væskeInfoTextArea.setText(makeListview.getSelectionModel().getSelectedItem().getOpbygning());
+                    if (!(makeListview.getSelectionModel().getSelectedItem() == null)) {
+                        destillatListview.getSelectionModel().select(null);
+                        væskeInfoTextArea.setText(makeListview.getSelectionModel().getSelectedItem().getOpbygning());
+                    }
                 });
         fadListView.getItems().addAll(Storage.getFade());
         fadListView.getSelectionModel()
@@ -141,15 +148,17 @@ public class FyldPaaFad extends MotherPane {
         String literString = literTextfield.getText().trim();
         double liter = Double.parseDouble(literString);
         if (!destillatListview.getSelectionModel().isEmpty()) {
-            midlertidigHashMap.put(destillatListview.getSelectionModel().getSelectedItem(), liter);
+            Destillat valgtDestillat = (Destillat) destillatListview.getSelectionModel().getSelectedItem();
+            midlertidigHashMap.put(valgtDestillat, liter);
             arrayListTilHashMap.clear();
-            arrayListTilHashMap.addAll(midlertidigHashMap.keySet());
+            arrayListTilHashMap.add(valgtDestillat);
             System.out.println("midlertidigHashMap.size() = " + midlertidigHashMap.size());
             indholdListview.getItems().addAll(arrayListTilHashMap);
         } else if (!makeListview.getSelectionModel().isEmpty()) {
-            midlertidigHashMap.put(makeListview.getSelectionModel().getSelectedItem(), liter);
+            Make valgtMake = (Make) makeListview.getSelectionModel().getSelectedItem();
+            midlertidigHashMap.put(valgtMake, liter);
             arrayListTilHashMap.clear();
-            arrayListTilHashMap.addAll(midlertidigHashMap.keySet());
+            arrayListTilHashMap.add(valgtMake);
             System.out.println("midlertidigHashMap.size() = " + midlertidigHashMap.size());
             indholdListview.getItems().addAll(arrayListTilHashMap);
         } else {
@@ -160,6 +169,6 @@ public class FyldPaaFad extends MotherPane {
         }
     }
     //private Boolean checkDobbeltIndhold(){
-        //det skal være i metoden oven over. for at sikre der ikke kommer to af den samme væske
+    //det skal være i metoden oven over. for at sikre der ikke kommer to af den samme væske
     //}
 }
