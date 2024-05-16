@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 
 public class Destillat extends Væske {
+    //TODO Destillat vises ikke i lister når mængde når 0
     private LocalDate startDato;
     private LocalDate slutDato;
     private double alkoholprocent;
@@ -81,6 +82,7 @@ public class Destillat extends Væske {
         toString += "\n\t" + maltBatch.toString();
         toString += "\n\tRygningstype: " + rygningsType.toString();
         toString += "\n\tAlkoholprocent: " + alkoholprocent + "%";
+        toString += "\n\tResterende væske: " + nuværendeMængde;
         return toString;
     }
 }

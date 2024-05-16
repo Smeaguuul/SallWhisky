@@ -129,11 +129,12 @@ public class FyldPaaFad extends MotherPane {
     }
 
     private void vaerdierTilVaeskeListviews() {
+        System.out.println("heloo");
         for (int i = 0; i < Storage.getVæsker().size(); i++) {
-            if (Storage.getVæsker().get(i) instanceof Destillat) {
+            if (Storage.getVæsker().get(i) instanceof Destillat && Storage.getVæsker().get(i).getNuværendeMængde() > 0) {
                 Destillat destillat = (Destillat) Storage.getVæsker().get(i);
                 this.destlliatArraylist.add(destillat);
-            } else {
+            } else if (Storage.getVæsker().get(i).getNuværendeMængde() > 0){ //TODO smid det her ud i en fælles ydre if
                 Make make = (Make) Storage.getVæsker().get(i);
                 this.makeArrayList.add(make);
             }
@@ -141,6 +142,9 @@ public class FyldPaaFad extends MotherPane {
     }
 
     private void opretMake() {
+        for (Væske væske : midlertidigHashMap.keySet()) {
+            System.out.println(væske);
+        }
         if (fadListView.getSelectionModel().isEmpty()) {
             alert.setHeaderText("Vælg venligst et fad");
             alert.setContentText("Vælg venligst et fad");

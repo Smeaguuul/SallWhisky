@@ -1,5 +1,7 @@
 package application.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 public class Fad {
@@ -8,7 +10,7 @@ public class Fad {
     private TidligereIndhold tidligereIndhold;
     private int literStørrelse;
     private Forhandler forhandler;
-    private Make make;
+    private ArrayList<Tidsperiode> tidsperioder = new ArrayList<Tidsperiode>();
     private static int antalFade = 0;
     private int fadNr = 0;
 
@@ -45,15 +47,22 @@ public class Fad {
         return forhandler;
     }
 
-    public void setMake(Make make) {
-        this.make = make;
+    public Tidsperiode addMake(Make make) {
+        Tidsperiode tidsperiode = new Tidsperiode(this, make);
+        this.tidsperioder.add(tidsperiode);
+        return tidsperiode;
     }
 
     public Make getMake() throws Exception {
-        if (this.make == null) {
-            throw new NoSuchElementException("Intet make i dette fad.");
+        return this.tidsperioder.get(lastIndex()).getMake();
+    }
+
+    public int lastIndex() {
+        int lastIndex = tidsperioder.size()-1;
+        if (lastIndex < 0 ){
+            lastIndex = 0;
         }
-        return this.make;
+        return lastIndex;
     }
 
     @Override
@@ -71,7 +80,7 @@ public class Fad {
                 "\n Træsort: " + træsort +
                 "\n Tidligere indhold: " + tidligereIndhold +
                 "\n Forhandler: " + forhandler +
-                "\n Nuværende make " + make +
+                //"\n Nuværende make " + this.tidsperioder.get(lastIndex()).getMake() + //TODO lav check om det har et nuværende make
                 "\n Bemærkning: " + bemærkning;
     }
 }
