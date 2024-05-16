@@ -50,7 +50,7 @@ public class FyldPaaFad extends MotherPane {
         this.add(fadListView, 2, 1);
 
         // Listeners til listview, som sender info om valgte objekter til info feltene
-        destillatListview.getItems().addAll(destlliatArraylist);
+        //destillatListview.getItems().addAll(destlliatArraylist);
         destillatListview.getSelectionModel()
                 .selectedIndexProperty()
                 .addListener(observable -> {
@@ -59,7 +59,7 @@ public class FyldPaaFad extends MotherPane {
                         væskeInfoTextArea.setText(destillatListview.getSelectionModel().getSelectedItem().toString());
                     }
                 });
-        makeListview.getItems().addAll(makeArrayList);
+        //makeListview.getItems().addAll(makeArrayList);
         makeListview.getSelectionModel()
                 .selectedIndexProperty()
                 .addListener(observable -> {
@@ -129,9 +129,10 @@ public class FyldPaaFad extends MotherPane {
     }
 
     private void vaerdierTilVaeskeListviews() {
-        System.out.println("heloo");
         for (int i = 0; i < Storage.getVæsker().size(); i++) {
-            if (Storage.getVæsker().get(i) instanceof Destillat && Storage.getVæsker().get(i).getNuværendeMængde() > 0) {
+            if (Storage.getVæsker().get(i) instanceof Destillat &&
+                    Storage.getVæsker().get(i).getNuværendeMængde() > 0) {
+
                 Destillat destillat = (Destillat) Storage.getVæsker().get(i);
                 this.destlliatArraylist.add(destillat);
             } else if (Storage.getVæsker().get(i).getNuværendeMængde() > 0){ //TODO smid det her ud i en fælles ydre if
@@ -139,6 +140,10 @@ public class FyldPaaFad extends MotherPane {
                 this.makeArrayList.add(make);
             }
         }
+        destillatListview.getItems().clear();
+        makeListview.getItems().clear();
+        destillatListview.getItems().addAll(destlliatArraylist);
+        makeListview.getItems().addAll(makeArrayList);
     }
 
     private void opretMake() {
