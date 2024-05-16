@@ -43,10 +43,6 @@ public class Make extends Væske {
         for (Double liter : væskeDoubleHashMap.values()) {
             this.startmængde += liter;
         }
-
-        for (Væske væske : væskeDoubleHashMap.keySet()) {
-            System.out.println(væske);
-        }
         this.væskeDoubleHashMap = new HashMap<>(væskeDoubleHashMap);
         this.startmængde = startmængde;
         this.nuværendeMængde = startmængde;
