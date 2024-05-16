@@ -5,6 +5,8 @@ import application.model.Forhandler;
 import application.model.TidligereIndhold;
 import application.model.Træsort;
 import gui.motherClasses.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -61,7 +63,15 @@ public class OpretFadPane extends MotherPane {
         størrelseTextField.setEditable(true);
         this.add(størrelseLabel,0,4);
         this.add(størrelseTextField,1,4);
-
+        størrelseTextField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    størrelseTextField.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
         //Evt skrive kommentar
         InfoLabel kommentarLabel = new InfoLabel("Kommentar: ");
         kommentarTextArea = new TextArea();

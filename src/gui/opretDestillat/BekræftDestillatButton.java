@@ -24,7 +24,16 @@ public class BekræftDestillatButton extends MotherButton {
         this.commonClass = commonClass;
         try {
             //Vi prøver at oprette et destillat, og håndtere eventuelle errors, som controlleren kaster ved forkert input
-            Destillat destillat = Controller.opretDestillat(commonClass.getStartDato(), commonClass.getSlutDato(), Integer.parseInt(commonClass.getAntalLiter()), Double.parseDouble(commonClass.getAlkoholProcent()), (RygningsType) commonClass.getRygningsType(), commonClass.getKommentar(), (MaltBatch) commonClass.getMaltBatch(), commonClass.getMedarbejder());
+            Destillat destillat = Controller.opretDestillat(
+                    commonClass.getStartDato(),
+                    commonClass.getSlutDato(),
+                    Integer.parseInt(commonClass.getAntalLiter()),
+                    Double.parseDouble(commonClass.getAlkoholProcent()),
+                    (RygningsType) commonClass.getRygningsType(),
+                    commonClass.getKommentar(),
+                    (MaltBatch) commonClass.getMaltBatch(),
+                    commonClass.getMedarbejder()
+            );
             //TODO Eventuelt lave et textfield som automatisk trimmer gettext, så vi ikke skal kalde det hele tiden
             //TODO smid det her ud i en Lambda Expressions så vi kan simplificere disse to "Bekræft klasser" ned i én
 
