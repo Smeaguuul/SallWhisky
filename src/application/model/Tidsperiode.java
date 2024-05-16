@@ -32,7 +32,15 @@ public class Tidsperiode {
         return make;
     }
 
-    public void setTømningsDato(LocalDate tømningsDato) {
-        this.tømningsDato = tømningsDato;
+    public void setTømningsDato() {
+        this.tømningsDato = LocalDate.now();
+    }
+
+    public boolean erKlar() {
+        boolean erKlar = false;
+        if (påfyldningsdato.plusYears(3).isBefore(LocalDate.now())) {
+            erKlar = true;
+        }
+        return erKlar;
     }
 }

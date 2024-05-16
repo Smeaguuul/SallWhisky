@@ -63,6 +63,16 @@ public class Make extends Væske {
                 "\n\t" + tidsperioder.get(lastIndex()).getPåfyldningsdato() +
                 "\n\tstartmængde: " + startmængde +
                 "\n\tResterende væske: " + nuværendeMængde;
+    }
 
+    @Override
+    public void brugVæske(Double bruges) {
+        if (bruges > this.nuværendeMængde) {
+            throw new IllegalArgumentException("Ikke nok resterende make.");
+        }
+        this.nuværendeMængde -= bruges;
+        if (this.nuværendeMængde == 0){
+            this.tidsperioder.getLast().setTømningsDato();
+        }
     }
 }

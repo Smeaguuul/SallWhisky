@@ -1,5 +1,6 @@
 package application.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -54,6 +55,9 @@ public class Fad {
     }
 
     public Make getMake() throws Exception {
+        if (this.tidsperioder.get(lastIndex()).getTømningsDato().isBefore(LocalDate.now())) {
+            throw new NoSuchElementException("Intet nuværende make.");
+        }
         return this.tidsperioder.get(lastIndex()).getMake();
     }
 
@@ -82,5 +86,9 @@ public class Fad {
                 "\n Forhandler: " + forhandler +
                 //"\n Nuværende make " + this.tidsperioder.get(lastIndex()).getMake() + //TODO lav check om det har et nuværende make
                 "\n Bemærkning: " + bemærkning;
+    }
+
+    public boolean erKlar() {
+        return this.tidsperioder.get(lastIndex()).erKlar();
     }
 }

@@ -129,7 +129,7 @@ public class Controller {
         try { //TODO ryd op her
             Make fadMake = fad.getMake();
             //Checker lige for en sikkerhedsskyld om den allerede er inkluderet i listen
-            if (!væskerOgLiter.containsKey(fadMake)){
+            if (!væskerOgLiter.containsKey(fadMake)) {
                 væskerOgLiter.put(fadMake, fadMake.getNuværendeMængde());
 
             }
@@ -147,7 +147,7 @@ public class Controller {
 
         //Checker om der er tilstrækkelig af resterende væske fra de valgte væsker
         for (Map.Entry<Væske, Double> væskeDoubleEntry : væskerOgLiter.entrySet()) {
-            if (væskeDoubleEntry.getKey().getNuværendeMængde() < væskeDoubleEntry.getValue()){
+            if (væskeDoubleEntry.getKey().getNuværendeMængde() < væskeDoubleEntry.getValue()) {
                 throw new IllegalArgumentException("Der er ikke nok væske i de valgte væsker."); //TODO evt. specificere hvilket destillat/make det er
             }
         }
@@ -163,5 +163,16 @@ public class Controller {
 
         //Returnere make
         return make;
+    }
+
+    public static ArrayList<Fad> getModneFade() {
+        ArrayList<Fad> fade = Storage.getFade();
+        ArrayList<Fad> modneFade = new ArrayList<>();
+        for (int i = 0; i < fade.size(); i++) {
+            if (fade.get(i).erKlar()){
+                modneFade.add(fade.get(i));
+            }
+        }
+        return modneFade; //TODO Eventuelt smid en error så vi i GUI kan sige at der ikker er nogle klar
     }
 }
