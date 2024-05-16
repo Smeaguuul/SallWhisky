@@ -126,7 +126,7 @@ public class Controller {
 
     public static Make opretMake(Fad fad, HashMap<Væske, Double> væskerOgLiter) {
         //Tilføjer fadets make til listen, hvis det har et
-        try {
+        try { //TODO ryd op her
             Make fadMake = fad.getMake();
             //Checker lige for en sikkerhedsskyld om den allerede er inkluderet i listen
             if (!væskerOgLiter.containsKey(fadMake)){

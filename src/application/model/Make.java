@@ -1,18 +1,18 @@
 package application.model;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Make extends Væske {
 
-    private LocalDate påfyldningsdato;
-    private Fad fad;
+    private final ArrayList<Tidsperiode> tidsperioder = new ArrayList<>();
     private HashMap<Væske, Double> væskeDoubleHashMap = new HashMap<>();
     private static int antalMakes = 0;
     private int makeNummer;
 
-
+//TODO lav en metode til tapning, som sætter tømningsdato til idag, hvis 0 liter rammes
+    //TODO lav en metode så man kan sætte en tømningsdato ind tved oprettelsen af et nyt make
     @Override
     public String getOpbygning() {
         String opbygning = "Make " + makeNummer;
@@ -36,26 +36,33 @@ public class Make extends Væske {
         antalMakes++;
         this.makeNummer = antalMakes;
 
-        this.fad = fad;
-        fad.setMake(this);
+        //Laver associeringsklassen til at holde styr på datoer
+        this.tidsperioder.add(fad.addMake(this));
 
         //Udregner totalmængde
         for (Double liter : væskeDoubleHashMap.values()) {
             this.startmængde += liter;
         }
-
-        this.væskeDoubleHashMap = væskeDoubleHashMap;
+        this.væskeDoubleHashMap = new HashMap<>(væskeDoubleHashMap);
         this.startmængde = startmængde;
-        this.påfyldningsdato = LocalDate.now();
         this.nuværendeMængde = startmængde;
+    }
+
+    public int lastIndex() {
+        int lastIndex = tidsperioder.size()-1;
+        if (lastIndex < 0 ){
+            lastIndex = 0;
+        }
+        return lastIndex;
     }
 
     @Override
     public String toString() {
         return "Nr. " + makeNummer +
-                ", " + fad +
-                ", " + påfyldningsdato +
-                ", startmængde: " + startmængde +
-                ", nuværende mængde: " + nuværendeMængde;
+                "\n\t" + tidsperioder.get(lastIndex()).getFad() + //TODO lav check om det er på et fad
+                "\n\t" + tidsperioder.get(lastIndex()).getPåfyldningsdato() +
+                "\n\tstartmængde: " + startmængde +
+                "\n\tResterende væske: " + nuværendeMængde;
+
     }
 }
