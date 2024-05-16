@@ -32,7 +32,7 @@ public class StartWindow extends Application {
     public void start(Stage stage) throws Exception {
         stage.setTitle("Sall Whisky Destilleri");
         this.stage = stage;
-
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/gui/images/favicon.png")));
         MotherPane motherPane = new MotherPane();
         motherPane.setPadding(new Insets(10, 0, 10, 0));
         motherPane.setHgap(0);

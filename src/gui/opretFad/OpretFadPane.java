@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -25,12 +26,13 @@ public class OpretFadPane extends MotherPane {
 
     public OpretFadPane(String title, MotherTab owner) {
         this.owner = owner;
-
         MotherLabel instructionLabel = new MotherLabel("Udfyld venligst nedenstående for at oprette et nyt fad: ");
         this.add(instructionLabel, 0, 0, 2, 1);
+        this.setStyle("base-color: white");
 
         //vælg træsort
         InfoLabel træsortLabel = new InfoLabel("Træsort:");
+        //træsortLabel.setTextFill(Paint.valueOf("white"));
         træsortComboBox = new MotherComboBox();
         Træsort[] træsorter = Træsort.values();
         træsortComboBox.getItems().addAll(træsorter);
