@@ -128,7 +128,11 @@ public class Controller {
         //Tilføjer fadets make til listen, hvis det har et
         try {
             Make fadMake = fad.getMake();
-            væskerOgLiter.put(fadMake, fadMake.getNuværendeMængde());
+            //Checker lige for en sikkerhedsskyld om den allerede er inkluderet i listen
+            if (!væskerOgLiter.containsKey(fadMake)){
+                væskerOgLiter.put(fadMake, fadMake.getNuværendeMængde());
+
+            }
         } catch (Exception e) {
         }
 
