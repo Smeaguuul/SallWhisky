@@ -132,6 +132,14 @@ public class Fad {
 
     public void fjernLagerLokation() {
         this.lager = null;
-        this.lagerLokation = new int[3];
+        this.lagerLokation = null;
+    }
+
+    public boolean harLagerlokation () {
+        boolean harLagerlokation = false;
+        if (this.lagerLokation != null) {
+            harLagerlokation = true;
+        }
+        return harLagerlokation;
     }
 }

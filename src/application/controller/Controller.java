@@ -172,7 +172,8 @@ public class Controller {
                 if (fad.hasMake() && fad.getMake().getNuværendeMængde() > 0) {
                     modneFade.add(fad);
                 }
-            } catch (Exception e) {}
+            } catch (Exception e) {
+            }
         }
 
         return modneFade; //TODO Eventuelt smid en error så vi i GUI kan sige at der ikker er nogle klar
@@ -249,10 +250,36 @@ public class Controller {
     }
 
     public static Lager opretLager(String navn, Adresse adresse, int reolAntal, int højde, int placeringerPrHylde) {
-        Lager lager = new Lager(navn, adresse, reolAntal, højde,placeringerPrHylde);
+        Lager lager = new Lager(navn, adresse, reolAntal, højde, placeringerPrHylde);
 
         Storage.addLager(lager);
 
         return lager;
+    }
+
+    public static List<Fad> getFadMedLokation() {
+        List<Fad> fade;
+        fade = Storage.getFade();
+        ArrayList<Fad> fadeMedLokation = new ArrayList<>();
+
+        fade.stream().filter(Predicate.not(fad -> !fad.harLagerlokation())).forEach(fad -> fadeMedLokation.add(fad));
+
+        return fadeMedLokation;
+    }
+
+    public static List<Fad> getFadUdenLokation() {
+        List<Fad> fadMedLokation = getFadMedLokation();
+        List<Fad> fadeUdenLokation = Storage.getFade();
+        fadMedLokation.removeAll(fadMedLokation);
+
+        return fadeUdenLokation;
+    }
+
+    public static ArrayList<Lager> getLagrer() {
+        return Storage.getLagrer();
+    }
+
+    public static void setLagerLokation(Fad fad, Lager lager, int reolNummer, int højdeNummer, int placeringsnummer) {
+        fad.setLagerlokation(lager, reolNummer, højdeNummer, placeringsnummer);
     }
 }
