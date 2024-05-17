@@ -166,11 +166,15 @@ public class Controller {
     public static ArrayList<Fad> getModneFade() {
         ArrayList<Fad> fade = Storage.getFade();
         ArrayList<Fad> modneFade = new ArrayList<>();
-        for (int i = 0; i < fade.size(); i++) {
-            if (fade.get(i).erKlar()) {
-                modneFade.add(fade.get(i));
-            }
+
+        for (Fad fad : fade) {
+            try {
+                if (fad.hasMake() && fad.getMake().getNuværendeMængde() > 0) {
+                    modneFade.add(fad);
+                }
+            } catch (Exception e) {}
         }
+
         return modneFade; //TODO Eventuelt smid en error så vi i GUI kan sige at der ikker er nogle klar
     }
 
@@ -198,7 +202,7 @@ public class Controller {
     }
 
     /*
-    Returnere alle de tapningsvæsker, som stadig har >0 liter tilbage
+    Returnere alle de tapningsvæsker, som ikke er brugt
      */
     public static ArrayList<TapningsVæske> getTapningsVæskerTilWhisky() {
         ArrayList<TapningsVæske> tapningsVæsker = Storage.getTapningsVæsker();
@@ -210,7 +214,7 @@ public class Controller {
         return tapningsVæskerMedResterendeVæske;
     }
 
-    public static Whisky opretWhisky(List<TapningsVæske> tapningsVæsker, int literVand, String kommentar) throws Exception{
+    public static Whisky opretWhisky(List<TapningsVæske> tapningsVæsker, int literVand, String kommentar) throws Exception {
         double estimeretAlkoholprocent = udregnAlkoholProcent(new ArrayList<>(tapningsVæsker), literVand);
         if (estimeretAlkoholprocent < 40 || estimeretAlkoholprocent > 100) {
             throw new IllegalArgumentException("En whisky skal have en alkoholprocent over 40");
