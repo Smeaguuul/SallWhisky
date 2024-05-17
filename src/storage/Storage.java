@@ -89,6 +89,13 @@ public class Storage {
     public static void addWhisky(Whisky whisky) { whiskyer.add(whisky);}
     public static void removeWhisky(Whisky whisky) { whiskyer.remove(whisky);}
 
+    //------------------------------------------------------------------------------------------------------------------
+    private static ArrayList<Lager> lagrer = new ArrayList<>();
+    public static ArrayList<Lager> getLagrer(){
+        return new ArrayList<Lager>(lagrer);
+    }
+    public static void addLager(Lager lager) { lagrer.add(lager);}
+
 
 
 }

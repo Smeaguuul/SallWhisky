@@ -248,4 +248,11 @@ public class Controller {
         return estimeretAlkoholProcent;
     }
 
+    public static Lager opretLager(String navn, Adresse adresse, int reolAntal, int højde, int placeringerPrHylde) {
+        Lager lager = new Lager(navn, adresse, reolAntal, højde,placeringerPrHylde);
+
+        Storage.addLager(lager);
+
+        return lager;
+    }
 }
