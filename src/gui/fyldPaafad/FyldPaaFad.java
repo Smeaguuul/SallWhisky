@@ -87,7 +87,7 @@ public class FyldPaaFad extends MotherPane {
         // Sørger for at man kun kan inputte tal i liter texfieldet
         literTextfield.textProperty().addListener(new ChangeListener<String>() {
             @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, //TODO skal måske også bruges i opretFad og opretDestillat vinduerne, i stedet for bare at håndtere de fejl der nu engang kommer
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
                                 String newValue) {
                 if (!newValue.matches("\\d*")) {
                     literTextfield.setText(newValue.replaceAll("[^\\d]", ""));
