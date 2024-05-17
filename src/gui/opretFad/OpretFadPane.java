@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
-public class OpretFadPane extends MotherPane {
+public class OpretFadPane extends MotherPaneWithImageBackground {
     private final MotherTab owner;
     private MotherComboBox tidligereIndholdComboBox;
     private MotherComboBox træsortComboBox;
@@ -27,10 +27,14 @@ public class OpretFadPane extends MotherPane {
     private TextField størrelseTextField;
 
     public OpretFadPane(String title, MotherTab owner) {
+        super("/gui/images/mark.jpg");
         this.owner = owner;
-        MotherLabel instructionLabel = new MotherLabel("Udfyld venligst nedenstående for at oprette et nyt fad: ");
-        this.add(instructionLabel, 0, 0, 2, 1);
-        this.setStyle("base-color: white");
+
+        CentralPane centralPane = new CentralPane();
+
+        //Overskrift
+        MotherLabel instructionLabel = new MotherLabel("Udfyld nedenstående for at oprette et nyt fad: ");
+        centralPane.add(instructionLabel, 0, 0, 2, 1);
 
         //vælg træsort
         InfoLabel træsortLabel = new InfoLabel("Træsort:");
@@ -38,31 +42,31 @@ public class OpretFadPane extends MotherPane {
         træsortComboBox = new MotherComboBox();
         Træsort[] træsorter = Træsort.values();
         træsortComboBox.getItems().addAll(træsorter);
-        this.add(træsortLabel, 0, 1);
-        this.add(træsortComboBox, 1, 1);
+        centralPane.add(træsortLabel, 0, 1);
+        centralPane.add(træsortComboBox, 1, 1);
 
         //vælg Tidligere indhold
         InfoLabel tidligereIndholdLabel = new InfoLabel("Tidligere Indhold:");
         tidligereIndholdComboBox = new MotherComboBox();
         TidligereIndhold[] tidligereIndhold = TidligereIndhold.values();
         tidligereIndholdComboBox.getItems().addAll(tidligereIndhold);
-        this.add(tidligereIndholdLabel, 0, 2);
-        this.add(tidligereIndholdComboBox, 1, 2);
+        centralPane.add(tidligereIndholdLabel, 0, 2);
+        centralPane.add(tidligereIndholdComboBox, 1, 2);
 
         //vælg Forhandler
         InfoLabel forhandlerLabel = new InfoLabel("Købt hos:");
         forhandlerComboBox = new MotherComboBox();
         ArrayList<Forhandler> forhandlerer = Controller.getForhandlere();
         forhandlerComboBox.getItems().addAll(forhandlerer);
-        this.add(forhandlerLabel, 0, 3);
-        this.add(forhandlerComboBox, 1, 3);
+        centralPane.add(forhandlerLabel, 0, 3);
+        centralPane.add(forhandlerComboBox, 1, 3);
 
         //Skriver størrelse
         InfoLabel størrelseLabel = new InfoLabel("Fad Størrelse i Liter:");
         størrelseTextField = new TextField();
         størrelseTextField.setEditable(true);
-        this.add(størrelseLabel,0,4);
-        this.add(størrelseTextField,1,4);
+        centralPane.add(størrelseLabel,0,4);
+        centralPane.add(størrelseTextField,1,4);
         størrelseTextField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
@@ -76,10 +80,9 @@ public class OpretFadPane extends MotherPane {
         InfoLabel kommentarLabel = new InfoLabel("Kommentar: ");
         kommentarTextArea = new TextArea();
         kommentarTextArea.setEditable(true);
-        kommentarTextArea.setMaxWidth(250);
-        kommentarLabel.setAlignment(Pos.TOP_CENTER);
-        this.add(kommentarLabel,0,5);
-        this.add(kommentarTextArea,1,5, 1, 2);
+        kommentarTextArea.setMaxSize(250,125);
+        centralPane.add(kommentarLabel,0,5);
+        centralPane.add(kommentarTextArea,1,5, 1, 2);
 
         /*
         Opretter knapper og en HBox til at holde på dem.
@@ -107,15 +110,17 @@ public class OpretFadPane extends MotherPane {
 
         //Tilføjer knapperne til pane
         buttonBox.getChildren().addAll(afbrydButton, bekræftButton);
-        this.add(buttonBox, 1, 7);
+        centralPane.add(buttonBox, 1, 7);
 
         //Tilføjer et fadbillede
         Image image = new Image(getClass().getResourceAsStream("/gui/images/WhiskyFade.png"));
         ImageView imageView = new ImageView();
         imageView.setImage(image);
         imageView.setPreserveRatio(true);
-        imageView.setFitWidth(120);
+        imageView.setFitWidth(80);
         imageView.setRotate(20);
-        this.add(imageView,0,6);
+        centralPane.add(imageView,0,6);
+
+        this.add(centralPane,0,0);
     }
 }

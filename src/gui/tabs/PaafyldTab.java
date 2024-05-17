@@ -1,20 +1,17 @@
 package gui.tabs;
 
 import gui.fyldPaafad.FyldPaaFad;
-import gui.motherClasses.MotherButton;
-import gui.motherClasses.MotherPane;
-import gui.motherClasses.MotherTab;
+import gui.motherClasses.*;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
 
 public class PaafyldTab extends MotherTab {
     public PaafyldTab(String text) {
         super(text);
-        this.setStyle(" -fx-background-color: rgb(" + 133 + "," + 144 + ", " + 162 + ");");
-        //Laver tab til opret og rediger
-        MotherPane panePaafyld = new MotherPane();
-        this.initContentPaafyld(panePaafyld);
-        this.setContent(panePaafyld);
+        drawDefault();
+
     }
 
     @Override
@@ -25,10 +22,16 @@ public class PaafyldTab extends MotherTab {
     }
 
     private void initContentPaafyld(MotherPane pane) {
-        // Button til at fylde på et fad
-        Button fyldPaaFadButton = new MotherButton("Fyld på fad");
-        fyldPaaFadButton.setOnAction(e -> fyldpaaFad());
-        pane.add(fyldPaaFadButton,0,0);
+        //Laver tab til opret og rediger
+        VBox fadVBox = new VBox();
+        fadVBox.setSpacing(10);
+        fadVBox.setAlignment(Pos.BOTTOM_CENTER);
+        VerticalImageStackPane påfyldImage = new VerticalImageStackPane("/gui/images/fad.png");
+        fadVBox.getChildren().add(påfyldImage);
+        MotherButton fyldpaaFadButton = new MainMenuButton("Fyld På Fad");
+        fyldpaaFadButton.setOnAction(event -> fyldpaaFad());
+        fadVBox.getChildren().add(fyldpaaFadButton);
+        pane.add(fadVBox,1,1);
     }
 
     private void fyldpaaFad() {

@@ -72,4 +72,23 @@ public class Storage {
         maltBatches.add(maltBatch);
     }
 
+    //------------------------------------------------------------------------------------------------------------------
+    private static ArrayList<TapningsVæske> tapningsVæsker = new ArrayList<>();
+    public static ArrayList<TapningsVæske> getTapningsVæsker(){
+        return new ArrayList<TapningsVæske>(tapningsVæsker);
+    }
+    public static void addTapningsVæske(TapningsVæske tapningsVæske) { tapningsVæsker.add(tapningsVæske);}
+    public static void removeTapningsVæske(TapningsVæske tapningsVæske) { tapningsVæsker.remove(tapningsVæske);}
+
+
+    //------------------------------------------------------------------------------------------------------------------
+    private static ArrayList<Whisky> whiskyer = new ArrayList<>();
+    public static ArrayList<Whisky> getWhiskyer(){
+        return new ArrayList<Whisky>(whiskyer);
+    }
+    public static void addWhisky(Whisky whisky) { whiskyer.add(whisky);}
+    public static void removeWhisky(Whisky whisky) { whiskyer.remove(whisky);}
+
+
+
 }

@@ -10,6 +10,6 @@ public class MainMenuButton extends MotherMainMenuButton{
         this.setStyle("-fx-background-radius: 10 10 10 10; -fx-font-size:20; -fx-background-color:  linear-gradient(#44546F, #091E427D);");
         this.setEffect(new DropShadow(20,Color.BLACK));
         this.setTextFill(Color.WHITE);
-        this.setMinWidth(150);
+        this.setMinWidth(220);
     }
 }
