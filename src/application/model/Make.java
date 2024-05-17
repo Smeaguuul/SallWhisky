@@ -97,4 +97,13 @@ public class Make extends Væske {
     public int getMakeNummer() {
         return makeNummer;
     }
+
+    public String toStringWithoutFad() {
+        StringBuilder st = new StringBuilder();
+        st.append("Nr. " + makeNummer);
+        st.append("\n\t" + tidsperioder.get(lastIndex()).getPåfyldningsdato());
+        st.append("\n\tstartmængde: " + startmængde);
+        st.append("\n\tResterende væske: " + nuværendeMængde);
+        return st.toString();
+    }
 }
