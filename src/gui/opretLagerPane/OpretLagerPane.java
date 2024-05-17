@@ -1,11 +1,15 @@
 package gui.opretLagerPane;
 
+import application.controller.Controller;
 import application.model.Adresse;
 import gui.motherClasses.InfoLabel;
 import gui.motherClasses.MotherLabel;
 import gui.motherClasses.MotherPane;
 import gui.motherClasses.MotherTab;
 import gui.tabs.OpretRedigerTab;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -30,7 +34,7 @@ public class OpretLagerPane extends MotherPane {
         this.add(lagerNavnTextfield, 1, 1);
 
         // Opretter vboxes med labels og texfields til adresse
-        this.add(new InfoLabel("Adresse"), 0, 2);
+        this.add(new InfoLabel("Adresse:"), 0, 2);
         VBox adresseLabelVbox = new VBox();
         adresseLabelVbox.setSpacing(10);
         adresseLabelVbox.getChildren().addAll(
@@ -77,17 +81,90 @@ public class OpretLagerPane extends MotherPane {
         buttonHbox.setSpacing(10);
         buttonHbox.getChildren().addAll(annullerButton,opretButton);
         this.add(buttonHbox,1,6);
+
+        // Sørger for at visse texfield kun kan have tal som input
+        hyldePrReolTextfield.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    hyldePrReolTextfield.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+        pladserPrHylde.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    pladserPrHylde.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+        antalReolerTextfield.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    antalReolerTextfield.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+        postnrTextfield.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    postnrTextfield.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
     }
 
     // Tager værdierne fra texfields og opretter en lager med en adresse
     private void opretLager() {
-        Adresse adresse = new Adresse(
-                gadeNrTextfield.getText(),
-                gadeNavnTextfield.getText(),
-                postnrTextfield.getText(),
-                landTextfield.getText()
-        );
+        if (!erDerTommeFelter()) {
+            Adresse adresse = new Adresse(
+                    gadeNrTextfield.getText(),
+                    gadeNavnTextfield.getText(),
+                    postnrTextfield.getText(),
+                    landTextfield.getText()
+            );
+            String navn = lagerNavnTextfield.getText();
+            int reolAntal = Integer.parseInt(antalReolerTextfield.getText());
+            int højde = Integer.parseInt(hyldePrReolTextfield.getText());
+            int placeringPrhylde = Integer.parseInt(pladserPrHylde.getText());
+            Controller.opretLager(navn, adresse, reolAntal, højde, placeringPrhylde);
 
-
+            lagerNavnTextfield.clear();
+            landTextfield.clear();
+            postnrTextfield.clear();
+            gadeNavnTextfield.clear();
+            gadeNrTextfield.clear();
+            antalReolerTextfield.clear();
+            hyldePrReolTextfield.clear();
+            pladserPrHylde.clear();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Udfyld venligst de tomme felter");
+            alert.setContentText("Udfyld venlist de tomme felter");
+            alert.showAndWait();
+        }
     }
+
+    // Checker om der er et tomt textfield
+    public boolean erDerTommeFelter(){
+        if (lagerNavnTextfield.getText().isEmpty() ||
+        landTextfield.getText().isEmpty() ||
+        postnrTextfield.getText().isEmpty() ||
+        gadeNavnTextfield.getText().isEmpty() ||
+        gadeNrTextfield.getText().isEmpty() ||
+        antalReolerTextfield.getText().isEmpty() ||
+        hyldePrReolTextfield.getText().isEmpty() ||
+        pladserPrHylde.getText().isEmpty()){
+            return true;
+        } else return false;
+    }
+
+
 }
