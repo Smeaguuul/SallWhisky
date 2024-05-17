@@ -81,7 +81,8 @@ public class Make extends Væske {
         st.append("\n\t" + tidsperioder.get(lastIndex()).getPåfyldningsdato());
         st.append("\n\tstartmængde: " + startmængde);
         st.append("\n\tResterende væske: " + nuværendeMængde);
-        return  st.toString();
+        return st.toString();
+    }
     @Override
     public void brugVæske(Double bruges) {
         if (bruges > this.nuværendeMængde) {
