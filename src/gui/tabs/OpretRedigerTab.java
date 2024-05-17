@@ -3,17 +3,12 @@ package gui.tabs;
 import gui.medarbejderCheck.CheckMedarbejderWindow;
 import gui.motherClasses.*;
 import gui.opretAdminMedarbejder.AdminLoginPane;
-import gui.opretAdminMedarbejder.AdminMedarbejderPane;
 import gui.opretFad.OpretFadPane;
 import gui.opretForhandler.OpretForhandlerPane;
-import javafx.geometry.Insets;
+import gui.opretLagerPane.OpretLagerPane;
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Button;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 
 public class OpretRedigerTab extends MotherTab {
     public OpretRedigerTab(String text) {
@@ -60,7 +55,7 @@ public class OpretRedigerTab extends MotherTab {
         pane.add(medarbejderVBox,2,1);
 
         //Opretter knap og billede til opretForhandler og sætter det i en VBox
-        VBox forhandlerVBox = new VBox();
+        /*VBox forhandlerVBox = new VBox();
         forhandlerVBox.setSpacing(10);
         forhandlerVBox.setAlignment(Pos.BOTTOM_CENTER);
         VerticalImageStackPane forhandlerImage = new VerticalImageStackPane("/gui/images/forhandler.png");
@@ -68,8 +63,24 @@ public class OpretRedigerTab extends MotherTab {
         MotherButton opretForhandlerButton = new MainMenuButton("Opret Forhandler");
         opretForhandlerButton.setOnAction(event -> openOpretForhandlerPane());
         forhandlerVBox.getChildren().add(opretForhandlerButton);
-        pane.add(forhandlerVBox,3,1);
+        pane.add(forhandlerVBox,3,1); */
 
+        //Opretter knap og billede til opretLager og sætter det i en VBox
+        VBox lagerVbox = new VBox();
+        lagerVbox.setSpacing(10);
+        lagerVbox.setAlignment(Pos.BOTTOM_CENTER);
+        VerticalImageStackPane lagerImage = new VerticalImageStackPane("/gui/images/lager.png");
+        lagerVbox.getChildren().add(lagerImage);
+        Button opretLagerButton = new MainMenuButton("Opret Lager");
+        opretLagerButton.setOnAction(e -> openOpretLagerPane());
+        lagerVbox.getChildren().add(opretLagerButton);
+        pane.add(lagerVbox,3,1);
+
+    }
+
+    private void openOpretLagerPane() {
+        MotherPane opretLagerPane = new OpretLagerPane("Opret Lager",this);
+        this.setContent(opretLagerPane);
     }
 
     private void openAdminMedarbejder(){
