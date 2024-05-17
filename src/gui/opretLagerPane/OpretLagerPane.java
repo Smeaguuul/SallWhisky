@@ -82,7 +82,7 @@ public class OpretLagerPane extends MotherPane {
         buttonHbox.getChildren().addAll(annullerButton,opretButton);
         this.add(buttonHbox,1,6);
 
-        // Sørger for at visse texfield kun kan have tal som input
+        // Sørger for at visse texfields kun kan have tal som input
         hyldePrReolTextfield.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
