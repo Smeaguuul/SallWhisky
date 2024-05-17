@@ -1,5 +1,6 @@
 package application.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,7 +45,22 @@ public class Make extends Væske {
             this.startmængde += liter;
         }
         this.væskeDoubleHashMap = new HashMap<>(væskeDoubleHashMap);
-        this.startmængde = startmængde;
+        this.nuværendeMængde = startmængde;
+    }
+
+    //Til test
+    public Make(Fad fad, HashMap<Væske, Double> væskeDoubleHashMap, LocalDate datoOprettet) {
+        antalMakes++;
+        this.makeNummer = antalMakes;
+
+        //Laver associeringsklassen til at holde styr på datoer
+        this.tidsperioder.add(fad.addMake(this, datoOprettet));
+
+        //Udregner totalmængde
+        for (Double liter : væskeDoubleHashMap.values()) {
+            this.startmængde += liter;
+        }
+        this.væskeDoubleHashMap = new HashMap<>(væskeDoubleHashMap);
         this.nuværendeMængde = startmængde;
     }
 
@@ -63,6 +79,27 @@ public class Make extends Væske {
                 "\n\t" + tidsperioder.get(lastIndex()).getPåfyldningsdato() +
                 "\n\tstartmængde: " + startmængde +
                 "\n\tResterende væske: " + nuværendeMængde;
+    }
 
+    public String toStringWithoutFad() {
+        return "Nr. " + makeNummer +
+                "\n\t" + tidsperioder.get(lastIndex()).getPåfyldningsdato() +
+                "\n\tstartmængde: " + startmængde +
+                "\n\tResterende væske: " + nuværendeMængde;
+    }
+
+    @Override
+    public void brugVæske(Double bruges) {
+        if (bruges > this.nuværendeMængde) {
+            throw new IllegalArgumentException("Ikke nok resterende make.");
+        }
+        this.nuværendeMængde -= bruges;
+        if (this.nuværendeMængde == 0){
+            this.tidsperioder.get(lastIndex()).setTømningsDato();
+        }
+    }
+
+    public int getMakeNummer() {
+        return makeNummer;
     }
 }

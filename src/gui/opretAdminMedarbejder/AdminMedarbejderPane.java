@@ -8,7 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import storage.Storage;
 
-public class AdminMedarbejderPane extends MotherPane {
+public class AdminMedarbejderPane extends MotherPaneWithImageBackground {
     private final MotherTab owner;
     private ListView<Medarbejder> medarbejderListView = new ListView();
     private TextField navnOpretTextfield = new TextField();
@@ -19,25 +19,28 @@ public class AdminMedarbejderPane extends MotherPane {
     private TextField signaturRedigerTextfield = new TextField();
 
     public AdminMedarbejderPane(String title, MotherTab motherTab) {
+        super("/gui/images/mark.jpg");
         this.owner = motherTab;
 
+        CentralPane centralPane = new CentralPane();
+
         // Se og slet medarbejdere
-        this.add(new InfoLabel("Medarbejder liste:"), 0, 0);
-        this.add(medarbejderListView, 0, 1);
+        centralPane.add(new InfoLabel("Medarbejder liste:"), 0, 0);
+        centralPane.add(medarbejderListView, 0, 1);
         medarbejderListView.getItems().setAll(Storage.getMedarbejdere());
         Button sletButton = new MotherButton("Slet medarbejder");
         sletButton.setOnAction(e -> sletMedarbejder());
-        this.add(sletButton, 0, 2);
+        centralPane.add(sletButton, 0, 2);
 
         // Rediger medarbejder
-        this.add(new InfoLabel("Valgt medarbejder:"), 1, 0);
+        centralPane.add(new InfoLabel("Valgt medarbejder:"), 1, 0,2,1);
         VBox redigerVboxLabels = new VBox();
         redigerVboxLabels.getChildren().addAll(
                 new InfoLabel("Navn:"),
                 new InfoLabel("Cpr:"),
                 new InfoLabel("Signatur:"));
         redigerVboxLabels.setSpacing(30);
-        this.add(redigerVboxLabels, 1, 1);
+        centralPane.add(redigerVboxLabels, 1, 1);
 
         VBox redigerVboxTextfields = new VBox();
         redigerVboxTextfields.getChildren().addAll(
@@ -45,11 +48,11 @@ public class AdminMedarbejderPane extends MotherPane {
                 cprRedigerTextfield,
                 signaturRedigerTextfield);
         redigerVboxTextfields.setSpacing(30);
-        this.add(redigerVboxTextfields, 2, 1);
+        centralPane.add(redigerVboxTextfields, 2, 1);
 
         Button redigerButton = new MotherButton("Rediger medarbejder");
         redigerButton.setOnAction(e -> redigerMedarbejder());
-        this.add(redigerButton, 1, 2);
+        centralPane.add(redigerButton, 1, 2);
 
         // Indsætter værdier fra valgte medarbejder til textfields i rediger medarbejder
         medarbejderListView.getSelectionModel()
@@ -66,7 +69,7 @@ public class AdminMedarbejderPane extends MotherPane {
 
 
         // Opret medarbejder
-        this.add(new InfoLabel("Opret medarbejder:"), 3, 0);
+        centralPane.add(new InfoLabel("Opret medarbejder:"), 3, 0,2,1);
 
         VBox opretVboxLabels = new VBox();
         opretVboxLabels.getChildren().addAll(
@@ -74,7 +77,7 @@ public class AdminMedarbejderPane extends MotherPane {
                 new InfoLabel("Cpr:"),
                 new InfoLabel("Signatur:"));
         opretVboxLabels.setSpacing(30);
-        this.add(opretVboxLabels, 3, 1);
+        centralPane.add(opretVboxLabels, 3, 1);
 
         VBox opretVboxTextfields = new VBox();
         opretVboxTextfields.getChildren().addAll(
@@ -82,17 +85,18 @@ public class AdminMedarbejderPane extends MotherPane {
                 cprOpretTextfield,
                 signaturOpretTexfield);
         opretVboxTextfields.setSpacing(30);
-        this.add(opretVboxTextfields, 4, 1);
+        centralPane.add(opretVboxTextfields, 4, 1);
 
         Button opretButton = new MotherButton("Opret medarbejder");
         opretButton.setOnAction(e -> opretMedarbejder());
-        this.add(opretButton, 3, 2);
+        centralPane.add(opretButton, 3, 2);
 
         // Knap for at komme tilbage til start
         Button tilForside = new MotherButton("Til forsiden");
         tilForside.setOnAction(e -> this.owner.drawDefault());
-        this.add(tilForside, 4, 2);
+        centralPane.add(tilForside, 4, 2);
 
+        this.add(centralPane,0,0);
     }
 
     // Metode til "opret medarbejder" knappen. Opretter en medarbejder

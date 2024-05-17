@@ -9,5 +9,5 @@ public class CommonClass {
         this.navn = navn;
         this.region = region;
         this.land = land;
-    }
+    } //TODO Den bruges ikke engang ?!??!?!
 }

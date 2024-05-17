@@ -85,4 +85,9 @@ public class Destillat extends Væske {
         toString += "\n\tResterende væske: " + nuværendeMængde;
         return toString;
     }
+
+    @Override
+    public void brugVæske(Double bruges) {
+            this.nuværendeMængde -= bruges;
+    }
 }

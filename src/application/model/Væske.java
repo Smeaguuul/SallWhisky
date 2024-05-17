@@ -13,7 +13,5 @@ public abstract class Væske {
         return nuværendeMængde;
     }
 
-    public void brugVæske(Double bruges) {
-        this.nuværendeMængde -= bruges;
-    }
+    public abstract void brugVæske(Double bruges);
 }

@@ -13,7 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import storage.Storage;
 
-public class OpretForhandlerPane extends MotherPane {
+public class OpretForhandlerPane extends MotherPaneWithImageBackground {
     private final TextField navnTextField;
     private final TextField regionTextField;
     private final TextField landTextField;
@@ -21,34 +21,38 @@ public class OpretForhandlerPane extends MotherPane {
     ListView<Forhandler> forhandlerListview;
 
     public OpretForhandlerPane(String title, OpretRedigerTab owner) {
+        super("/gui/images/mark.jpg");
         this.owner = owner;
 
-        MotherLabel instructionLabel = new MotherLabel("Udfyld venligst nedenstående for at oprette en ny forhandler: ");
-        this.add(instructionLabel, 0, 0, 2, 1);
+        CentralPane centralPane = new CentralPane();
+
+        //Overskrift
+        MotherLabel instructionLabel = new MotherLabel("Udfyld nedenstående for at oprette en forhandler: ");
+        centralPane.add(instructionLabel, 0, 0, 2, 1);
 
         // Listview med forhandlere
         forhandlerListview = new ListView<>();
-        this.add(new MotherLabel("Forhandlere:"), 2, 0);
-        this.add(forhandlerListview, 2, 1, 1, 4);
+        centralPane.add(new MotherLabel("Forhandlere:"), 2, 0);
+        centralPane.add(forhandlerListview, 2, 1, 1, 4);
         forhandlerListview.getItems().setAll(Storage.getForhandlere());
 
         //Indtaster navn
         InfoLabel navnLabel = new InfoLabel("Navn på forhandler:");
         navnTextField = new TextField();
-        this.add(navnLabel, 0, 1);
-        this.add(navnTextField, 1, 1);
+        centralPane.add(navnLabel, 0, 1);
+        centralPane.add(navnTextField, 1, 1);
 
         //Indtaster region
         InfoLabel regionLabel = new InfoLabel("Forhandlerens region:");
         regionTextField = new TextField();
-        this.add(regionLabel, 0, 2);
-        this.add(regionTextField, 1, 2);
+        centralPane.add(regionLabel, 0, 2);
+        centralPane.add(regionTextField, 1, 2);
 
         //Indtaster land
         InfoLabel landLabel = new InfoLabel("Forhandlerens land:");
         landTextField = new TextField();
-        this.add(landLabel, 0, 3);
-        this.add(landTextField, 1, 3);
+        centralPane.add(landLabel, 0, 3);
+        centralPane.add(landTextField, 1, 3);
 
          /*
         Opretter knapper og en HBox til at holde på dem.
@@ -58,7 +62,7 @@ public class OpretForhandlerPane extends MotherPane {
         buttonBox.setSpacing(20);
         buttonBox.setAlignment(Pos.BASELINE_RIGHT);
         MotherButton afbrydButton = new MotherButton("Afbryd");
-        BekræftForhandlerButton bekræftButton = new BekræftForhandlerButton("Bekræft");
+        BekræftForhandlerButton bekræftButton = new BekræftForhandlerButton("Bekræft"); //TODO Hvorfor en hel ny klasse her?
 
         //Afbryd lukker blot vinduet
         afbrydButton.setOnAction(event -> {
@@ -70,7 +74,9 @@ public class OpretForhandlerPane extends MotherPane {
 
         //Tilføjer knapperne til pane
         buttonBox.getChildren().addAll(afbrydButton, bekræftButton);
-        this.add(buttonBox, 1, 4);
+        centralPane.add(buttonBox, 1, 4);
+
+        this.add(centralPane,0,0);
     }
 
     private void opretForhandler() {

@@ -1,5 +1,6 @@
 package application.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -53,13 +54,25 @@ public class Fad {
         return tidsperiode;
     }
 
+    //til test
+    public Tidsperiode addMake(Make make, LocalDate påfyldningsDato) {
+        Tidsperiode tidsperiode = new Tidsperiode(this, make, påfyldningsDato);
+        this.tidsperioder.add(tidsperiode);
+        return tidsperiode;
+    }
+
     public Make getMake() throws Exception {
+        if (this.tidsperioder.get(lastIndex()).getTømningsDato() != null){
+            if (this.tidsperioder.get(lastIndex()).getTømningsDato().isBefore(LocalDate.now())) {
+                throw new NoSuchElementException("Intet nuværende make.");
+            }
+        }
         return this.tidsperioder.get(lastIndex()).getMake();
     }
 
     public int lastIndex() {
-        int lastIndex = tidsperioder.size()-1;
-        if (lastIndex < 0 ){
+        int lastIndex = tidsperioder.size() - 1;
+        if (lastIndex < 0) {
             lastIndex = 0;
         }
         return lastIndex;
@@ -67,20 +80,32 @@ public class Fad {
 
     @Override
     public String toString() {
-        return "Nr: " + fadNr +
+        return "Nr: " + fadNr + //TODO lav den mindre, og mere overskuellig. Ikke nødvendig med alt det her info, når vi har en extended info metode
                 ", " + træsort +
                 ", " + tidligereIndhold +
                 ", " + literStørrelse +
                 " L, " + forhandler;
     }
-    public String allFadInfo(){
-        return
-                "Nr: " + fadNr +
-                "\n Liter: " + literStørrelse +
-                "\n Træsort: " + træsort +
-                "\n Tidligere indhold: " + tidligereIndhold +
-                "\n Forhandler: " + forhandler +
-                //"\n Nuværende make " + this.tidsperioder.get(lastIndex()).getMake() + //TODO lav check om det har et nuværende make
-                "\n Bemærkning: " + bemærkning;
+
+    public String allFadInfo() {
+        StringBuilder stBuilder = new StringBuilder();
+        stBuilder.append("Nr: " + fadNr);
+        stBuilder.append("\n Liter: " + literStørrelse);
+        stBuilder.append("\n Træsort: " + træsort);
+        stBuilder.append("\n Tidligere indhold: " + tidligereIndhold);
+        stBuilder.append("\n Forhandler: " + forhandler);
+        if (this.tidsperioder.size() != 0) {
+            stBuilder.append("\n Nuværende make " + this.tidsperioder.get(lastIndex()).getMake().toStringWithoutFad());
+        }
+        stBuilder.append("\n Bemærkning: " + bemærkning);
+        return stBuilder.toString();
+    }
+
+    public boolean erKlar() {
+        boolean erKlar = false;
+        if (this.tidsperioder.size() > 0) {
+            erKlar = this.tidsperioder.get(lastIndex()).erKlar();
+        }
+        return erKlar;
     }
 }

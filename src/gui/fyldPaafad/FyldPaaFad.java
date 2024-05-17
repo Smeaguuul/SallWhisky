@@ -5,10 +5,7 @@ import application.model.Destillat;
 import application.model.Fad;
 import application.model.Make;
 import application.model.Væske;
-import gui.motherClasses.InfoLabel;
-import gui.motherClasses.MotherButton;
-import gui.motherClasses.MotherPane;
-import gui.motherClasses.MotherTab;
+import gui.motherClasses.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.*;
@@ -20,7 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class FyldPaaFad extends MotherPane {
+public class FyldPaaFad extends MotherPaneWithImageBackground {
     private final MotherTab owner;
     private ListView<Væske> destillatListview = new ListView<>();
     private ListView<Væske> makeListview = new ListView<>();
@@ -35,18 +32,22 @@ public class FyldPaaFad extends MotherPane {
     private Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
     public FyldPaaFad(String title, MotherTab owner) {
+        super("/gui/images/mark.jpg");
         this.owner = owner;
+
+        //Laver et central pane
+        CentralPane centralPane = new CentralPane();
 
         // Opdeler de to væsketyper "destillat og make" i to arraylister
         vaerdierTilVaeskeListviews();
 
         // Tilføjer labels med tilhørende listview
-        this.add(new InfoLabel("Destillater:"), 0, 0);
-        this.add(new InfoLabel("Makes:"), 1, 0);
-        this.add(new InfoLabel("Fade:"), 2, 0);
-        this.add(destillatListview, 0, 1);
-        this.add(makeListview, 1, 1);
-        this.add(fadListView, 2, 1);
+        centralPane.add(new InfoLabel("Destillater:"), 0, 0);
+        centralPane.add(new InfoLabel("Makes:"), 1, 0);
+        centralPane.add(new InfoLabel("Fade:"), 2, 0);
+        centralPane.add(destillatListview, 0, 1);
+        centralPane.add(makeListview, 1, 1);
+        centralPane.add(fadListView, 2, 1);
 
         // Listeners til listview, som sender info om valgte objekter til info feltene
         destillatListview.getSelectionModel()
@@ -82,7 +83,7 @@ public class FyldPaaFad extends MotherPane {
         );
         fadInfoTextArea.editableProperty().setValue(false);
         væskeInfoTextArea.editableProperty().setValue(false);
-        this.add(fadOgVæskeInfoHbox, 3, 0, 1, 2);
+        centralPane.add(fadOgVæskeInfoHbox, 3, 0, 1, 2);
 
         // Sørger for at man kun kan inputte tal i liter texfieldet
         literTextfield.textProperty().addListener(new ChangeListener<String>() {
@@ -105,7 +106,7 @@ public class FyldPaaFad extends MotherPane {
                 literTextfield,
                 tilføjVæskeButton
         );
-        this.add(tilføjVæskeHbox, 3, 2);
+        centralPane.add(tilføjVæskeHbox, 3, 2);
 
         // Knapper til oprettelse og afbryd
         Button afbrydButton = new MotherButton("Afbryd");
@@ -115,14 +116,17 @@ public class FyldPaaFad extends MotherPane {
         HBox afbrydOpretHbox = new HBox();
         afbrydOpretHbox.setSpacing(20);
         afbrydOpretHbox.getChildren().addAll(afbrydButton, opretButton);
-        this.add(afbrydOpretHbox, 3, 3);
+        centralPane.add(afbrydOpretHbox, 3, 3);
 
         // Liste med væsker der er i det kommende batch, samt knap til fjernelse af væske
         Button fjernVaeskeButton = new MotherButton("Fjern");
         fjernVaeskeButton.setOnAction(e -> fjernVaeske());
-        this.add(new InfoLabel("Væsker i kommende make: "), 4, 0);
-        this.add(indholdListview, 4, 1);
-        this.add(fjernVaeskeButton, 4, 2);
+        centralPane.add(new InfoLabel("Væsker i kommende make: "), 4, 0);
+        centralPane.add(indholdListview, 4, 1);
+        centralPane.add(fjernVaeskeButton, 4, 2);
+
+        //Tilføjer centralpane til hovedpane
+        this.add(centralPane,0,0);
     }
 
     private void vaerdierTilVaeskeListviews() {
