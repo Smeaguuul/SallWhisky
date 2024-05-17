@@ -14,6 +14,8 @@ public class Fad {
     private ArrayList<Tidsperiode> tidsperioder = new ArrayList<Tidsperiode>();
     private static int antalFade = 0;
     private int fadNr = 0;
+    private int[] lagerLokation;
+    private Lager lager;
 
     public Fad(Træsort træSort, String bemærkning, TidligereIndhold tidligereIndhold, int literStørrelse, Forhandler forhandler) {
         antalFade++;
@@ -118,5 +120,18 @@ public class Fad {
             return false;
         }
         return false;
+    }
+
+    public void setLagerlokation(Lager lager, int reolNummer, int højdeNummer, int placeringsnummer) {
+        this.lager = lager;
+        this.lagerLokation = new int[3];
+        this.lagerLokation[0] = reolNummer;
+        this.lagerLokation[1] = højdeNummer;
+        this.lagerLokation[2] = placeringsnummer;
+    }
+
+    public void fjernLagerLokation() {
+        this.lager = null;
+        this.lagerLokation = new int[3];
     }
 }
