@@ -108,4 +108,15 @@ public class Fad {
         }
         return erKlar;
     }
+
+    public boolean hasMake() {
+        try {
+            if (this.getMake() != null) {
+                return true;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return false;
+    }
 }
