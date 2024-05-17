@@ -39,7 +39,6 @@ public class App {
 
         //Laver en tapningsVæske
         Destillat destillat = Controller.opretDestillat(LocalDate.now().minusYears(4), LocalDate.now().minusYears(4).plusDays(3), 50, 60, RygningsType.TØRVRØGET, "", Storage.getMaltBatches().get(0), Storage.getMedarbejdere().get(0));
-        Storage.addvæske(destillat);
         Fad fad = Controller.opretFad(Træsort.QUERCUSPATREA, Storage.getForhandlere().get(0), TidligereIndhold.SHERRY, 250, "");
         HashMap<Væske, Double> hashMap2 = new HashMap<>();
         hashMap2.put(destillat, 50.00);
@@ -53,7 +52,6 @@ public class App {
 
         //Laver endnu tapningsVæske
         Destillat destillat2 = Controller.opretDestillat(LocalDate.now().minusYears(4), LocalDate.now().minusYears(4).plusDays(10), 35, 70, RygningsType.IKKERØGET, "En meget god blanding.", Storage.getMaltBatches().get(0), Storage.getMedarbejdere().get(0));
-        Storage.addvæske(destillat);
         Fad fad2 = Controller.opretFad(Træsort.QUERCUSALBA, Storage.getForhandlere().get(0), TidligereIndhold.BOURBON, 250, "");
         HashMap<Væske, Double> hashMap3 = new HashMap<>();
         hashMap3.put(destillat2, 35.00);
