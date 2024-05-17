@@ -74,20 +74,15 @@ public class Make extends Væske {
 
     @Override
     public String toString() {
-        return "Nr. " + makeNummer +
-                "\n\t" + tidsperioder.get(lastIndex()).getFad() + //TODO lav check om det er på et fad
-                "\n\t" + tidsperioder.get(lastIndex()).getPåfyldningsdato() +
-                "\n\tstartmængde: " + startmængde +
-                "\n\tResterende væske: " + nuværendeMængde;
-    }
 
-    public String toStringWithoutFad() {
-        return "Nr. " + makeNummer +
-                "\n\t" + tidsperioder.get(lastIndex()).getPåfyldningsdato() +
-                "\n\tstartmængde: " + startmængde +
-                "\n\tResterende væske: " + nuværendeMængde;
+        StringBuilder st = new StringBuilder();
+        st.append("Nr. " + makeNummer);
+        st.append("\n\t" + tidsperioder.get(lastIndex()).getFad());
+        st.append("\n\t" + tidsperioder.get(lastIndex()).getPåfyldningsdato());
+        st.append("\n\tstartmængde: " + startmængde);
+        st.append("\n\tResterende væske: " + nuværendeMængde);
+        return st.toString();
     }
-
     @Override
     public void brugVæske(Double bruges) {
         if (bruges > this.nuværendeMængde) {
