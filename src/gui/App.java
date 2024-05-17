@@ -64,6 +64,7 @@ public class App {
         }
 
         //Laver et lager
-
+        Adresse adresse = new Adresse("45","Gadehej","8700","DK");
+        Storage.addLager(new Lager("Lars' hal",adresse,10,3,20));
     }
 }
