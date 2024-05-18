@@ -43,15 +43,7 @@ public class CheckMedarbejderWindow extends MotherPane {
 
         // Text Field
         textField.setMaxWidth(50);
-        textField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    textField.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
+        Controller.textFieldFilter(textField);
         hBox.getChildren().add(textField);
 
         // Check Button

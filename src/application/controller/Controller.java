@@ -1,6 +1,9 @@
 package application.controller;
 
 import application.model.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.TextField;
 import storage.Storage;
 
 import javax.security.auth.login.LoginException;
@@ -254,5 +257,17 @@ public class Controller {
         Storage.addLager(lager);
 
         return lager;
+    }
+
+    public static void textFieldFilter(TextField text) {
+        text.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    text.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
     }
 }
