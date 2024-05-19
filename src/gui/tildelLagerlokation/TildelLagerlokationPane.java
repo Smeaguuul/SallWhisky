@@ -53,13 +53,17 @@ public class TildelLagerlokationPane extends MotherPaneWithImageBackground {
 
         //Laver et listener så textareaet automatisk opdateres
         fadUdenLokationListView.getSelectionModel().selectedIndexProperty().addListener(observable -> {
-            fadInfoTextArea.setText(fadUdenLokationListView.getSelectionModel().getSelectedItem().allFadInfo());
-            fadMedLokationListView.getSelectionModel().select(null);
+            if (fadUdenLokationListView.getSelectionModel().getSelectedItem() != null) {
+                fadInfoTextArea.setText(fadUdenLokationListView.getSelectionModel().getSelectedItem().allFadInfo());
+                fadMedLokationListView.getSelectionModel().select(null);
+            }
         });
 
         fadMedLokationListView.getSelectionModel().selectedIndexProperty().addListener(observable -> {
-            fadInfoTextArea.setText(fadMedLokationListView.getSelectionModel().getSelectedItem().allFadInfo());
-            fadUdenLokationListView.getSelectionModel().select(null);
+            if (fadMedLokationListView.getSelectionModel().getSelectedItem() != null){
+                fadInfoTextArea.setText(fadMedLokationListView.getSelectionModel().getSelectedItem().allFadInfo());
+                fadUdenLokationListView.getSelectionModel().select(null);
+            }
         });
 
         //Laver et listview til Lagrer
