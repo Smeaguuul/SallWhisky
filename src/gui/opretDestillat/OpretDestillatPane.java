@@ -53,28 +53,14 @@ public class OpretDestillatPane extends MotherPaneWithImageBackground {
         InfoLabel literVæskeLabel = new InfoLabel("Liter væske produceret:");
         TextField størrelseTextField = new TextField();
         størrelseTextField.setEditable(true);
-        størrelseTextField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, //TODO skal måske også bruges i opretFad og opretDestillat vinduerne, i stedet for bare at håndtere de fejl der nu engang kommer
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    størrelseTextField.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
+        Controller.textFieldFilter(størrelseTextField);
+
         //Vælger alkoholprocent
         InfoLabel alkoholProcentLabel = new InfoLabel("Endelige alkoholprocent:");
         TextField alkoholProcentTextField = new TextField();
         alkoholProcentTextField.setEditable(true);
-        alkoholProcentTextField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    alkoholProcentTextField.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
+        Controller.textFieldFilter(alkoholProcentTextField);
+
         //Vælger rygningstype
         InfoLabel rygningstypeLabel = new InfoLabel("Rygningstype:");
         MotherComboBox rygningstypeComboBox = new MotherComboBox();

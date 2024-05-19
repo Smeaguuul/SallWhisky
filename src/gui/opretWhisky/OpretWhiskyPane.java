@@ -87,16 +87,7 @@ public class OpretWhiskyPane extends MotherPaneWithImageBackground {
 
         //Laver et textfelt til input fortynding
         literVandTilFortyndingTextField = new TextField();
-        literVandTilFortyndingTextField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    literVandTilFortyndingTextField.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-                opdaterEstimeretAlkoholProcent();
-            }
-        });
+        Controller.textFieldFilter(literVandTilFortyndingTextField);
         InfoLabel literVandTilFortyndingLabel = new InfoLabel("Liter vand at fortynde med:"); //TODO bruge textfield som kun tagerimod tal
 
         //Laver et textarea til en evt. kommentar

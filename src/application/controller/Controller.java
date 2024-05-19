@@ -1,6 +1,9 @@
 package application.controller;
 
 import application.model.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.TextField;
 import storage.Storage;
 
 import javax.security.auth.login.LoginException;
@@ -172,8 +175,7 @@ public class Controller {
                 if (fad.hasMake() && fad.getMake().getNuværendeMængde() > 0) {
                     modneFade.add(fad);
                 }
-            } catch (Exception e) {
-            }
+            } catch (Exception e) {}
         }
 
         return modneFade; //TODO Eventuelt smid en error så vi i GUI kan sige at der ikker er nogle klar
@@ -250,7 +252,7 @@ public class Controller {
     }
 
     public static Lager opretLager(String navn, Adresse adresse, int reolAntal, int højde, int placeringerPrHylde) {
-        Lager lager = new Lager(navn, adresse, reolAntal, højde, placeringerPrHylde);
+        Lager lager = new Lager(navn, adresse, reolAntal, højde,placeringerPrHylde);
 
         Storage.addLager(lager);
 
