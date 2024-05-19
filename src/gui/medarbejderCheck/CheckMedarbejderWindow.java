@@ -43,7 +43,6 @@ public class CheckMedarbejderWindow extends MotherPane {
 
         // Text Field
         textField.setMaxWidth(50);
-        Controller.textFieldFilter(textField);
         hBox.getChildren().add(textField);
 
         // Check Button

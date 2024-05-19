@@ -37,7 +37,6 @@ public class AdminLoginPane extends MotherPaneWithImageBackground {
 
         // Text Field
         nummerTextField.setMaxWidth(50);
-        Controller.textFieldFilter(nummerTextField);
         nummerHBox.getChildren().add(nummerTextField);
 
         //HBox til kode checkning

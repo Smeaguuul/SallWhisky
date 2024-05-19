@@ -53,13 +53,11 @@ public class OpretDestillatPane extends MotherPaneWithImageBackground {
         InfoLabel literVæskeLabel = new InfoLabel("Liter væske produceret:");
         TextField størrelseTextField = new TextField();
         størrelseTextField.setEditable(true);
-        Controller.textFieldFilter(størrelseTextField);
 
         //Vælger alkoholprocent
         InfoLabel alkoholProcentLabel = new InfoLabel("Endelige alkoholprocent:");
         TextField alkoholProcentTextField = new TextField();
         alkoholProcentTextField.setEditable(true);
-        Controller.textFieldFilter(alkoholProcentTextField);
 
         //Vælger rygningstype
         InfoLabel rygningstypeLabel = new InfoLabel("Rygningstype:");

@@ -84,7 +84,7 @@ public class TildelLagerlokationPane extends MotherPaneWithImageBackground {
 
         //Laver et listener så textareaet automatisk opdateres
         lagrerListview.getSelectionModel().selectedIndexProperty().addListener(observable -> {
-            lagerInfoTextArea.setText(lagrerListview.getSelectionModel().getSelectedItem().toString());
+            lagerInfoTextArea.setText(lagrerListview.getSelectionModel().getSelectedItem().lagerInformation());
         });
 
         //Laver et label og textfield til ReolNr.

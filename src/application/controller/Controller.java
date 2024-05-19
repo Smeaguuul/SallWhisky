@@ -282,6 +282,7 @@ public class Controller {
     }
 
     public static void setLagerLokation(Fad fad, Lager lager, int reolNummer, int højdeNummer, int placeringsnummer) {
+        //TODO lav et check om det faktisk er inde for begrænsingerne og sørg for at den tilsvarende lokation i lageret bliver registreret som brugt
         fad.setLagerlokation(lager, reolNummer, højdeNummer, placeringsnummer);
     }
 }

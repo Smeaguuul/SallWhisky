@@ -84,7 +84,6 @@ public class FyldPaaFad extends MotherPaneWithImageBackground {
         fadInfoTextArea.editableProperty().setValue(false);
         væskeInfoTextArea.editableProperty().setValue(false);
         centralPane.add(fadOgVæskeInfoHbox, 3, 0, 1, 2);
-        Controller.textFieldFilter(literTextfield);
 
         // Label, textfield og knap til tilføjelse af væske med valgte litermængde
         Button tilføjVæskeButton = new MotherButton("Tilføj");

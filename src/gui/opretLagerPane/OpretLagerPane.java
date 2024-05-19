@@ -81,12 +81,6 @@ public class OpretLagerPane extends MotherPane {
         buttonHbox.setSpacing(10);
         buttonHbox.getChildren().addAll(annullerButton,opretButton);
         this.add(buttonHbox,1,6);
-
-        // Sørger for at visse texfields kun kan have tal som input
-        Controller.textFieldFilter(hyldePrReolTextfield);
-        Controller.textFieldFilter(pladserPrHylde);
-        Controller.textFieldFilter(antalReolerTextfield);
-        Controller.textFieldFilter(postnrTextfield);
     }
 
     // Tager værdierne fra texfields og opretter en lager med en adresse

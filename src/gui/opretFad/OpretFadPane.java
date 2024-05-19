@@ -67,7 +67,6 @@ public class OpretFadPane extends MotherPaneWithImageBackground {
         størrelseTextField.setEditable(true);
         centralPane.add(størrelseLabel,0,4);
         centralPane.add(størrelseTextField,1,4);
-        Controller.textFieldFilter(størrelseTextField);
         //Evt skrive kommentar
         InfoLabel kommentarLabel = new InfoLabel("Kommentar: ");
         kommentarTextArea = new TextArea();

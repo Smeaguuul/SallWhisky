@@ -87,7 +87,6 @@ public class OpretWhiskyPane extends MotherPaneWithImageBackground {
 
         //Laver et textfelt til input fortynding
         literVandTilFortyndingTextField = new TextField();
-        Controller.textFieldFilter(literVandTilFortyndingTextField);
         InfoLabel literVandTilFortyndingLabel = new InfoLabel("Liter vand at fortynde med:"); //TODO bruge textfield som kun tagerimod tal
 
         //Laver et textarea til en evt. kommentar
