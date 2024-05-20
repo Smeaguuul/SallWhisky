@@ -2,7 +2,6 @@ package application.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 public class Fad {
@@ -24,6 +23,10 @@ public class Fad {
         this.tidligereIndhold = tidligereIndhold;
         this.literStørrelse = literStørrelse;
         this.forhandler = forhandler;
+    }
+
+    public int getFadNr() {
+        return fadNr;
     }
 
     public void setBemærkning(String bemærkning) {
@@ -85,8 +88,7 @@ public class Fad {
         return "Nr: " + fadNr + //TODO lav den mindre, og mere overskuellig. Ikke nødvendig med alt det her info, når vi har en extended info metode
                 ", " + træsort +
                 ", " + tidligereIndhold +
-                ", " + literStørrelse +
-                " L, " + forhandler;
+                ", " + literStørrelse + " L";
     }
 
     public String allFadInfo() {
@@ -98,6 +100,10 @@ public class Fad {
         stBuilder.append("\n Forhandler: " + forhandler);
         if (this.tidsperioder.size() != 0) {
             stBuilder.append("\n Nuværende make " + this.tidsperioder.get(lastIndex()).getMake().toStringWithoutFad());
+        }
+        if (this.lager != null) {
+            stBuilder.append("\n Lager: " + lager);
+            stBuilder.append("\n\t Lagerlokation: Reolnr: " + this.lagerLokation[0] + ", hyldeNr: " + this.lagerLokation[1] + ", Hylde placering: " + this.lagerLokation[2] + ".");
         }
         stBuilder.append("\n Bemærkning: " + bemærkning);
         return stBuilder.toString();
@@ -141,5 +147,13 @@ public class Fad {
             harLagerlokation = true;
         }
         return harLagerlokation;
+    }
+
+    public Lager getLager() {
+        return lager;
+    }
+
+    public LocalDate getPåfyldningsDato() throws Exception {
+        return getMake().getPåfyldningsDato();
     }
 }

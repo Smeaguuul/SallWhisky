@@ -10,4 +10,9 @@ public class Malteri {
         this.beskrivelse = beskrivelse;
         this.adresse = adresse;
     }
+
+    @Override
+    public String toString() {
+        return "Malteri " + navn + ", " + beskrivelse;
+    }
 }

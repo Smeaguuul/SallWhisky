@@ -1,9 +1,6 @@
 package application.controller;
 
 import application.model.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.control.TextField;
 import storage.Storage;
 
 import javax.security.auth.login.LoginException;
@@ -172,7 +169,7 @@ public class Controller {
 
         for (Fad fad : fade) {
             try {
-                if (fad.hasMake() && fad.getMake().getNuværendeMængde() > 0) {
+                if (fad.hasMake() && fad.getMake().getNuværendeMængde() > 0) { //TODO Sorter fadene
                     modneFade.add(fad);
                 }
             } catch (Exception e) {}
@@ -231,6 +228,8 @@ public class Controller {
 
         Whisky whisky = new Whisky(fortyndingsFaktor, kommentar, new ArrayList<>(tapningsVæsker));
 
+        Storage.addWhisky(whisky);
+
         return whisky;
     }
 
@@ -283,6 +282,11 @@ public class Controller {
 
     public static void setLagerLokation(Fad fad, Lager lager, int reolNummer, int højdeNummer, int placeringsnummer) {
         //TODO lav et check om det faktisk er inde for begrænsingerne og sørg for at den tilsvarende lokation i lageret bliver registreret som brugt
+        //TODO konverter mellem 0-9 til 1-10 f.eks. Vi tæller fra 1 i GUI i ikke 0, så index passer ikke.
         fad.setLagerlokation(lager, reolNummer, højdeNummer, placeringsnummer);
+    }
+
+    public static ArrayList<Whisky> getWhisky() {
+        return Storage.getWhiskyer();
     }
 }
