@@ -26,7 +26,7 @@ public class App {
         Storage.addMaltbatch(new MaltBatch(Kornsort.IRINA, 2, LocalDate.of(2024, 04, 17), Storage.getMalterier().get(0), Storage.getMarker().get(0)));
 
         Storage.addFad(new Fad(Træsort.QUERCUSALBA, "", TidligereIndhold.SHERRY, 200, Storage.getForhandlere().get(0)));
-        Storage.addFad(new Fad(Træsort.QUERCUSPATREA, "", TidligereIndhold.SHERRY, 250, Storage.getForhandlere().get(0)));
+        Storage.addFad(new Fad(Træsort.QUERCUSPATREA, "", TidligereIndhold.SHERRY, 240, Storage.getForhandlere().get(0)));
 
         //Laver et make, som har lagt på lager i 4 år
         Storage.addvæske(new Destillat(LocalDate.now().minusYears(4), LocalDate.now().minusYears(4).plusDays(3), 50, 45, RygningsType.TØRVRØGET, "", Storage.getMedarbejdere().get(0), Storage.getMaltBatches().get(0)));
@@ -39,7 +39,7 @@ public class App {
 
         //Laver en tapningsVæske
         Destillat destillat = Controller.opretDestillat(LocalDate.now().minusYears(4), LocalDate.now().minusYears(4).plusDays(3), 50, 60, RygningsType.TØRVRØGET, "", Storage.getMaltBatches().get(0), Storage.getMedarbejdere().get(0));
-        Fad fad = Controller.opretFad(Træsort.QUERCUSPATREA, Storage.getForhandlere().get(0), TidligereIndhold.SHERRY, 250, "");
+        Fad fad = Controller.opretFad(Træsort.QUERCUSPATREA, Storage.getForhandlere().get(0), TidligereIndhold.SHERRY, 255, "");
         HashMap<Væske, Double> hashMap2 = new HashMap<>();
         hashMap2.put(destillat, 50.00);
         Make make = new Make(fad, hashMap2, LocalDate.now().minusYears(4).plusDays(3));
@@ -52,7 +52,7 @@ public class App {
 
         //Laver endnu tapningsVæske
         Destillat destillat2 = Controller.opretDestillat(LocalDate.now().minusYears(4), LocalDate.now().minusYears(4).plusDays(10), 35, 70, RygningsType.IKKERØGET, "En meget god blanding.", Storage.getMaltBatches().get(0), Storage.getMedarbejdere().get(0));
-        Fad fad2 = Controller.opretFad(Træsort.QUERCUSALBA, Storage.getForhandlere().get(0), TidligereIndhold.BOURBON, 250, "");
+        Fad fad2 = Controller.opretFad(Træsort.QUERCUSALBA, Storage.getForhandlere().get(0), TidligereIndhold.BOURBON, 260, "");
         HashMap<Væske, Double> hashMap3 = new HashMap<>();
         hashMap3.put(destillat2, 35.00);
         Make make2 = new Make(fad2, hashMap3, LocalDate.now().minusYears(4).plusDays(10));
