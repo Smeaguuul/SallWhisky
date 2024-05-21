@@ -122,6 +122,10 @@ public class Make extends Væske {
         }
     }
 
+    public HashMap<Væske, Double> getVæskeOgLiter() {
+        return new HashMap<>(væskeDoubleHashMap);
+    }
+
     public int getMakeNummer() {
         return makeNummer;
     }

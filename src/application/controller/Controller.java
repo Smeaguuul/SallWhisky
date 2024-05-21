@@ -123,6 +123,12 @@ public class Controller {
 
 
     public static Make opretMake(Fad fad, HashMap<Væske, Double> væskerOgLiter) {
+        //Checker om der faktisk er medgivet >0 væsker
+        if (væskerOgLiter.size() == 0) {
+            throw new IllegalArgumentException("Du skal medgive mindst en væske");
+        }
+
+
         //Tilføjer fadets make til listen, hvis det har et
         try { //TODO ryd op her
             Make fadMake = fad.getMake();
@@ -283,7 +289,11 @@ public class Controller {
     public static void setLagerLokation(Fad fad, Lager lager, int reolNummer, int højdeNummer, int placeringsnummer) {
         //TODO lav et check om det faktisk er inde for begrænsingerne og sørg for at den tilsvarende lokation i lageret bliver registreret som brugt
         //TODO konverter mellem 0-9 til 1-10 f.eks. Vi tæller fra 1 i GUI i ikke 0, så index passer ikke.
-        fad.setLagerlokation(lager, reolNummer, højdeNummer, placeringsnummer);
+        try {
+            fad.setLagerlokation(lager, reolNummer, højdeNummer, placeringsnummer);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static ArrayList<Whisky> getWhisky() {
