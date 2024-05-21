@@ -14,7 +14,7 @@ public class Fad {
     private ArrayList<Tidsperiode> tidsperioder = new ArrayList<Tidsperiode>();
     private static int antalFade = 0;
     private int fadNr = 0;
-    private int[] lagerLokation;
+    private int[] lagerLokation = new int[3];;
     private Lager lager;
 
     public Fad(Træsort træSort, String bemærkning, TidligereIndhold tidligereIndhold, int literStørrelse, Forhandler forhandler) {
@@ -44,6 +44,20 @@ public class Fad {
 
     public int getLiterStørrelse() {
         return literStørrelse;
+    }
+
+    // Tilføjet da den skulle bruges til test
+    public ArrayList<Tidsperiode> getTidsperioder() {
+        return tidsperioder;
+    }
+
+    // Tilføjet da den skulle bruges til test
+    public int getLagerLokation(int i) {
+        return lagerLokation[i];
+    }
+    // Tilføjet da den skulle bruges til test
+    public Lager getLager() {
+        return lager;
     }
 
     public Forhandler getForhandler() {
@@ -124,7 +138,7 @@ public class Fad {
 
     public void setLagerlokation(Lager lager, int reolNummer, int højdeNummer, int placeringsnummer) {
         this.lager = lager;
-        this.lagerLokation = new int[3];
+        // this.lagerLokation = new int[3]; Flyttet op til toppen. Skulle bruges til test //TODO
         this.lagerLokation[0] = reolNummer;
         this.lagerLokation[1] = højdeNummer;
         this.lagerLokation[2] = placeringsnummer;
@@ -134,4 +148,5 @@ public class Fad {
         this.lager = null;
         this.lagerLokation = new int[3];
     }
+
 }
