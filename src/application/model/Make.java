@@ -12,7 +12,7 @@ public class Make extends Væske {
     private static int antalMakes = 0;
     private int makeNummer;
 
-//TODO lav en metode til tapning, som sætter tømningsdato til idag, hvis 0 liter rammes
+    //TODO lav en metode til tapning, som sætter tømningsdato til idag, hvis 0 liter rammes
     //TODO lav en metode så man kan sætte en tømningsdato ind tved oprettelsen af et nyt make
     @Override
     public String getOpbygning() {
@@ -32,6 +32,33 @@ public class Make extends Væske {
         }
         return opbygning;
     }
+
+    @Override
+    public String getHistorie() {
+        StringBuilder historieString = new StringBuilder();
+        historieString.append("Make " + makeNummer);
+        historieString.append("\nBestår af: ");
+        for (Map.Entry<Væske, Double> væskeDoubleEntry : væskeDoubleHashMap.entrySet()) {
+            //Splitte den tidligere opbygning op i linjer af en, som en array af strings
+            String makeOpbygning = væskeDoubleEntry.getKey().getHistorie();
+            String[] strings = makeOpbygning.split("\\r?\\n|\\r");
+
+            //Vi tilføjer procenten til væsken
+            double procent = Math.round(100.00 * ((væskeDoubleEntry.getValue() / startmængde) * 100.00)) / 100.00;
+            strings[0] += " - " + procent + "%";
+            for (String string : strings) {
+                historieString.append("\n \t" + string);
+            }
+        }
+
+        historieString.append("\nLagringsHistorie: ");
+        for (Tidsperiode tidsperiode : tidsperioder) {
+            historieString.append("\n\tLagret på fad " + tidsperiode.getFad().getFadNr() + " fra " + tidsperiode.getPåfyldningsdato() + " til " + tidsperiode.getTømningsDato());
+        }
+
+        return historieString.toString();
+    }
+
 
     public Make(Fad fad, HashMap<Væske, Double> væskeDoubleHashMap) {
         antalMakes++;
@@ -65,8 +92,8 @@ public class Make extends Væske {
     }
 
     public int lastIndex() {
-        int lastIndex = tidsperioder.size()-1;
-        if (lastIndex < 0 ){
+        int lastIndex = tidsperioder.size() - 1;
+        if (lastIndex < 0) {
             lastIndex = 0;
         }
         return lastIndex;
@@ -83,13 +110,14 @@ public class Make extends Væske {
         st.append("\n\tResterende væske: " + nuværendeMængde);
         return st.toString();
     }
+
     @Override
     public void brugVæske(Double bruges) {
         if (bruges > this.nuværendeMængde) {
             throw new IllegalArgumentException("Ikke nok resterende make.");
         }
         this.nuværendeMængde -= bruges;
-        if (this.nuværendeMængde == 0){
+        if (this.nuværendeMængde == 0) {
             this.tidsperioder.get(lastIndex()).setTømningsDato();
         }
     }
@@ -101,9 +129,13 @@ public class Make extends Væske {
     public String toStringWithoutFad() {
         StringBuilder st = new StringBuilder();
         st.append("Nr. " + makeNummer);
-        st.append("\n\t" + tidsperioder.get(lastIndex()).getPåfyldningsdato());
+        st.append("\n\tPåfyldningsdato: " + tidsperioder.get(lastIndex()).getPåfyldningsdato());
         st.append("\n\tstartmængde: " + startmængde);
         st.append("\n\tResterende væske: " + nuværendeMængde);
         return st.toString();
+    }
+
+    public LocalDate getPåfyldningsDato() {
+        return this.tidsperioder.get(lastIndex()).getPåfyldningsdato();
     }
 }

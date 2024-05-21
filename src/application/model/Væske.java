@@ -3,7 +3,7 @@ package application.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class Væske {
+public abstract class Væske implements historieInterface {
     protected double startmængde;
     protected double nuværendeMængde;
 
@@ -14,4 +14,5 @@ public abstract class Væske {
     }
 
     public abstract void brugVæske(Double bruges);
+
 }

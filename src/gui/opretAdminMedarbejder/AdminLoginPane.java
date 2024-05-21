@@ -37,13 +37,6 @@ public class AdminLoginPane extends MotherPaneWithImageBackground {
 
         // Text Field
         nummerTextField.setMaxWidth(50);
-        nummerTextField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("\\d*"))
-                    nummerTextField.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        });
         nummerHBox.getChildren().add(nummerTextField);
 
         //HBox til kode checkning

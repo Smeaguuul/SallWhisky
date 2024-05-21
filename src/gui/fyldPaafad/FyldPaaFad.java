@@ -85,17 +85,6 @@ public class FyldPaaFad extends MotherPaneWithImageBackground {
         væskeInfoTextArea.editableProperty().setValue(false);
         centralPane.add(fadOgVæskeInfoHbox, 3, 0, 1, 2);
 
-        // Sørger for at man kun kan inputte tal i liter texfieldet
-        literTextfield.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    literTextfield.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
-
         // Label, textfield og knap til tilføjelse af væske med valgte litermængde
         Button tilføjVæskeButton = new MotherButton("Tilføj");
         tilføjVæskeButton.setOnAction(e -> tilfoejVaeske());

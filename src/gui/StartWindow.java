@@ -5,6 +5,7 @@ import gui.motherClasses.MotherPane;
 import gui.tabs.FraFadTilWhiskyTab;
 import gui.tabs.OpretRedigerTab;
 import gui.tabs.PaafyldTab;
+import gui.tabs.UdtrækFadTap;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -67,10 +68,7 @@ public class StartWindow extends Application {
         tabPane.getTabs().add(fraFadTilWhiskyTab);
 
         //Laver tab til udtræk
-        Tab tabUdtræk = new Tab("Udtræk");
-        MotherPane paneUdtræk = new MotherPane();
-        this.initContentUdtryk(paneUdtræk);
-        tabUdtræk.setContent(paneUdtræk);
+        UdtrækFadTap tabUdtræk = new UdtrækFadTap("Udtræk");
         tabPane.getTabs().add(tabUdtræk);
 
         //tab til påfyldning

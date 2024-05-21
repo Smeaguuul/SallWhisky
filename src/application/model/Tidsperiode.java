@@ -32,7 +32,7 @@ public class Tidsperiode {
         return påfyldningsdato;
     }
 
-    public LocalDate getTømningsDato() throws Exception {
+    public LocalDate getTømningsDato() {
         return tømningsDato;
     }
 

@@ -81,44 +81,6 @@ public class OpretLagerPane extends MotherPane {
         buttonHbox.setSpacing(10);
         buttonHbox.getChildren().addAll(annullerButton,opretButton);
         this.add(buttonHbox,1,6);
-
-        // Sørger for at visse texfields kun kan have tal som input
-        hyldePrReolTextfield.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    hyldePrReolTextfield.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
-        pladserPrHylde.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    pladserPrHylde.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
-        antalReolerTextfield.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    antalReolerTextfield.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
-        postnrTextfield.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    postnrTextfield.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
     }
 
     // Tager værdierne fra texfields og opretter en lager med en adresse

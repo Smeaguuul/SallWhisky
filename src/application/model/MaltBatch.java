@@ -2,7 +2,7 @@ package application.model;
 
 import java.time.LocalDate;
 
-public class MaltBatch {
+public class MaltBatch implements historieInterface{
     private Kornsort kornsort;
     private int nummer;
     private LocalDate ankomstDato;
@@ -20,5 +20,17 @@ public class MaltBatch {
     @Override
     public String toString() {
         return "MaltBatch nr. " + nummer + " af kornsort " + kornsort + " (" + ankomstDato + ")";
+    }
+
+    @Override
+    public String getHistorie() {
+        StringBuilder historieString = new StringBuilder();
+
+        historieString.append("Maltbatch nr. " + nummer);
+        historieString.append("\n\tKornsort: " + kornsort);
+        historieString.append("\n\tMalteri: " + malteri);
+        historieString.append("\n\tMark: " + mark);
+
+        return historieString.toString();
     }
 }

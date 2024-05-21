@@ -44,6 +44,7 @@ public class OpretWhiskyPane extends MotherPaneWithImageBackground {
         //Laver et ListView til de valgte tapningsVæsker
         valgteTapningsVæsker = new ListView<>();
         valgteTapningsVæsker.setMaxHeight(200);
+
         InfoLabel valgteTapningsVæskerLabel = new InfoLabel("Valgte tapningsvæsker: ");
 
         //Laver knapper til at rykke tapningsvæsker imellem de to
@@ -89,15 +90,13 @@ public class OpretWhiskyPane extends MotherPaneWithImageBackground {
         literVandTilFortyndingTextField = new TextField();
         literVandTilFortyndingTextField.textProperty().addListener(new ChangeListener<String>() {
             @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    literVandTilFortyndingTextField.setText(newValue.replaceAll("[^\\d]", ""));
-                }
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                 opdaterEstimeretAlkoholProcent();
             }
         });
+
         InfoLabel literVandTilFortyndingLabel = new InfoLabel("Liter vand at fortynde med:"); //TODO bruge textfield som kun tagerimod tal
+
 
         //Laver et textarea til en evt. kommentar
         TextArea kommentarTextArea = new TextArea();
@@ -150,9 +149,9 @@ public class OpretWhiskyPane extends MotherPaneWithImageBackground {
 
         //Tilføjer knapperne til pane
         buttonBox.getChildren().addAll(afbrydButton, bekræftButton);
-        centralPane.add(buttonBox,2, 7,2,1);
+        centralPane.add(buttonBox, 2, 7, 2, 1);
 
-        this.add(centralPane,0,0);
+        this.add(centralPane, 0, 0);
     }
 
     private void opdaterEstimeretAlkoholProcent() {

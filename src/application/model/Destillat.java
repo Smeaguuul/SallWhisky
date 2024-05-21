@@ -1,7 +1,6 @@
 package application.model;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 
 public class Destillat extends Væske {
     //TODO Destillat vises ikke i lister når mængde når 0
@@ -12,18 +11,18 @@ public class Destillat extends Væske {
     private String kommentar;
     private MaltBatch maltBatch;
     private static int antalBatches = 0;
-    private int destillatnummer;
+    private int nummer;
 
 
     private Medarbejder medarbejder;
 
-    public int getDestillatnummer() {
-        return destillatnummer;
+    public int getNummer() {
+        return nummer;
     }
 
     public Destillat(LocalDate startDato, LocalDate slutDato, double literVæske, double alkoholprocent, RygningsType rygningsType, String kommentar, Medarbejder medarbejder, MaltBatch maltBatch) {
         antalBatches++;
-        destillatnummer = antalBatches;
+        nummer = antalBatches;
         this.startDato = startDato;
         this.slutDato = slutDato;
         this.alkoholprocent = alkoholprocent;
@@ -78,12 +77,35 @@ public class Destillat extends Væske {
 
     @Override
     public String toString() {
-        String toString = "Destillat " + this.destillatnummer;
+        String toString = "Destillat " + this.nummer;
         toString += "\n\t" + maltBatch.toString();
         toString += "\n\tRygningstype: " + rygningsType.toString();
         toString += "\n\tAlkoholprocent: " + alkoholprocent + "%";
+        toString += "\n\tMedarbejder: " + medarbejder.getSignatur();
         toString += "\n\tResterende væske: " + nuværendeMængde;
-        return toString;
+        return toString; //TODO Smid mark på
+    }
+
+    @Override
+    public String getHistorie() {
+        StringBuilder historieString = new StringBuilder();
+
+        historieString.append("Destillat " + nummer);
+        historieString.append("\n\tDestilleret " + startmængde + " L, i perioden " + startDato + " - " + slutDato + ", til en alkoholsprocent på " + alkoholprocent + "%.");
+        historieString.append("\n\tRygningstype: " + rygningsType);
+
+        //Maltbatch
+        String maltBatchHistorie = maltBatch.getHistorie();
+        String[] maltBatchHistorieArray = maltBatchHistorie.split("\\r?\\n|\\r");
+        for (String string : maltBatchHistorieArray) {
+            historieString.append("\n \t" + string);
+        }
+
+        //
+
+        historieString.append("\n\t");
+
+        return historieString.toString();
     }
 
     @Override

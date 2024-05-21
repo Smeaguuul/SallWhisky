@@ -67,15 +67,6 @@ public class OpretFadPane extends MotherPaneWithImageBackground {
         størrelseTextField.setEditable(true);
         centralPane.add(størrelseLabel,0,4);
         centralPane.add(størrelseTextField,1,4);
-        størrelseTextField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    størrelseTextField.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
         //Evt skrive kommentar
         InfoLabel kommentarLabel = new InfoLabel("Kommentar: ");
         kommentarTextArea = new TextArea();

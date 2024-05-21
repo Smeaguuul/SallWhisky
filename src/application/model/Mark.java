@@ -10,4 +10,9 @@ public class Mark {
         this.navn = navn;
         this.adresse = adresse;
     }
+
+    @Override
+    public String toString() {
+        return navn + ", " + beskrivelse + ".";
+    }
 }
