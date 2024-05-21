@@ -20,12 +20,10 @@ public class OpretDestillatPane extends MotherPaneWithImageBackground {
     private Medarbejder medarbejder;
 
     public OpretDestillatPane(String title, MotherTab owner, Medarbejder medarbejder) {
-        super("/gui/images/mark.jpg");
+        super("/gui/images/mark.jpg", owner);
         this.medarbejder = medarbejder;
 
-        //Laver et gridpane til at holde de centrale elementer
-        GridPane centralPane = new CentralPane();
-
+        //Titel
         MotherLabel instructionLabel = new MotherLabel("Udfyld venligst nedenstående for at oprette et nyt destillat: ");
         centralPane.add(instructionLabel, 0, 0, 2, 1);
 
@@ -38,6 +36,7 @@ public class OpretDestillatPane extends MotherPaneWithImageBackground {
         DatePicker slutDatoDatePicker = new DatePicker(LocalDate.now());
 
         //Tilføjer en listener til begge, så man ikke kan vælge forkerte datoer
+        //Vi checker godtnok for det i Controlleren, men vi føler det her alligevel giver mere mening, end at checker for exceptions senere
         startDatoDatePicker.valueProperty().addListener((ov, oldValue, newValue) -> {
             if (newValue.isAfter(slutDatoDatePicker.getValue())){
                 slutDatoDatePicker.setValue(newValue);
@@ -95,14 +94,14 @@ public class OpretDestillatPane extends MotherPaneWithImageBackground {
 
         //Bekræft tjekker først om det indtastede information er gyldigt. Hvis det er gyldigt, så vises et bekræftelses vindue ellers vises en advarsel
         bekræftButton.setOnAction(event -> {
-            CommonClass commonClass = new CommonClass(startDatoDatePicker.getValue(), slutDatoDatePicker.getValue(), størrelseTextField.getText(), alkoholProcentTextField.getText(),rygningstypeComboBox.getValue(), maltBatchComboBox.getValue(),kommentarTextArea.getText(), medarbejder);
+            CommonClass commonClass = new CommonClass(startDatoDatePicker.getValue(), slutDatoDatePicker.getValue(), størrelseTextField.getText(), alkoholProcentTextField.getText(), (RygningsType) rygningstypeComboBox.getValue(), (MaltBatch) maltBatchComboBox.getValue(),kommentarTextArea.getText(), medarbejder);
             boolean bekræftet = bekræftButton.bekræft(commonClass);
             if (bekræftet) {
                 owner.drawDefault();
             }
         });
 
-        //Tilføjer knapperne til pane
+        //Tilføjer knapperne til buttonBox
         buttonBox.getChildren().addAll(afbrydButton, bekræftButton);
 
         //Tilføjer alle noder til det centrale pane, og sætter det på det ydre pane
@@ -111,7 +110,7 @@ public class OpretDestillatPane extends MotherPaneWithImageBackground {
         centralPane.add(kommentarTextArea,1,7, 1, 2);
         centralPane.add(buttonBox, 1, 9);
 
+        //Tilføjer centralPane til ydre Pane
         this.add(centralPane,0,0);
-
     }
 }

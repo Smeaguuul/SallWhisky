@@ -12,14 +12,9 @@ import javafx.scene.layout.HBox;
 
 public class WhiskyUdtrækWindow extends MotherPaneWithImageBackground {
     private final ListView<Whisky> whiskyListView;
-    private final MotherTab owner;
 
     public WhiskyUdtrækWindow(MotherTab owner) {
-        super("/gui/images/mark.jpg");
-        this.owner = owner;
-
-        //Laver central pane til alle centrale elemenet
-        GridPane centralPane = new CentralPane();
+        super("/gui/images/mark.jpg", owner);
 
         //Overskrift
         MotherLabel instructionLabel = new MotherLabel("Liste Over Whiskyer");

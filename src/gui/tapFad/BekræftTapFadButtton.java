@@ -24,27 +24,29 @@ public class BekræftTapFadButtton extends MotherButton {
     public boolean bekræft(CommonClass commonClass) {
         //Gemmer commonClass
         this.commonClass = commonClass;
+        boolean lykkedes = false;
         try {
-            //Vi prøver at oprette et destillat, og håndtere eventuelle errors, som controlleren kaster ved forkert input
-            TapningsVæske tapningsVæske = Controller.opretTapningsVæske(commonClass.getFad(), commonClass.getAlkoholprocent(), commonClass.getMængde());
+            //Checker input
+            Controller.opretTapningsVæskeCheck(commonClass.getFad(), commonClass.getAlkoholprocent(), commonClass.getMængde());
 
             //Viser et alert vindue af typen Confirmation, som viser alt indtastede information
             Alert alert = new BekræftAlertMedInfo(commonClass.toString());
             alert.showAndWait();
 
-            //Lidt en baglens måde at gøre det på, at slette efter man allerede har oprettet, men det gør det markant mere simpelt.
-            //Og eftersom vi kun har at gøre med en bruger af gangen, og ikke en delt database mellem flere brugere, så føler vi det er fin løsning.
+            //Hvis der bekræftes, så opretter vi en tapningsvæske
             boolean bekræftet = alert.getResult() == ButtonType.OK;
+            TapningsVæske tapningsVæske = null;
             if (!bekræftet) {
-                Storage.removeTapningsVæske(tapningsVæske);
+                tapningsVæske = Controller.opretTapningsVæske(commonClass.getFad(), commonClass.getAlkoholprocent(), commonClass.getMængde());
             }
 
             //Returnere true, så det forrige pane ved at det lykkedes.
-            return bekræftet;
+            this.commonClass.setTapningsVæske(tapningsVæske);
+            lykkedes = bekræftet;
         } catch (Exception e) {
             Alert warning = new BekræftWarningMedFejlInfo(e);
             warning.showAndWait();
         }
-        return false;
+        return lykkedes;
     }
 }

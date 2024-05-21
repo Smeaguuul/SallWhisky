@@ -99,7 +99,7 @@ public class Fad {
 
     @Override
     public String toString() {
-        return "Nr: " + fadNr + //TODO lav den mindre, og mere overskuellig. Ikke nødvendig med alt det her info, når vi har en extended info metode
+        return "Nr: " + fadNr +
                 ", " + træsort +
                 ", " + tidligereIndhold +
                 ", " + literStørrelse + " L";
@@ -113,7 +113,9 @@ public class Fad {
         stBuilder.append("\n Tidligere indhold: " + tidligereIndhold);
         stBuilder.append("\n Forhandler: " + forhandler);
         if (this.tidsperioder.size() != 0) {
-            stBuilder.append("\n Nuværende make " + this.tidsperioder.get(lastIndex()).getMake().toStringWithoutFad());
+            if (this.tidsperioder.get(lastIndex()).getTømningsDato() == null) {
+                stBuilder.append("\n Nuværende make " + this.tidsperioder.get(lastIndex()).getMake().toStringWithoutFad());
+            }
         }
         if (this.lager != null) {
             stBuilder.append("\n Lager: " + lager);

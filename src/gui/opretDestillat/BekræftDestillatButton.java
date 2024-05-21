@@ -21,42 +21,31 @@ public class BekræftDestillatButton extends MotherButton {
     public boolean bekræft(CommonClass commonClass) {
         //Gemmer commonClass
         this.commonClass = commonClass;
+        boolean lykkedes = false;
         try {
-            //Vi prøver at oprette et destillat, og håndtere eventuelle errors, som controlleren kaster ved forkert input
-            Destillat destillat = Controller.opretDestillat(
-                    commonClass.getStartDato(),
-                    commonClass.getSlutDato(),
-                    Integer.parseInt(commonClass.getAntalLiter()),
-                    Double.parseDouble(commonClass.getAlkoholProcent()),
-                    (RygningsType) commonClass.getRygningsType(),
-                    commonClass.getKommentar(),
-                    (MaltBatch) commonClass.getMaltBatch(),
-                    commonClass.getMedarbejder()
-            );
-            //TODO Eventuelt lave et textfield som automatisk trimmer gettext, så vi ikke skal kalde det hele tiden
-            //TODO smid det her ud i en Lambda Expressions så vi kan simplificere disse to "Bekræft klasser" ned i én
+            //Vi bruger den tilsvarende checkMetode i Controller
+            Controller.opretDestillatCheck(commonClass.getStartDato(), commonClass.getSlutDato(), Integer.parseInt(commonClass.getAntalLiter()), Double.parseDouble(commonClass.getAlkoholProcent()), commonClass.getRygningsType());
 
             //Viser et alert vindue af typen Confirmation, som viser alt indtastede information
             Alert alert = new BekræftAlertMedInfo(commonClass.toString());
             alert.showAndWait();
 
-            //Lidt en baglens måde at gøre det på, at slette efter man allerede har oprettet, men det gør det markant mere simpelt.
-            //Og eftersom vi kun har at gøre med en bruger af gangen, og ikke en delt database mellem flere brugere, så føler vi det er fin løsning.
+            //Hvis der bliver bekræftet, så opretter vi faktisk et destillat
             boolean bekræftet = alert.getResult() == ButtonType.OK;
-            if (!bekræftet) {
-                Storage.removeVæske(destillat);
+            if (bekræftet) {
+                Controller.opretDestillat(commonClass.getStartDato(), commonClass.getSlutDato(), Integer.parseInt(commonClass.getAntalLiter()), Double.parseDouble(commonClass.getAlkoholProcent()), commonClass.getRygningsType(), commonClass.getKommentar(), commonClass.getMaltBatch(), commonClass.getMedarbejder());
             }
 
             //Returnere true, så det forrige pane ved at det lykkedes.
-            return bekræftet;
+            lykkedes = bekræftet;
         } catch (NumberFormatException e) {
-            Alert warning = new BekræftWarningMedFejlInfo(new Exception("Antal liter og alkoholprocent skal kun bestå af tal."));
+            Alert warning = new BekræftWarningMedFejlInfo(new Exception("Antal liter og alkoholprocent skal være tal."));
             warning.showAndWait();
         } catch (Exception e) {
             Alert warning = new BekræftWarningMedFejlInfo(e);
             warning.showAndWait();
         }
-        return false;
+        return lykkedes;
     }
 
     private String getIndtastedeInformation() {

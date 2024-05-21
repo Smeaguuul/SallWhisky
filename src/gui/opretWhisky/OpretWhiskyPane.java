@@ -1,33 +1,24 @@
 package gui.opretWhisky;
 
 import application.controller.Controller;
-import application.model.Fad;
 import application.model.TapningsVæske;
 import gui.motherClasses.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
 public class OpretWhiskyPane extends MotherPaneWithImageBackground {
-    private final MotherTab owner;
     private final TextField alkoholprocentTextField;
     private final ListView<TapningsVæske> valgteTapningsVæsker;
     private final TextField literVandTilFortyndingTextField;
 
-    public OpretWhiskyPane(String title, MotherTab owner) {
-        super("/gui/images/mark.jpg");
-        this.owner = owner;
-
-        //Pane til noderne
-        GridPane centralPane = new CentralPane();
+    public OpretWhiskyPane(String title, MotherTab owner, TapningsVæske singleCaskTapningsVæske) {
+        super("/gui/images/mark.jpg", owner);
 
         //Overskrift
         MotherLabel instructionLabel = new MotherLabel("Udfyld venligst nedenstående for at oprette en ny whisky: ");
@@ -44,12 +35,17 @@ public class OpretWhiskyPane extends MotherPaneWithImageBackground {
         //Laver et ListView til de valgte tapningsVæsker
         valgteTapningsVæsker = new ListView<>();
         valgteTapningsVæsker.setMaxHeight(200);
-
         InfoLabel valgteTapningsVæskerLabel = new InfoLabel("Valgte tapningsvæsker: ");
 
         //Laver knapper til at rykke tapningsvæsker imellem de to
         MotherButton fjernButton = new MotherButton("Fjern Tapningsvæske");
         MotherButton tilføjButton = new MotherButton("Tilføj Tapningsvæske");
+
+        //Tilføjer eventuelt den tidligere oprettet tapningsvæske, hvis brugeren har lavet en singleCask whisky
+        if (singleCaskTapningsVæske !=null) {
+            tapningsVæsker.getItems().remove(singleCaskTapningsVæske);
+            valgteTapningsVæsker.getItems().add(singleCaskTapningsVæske);
+        }
 
         //Tilføjer funktionalitet til tilføj knappen
         tilføjButton.setOnAction(event -> {
@@ -88,6 +84,7 @@ public class OpretWhiskyPane extends MotherPaneWithImageBackground {
 
         //Laver et textfelt til input fortynding
         literVandTilFortyndingTextField = new TextField();
+        //Opdater estimeret alkoholprocent hver gang en ny værdi inputes
         literVandTilFortyndingTextField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
@@ -95,7 +92,9 @@ public class OpretWhiskyPane extends MotherPaneWithImageBackground {
             }
         });
 
-        InfoLabel literVandTilFortyndingLabel = new InfoLabel("Liter vand at fortynde med:"); //TODO bruge textfield som kun tagerimod tal
+        //Label til fortyndelse
+        InfoLabel literVandTilFortyndingLabel = new InfoLabel("Liter vand at fortynde med:");
+        //TODO bruge textfield som kun tagerimod tal
 
 
         //Laver et textarea til en evt. kommentar
@@ -132,7 +131,6 @@ public class OpretWhiskyPane extends MotherPaneWithImageBackground {
 
         //Bekræft tjekker først om det indtastede information er gyldigt. Hvis det er gyldigt, så vises et bekræftelses vindue ellers vises en advarsel
         bekræftButton.setOnAction(actionEvent -> {
-            //Giver det valgte input til commonclass
             List<TapningsVæske> valgteTapningsVæsker = this.valgteTapningsVæsker.getItems();
             String fortyndingsFaktorTekst = literVandTilFortyndingTextField.getText();
             int fortyndingsFaktor = 0;
@@ -144,7 +142,6 @@ public class OpretWhiskyPane extends MotherPaneWithImageBackground {
             if (bekræftet) {
                 owner.drawDefault();
             }
-            //TODO skal åbne opretWhisky hvis man har valgt det
         });
 
         //Tilføjer knapperne til pane
