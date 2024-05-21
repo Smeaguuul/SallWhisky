@@ -142,8 +142,11 @@ public class Fad {
         return false;
     }
 
-    public void setLagerlokation(Lager lager, int reolNummer, int højdeNummer, int placeringsnummer) {
+    public void setLagerlokation(Lager lager, int reolNummer, int højdeNummer, int placeringsnummer) throws Exception{
+        lager.pladserFad(reolNummer, højdeNummer, placeringsnummer); //Checker pladsen
+
         this.lager = lager;
+
         // this.lagerLokation = new int[3]; Flyttet op til toppen. Skulle bruges til test //TODO
         this.lagerLokation[0] = reolNummer;
         this.lagerLokation[1] = højdeNummer;
