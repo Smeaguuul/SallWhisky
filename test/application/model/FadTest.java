@@ -278,7 +278,17 @@ class FadTest {
     @Test
     void setLagerlokation() {
         //TODO
-        assertTrue(false);
+        Forhandler forhandler = new Forhandler("Juan Igleasas", "Catalonien", "Spanien");
+        Fad fad = new Fad(Træsort.QUERCUSALBA, "", TidligereIndhold.SHERRY, 200, forhandler);
+        Adresse adresse = new Adresse("1", "Gyllevej", "6969", "DK");
+        Lager lager = new Lager("Lagersted", adresse, 10, 5, 10);
+
+        int expectedReolnummer = 1;
+        int expectedHøjde = 1;
+        int expectedPlaceringsNummer = 1;
+
+        // Act
+        fad.setLagerlokation(lager, 1, 1, 1);
     }
 
     @Test
@@ -290,24 +300,21 @@ class FadTest {
         fad.setLagerlokation(lager, 1, 1, 1);
 
         Lager expectedLager = null;
-        int[] expectedLokation = new int[3];
+        int[] expectedLokation = null;
 
         // Act
         fad.fjernLagerLokation();
         Lager actualLager = fad.getLager();
-        int actualReol = fad.getLagerLokation(0);
-        int actualHøjde = fad.getLagerLokation(1);
-        int actualPlacering = fad.getLagerLokation(2);
+        int[] actualLokation = fad.getLagerLokation();
 
         // Assert
-        assertEquals(expectedLager,actualLager);
         System.out.println("fjernLagerLokation: TC1");
-        System.out.println("\tActual:\t\t" + actualLager);
-        System.out.println("\tExpected:\t" + expectedLager);
-        for (int i : expectedLokation) {
-            assertEquals(expectedLokation[i],fad.getLagerLokation(i));
-            System.out.println("\tActual Koordinat:\t" + fad.getLagerLokation(i));
-            System.out.println("\tExpected Koordinat:\t" + expectedLokation[i]);
-        }
+        assertEquals(expectedLager, actualLager);
+        System.out.println("\tActual Lager:\t\t" + actualLager);
+        System.out.println("\tExpected Lager:\t\t" + expectedLager);
+        assertEquals(expectedLokation, actualLokation);
+        System.out.println("\tActual Lokation:\t" + actualLokation);
+        System.out.println("\tExpected Lokation:\t" + expectedLokation);
+
     }
 }
