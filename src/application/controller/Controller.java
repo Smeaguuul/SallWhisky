@@ -271,7 +271,7 @@ public class Controller {
     public static List<Fad> getFadUdenLokation() {
         List<Fad> fadMedLokation = getFadMedLokation();
         List<Fad> fadeUdenLokation = Storage.getFade();
-        fadMedLokation.removeAll(fadMedLokation);
+        fadeUdenLokation.removeAll(fadMedLokation);
 
         return fadeUdenLokation;
     }
