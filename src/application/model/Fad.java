@@ -163,10 +163,6 @@ public class Fad {
         return harLagerlokation;
     }
 
-    public Lager getLager() {
-        return lager;
-    }
-
     public LocalDate getPåfyldningsDato() throws Exception {
         return getMake().getPåfyldningsDato();
     }
