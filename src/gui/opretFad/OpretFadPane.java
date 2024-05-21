@@ -19,7 +19,6 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 public class OpretFadPane extends MotherPaneWithImageBackground {
-    private final MotherTab owner;
     private MotherComboBox tidligereIndholdComboBox;
     private MotherComboBox træsortComboBox;
     private MotherComboBox forhandlerComboBox;
@@ -27,10 +26,7 @@ public class OpretFadPane extends MotherPaneWithImageBackground {
     private TextField størrelseTextField;
 
     public OpretFadPane(String title, MotherTab owner) {
-        super("/gui/images/mark.jpg");
-        this.owner = owner;
-
-        CentralPane centralPane = new CentralPane();
+        super("/gui/images/mark.jpg", owner);
 
         //Overskrift
         MotherLabel instructionLabel = new MotherLabel("Udfyld nedenstående for at oprette et nyt fad: ");
@@ -42,38 +38,35 @@ public class OpretFadPane extends MotherPaneWithImageBackground {
         træsortComboBox = new MotherComboBox();
         Træsort[] træsorter = Træsort.values();
         træsortComboBox.getItems().addAll(træsorter);
-        centralPane.add(træsortLabel, 0, 1);
-        centralPane.add(træsortComboBox, 1, 1);
+        centralPane.addRow(1, træsortLabel, træsortComboBox);
 
         //vælg Tidligere indhold
         InfoLabel tidligereIndholdLabel = new InfoLabel("Tidligere Indhold:");
         tidligereIndholdComboBox = new MotherComboBox();
         TidligereIndhold[] tidligereIndhold = TidligereIndhold.values();
         tidligereIndholdComboBox.getItems().addAll(tidligereIndhold);
-        centralPane.add(tidligereIndholdLabel, 0, 2);
-        centralPane.add(tidligereIndholdComboBox, 1, 2);
+        centralPane.addRow(2, tidligereIndholdLabel, tidligereIndholdComboBox);
 
         //vælg Forhandler
         InfoLabel forhandlerLabel = new InfoLabel("Købt hos:");
         forhandlerComboBox = new MotherComboBox();
         ArrayList<Forhandler> forhandlerer = Controller.getForhandlere();
         forhandlerComboBox.getItems().addAll(forhandlerer);
-        centralPane.add(forhandlerLabel, 0, 3);
-        centralPane.add(forhandlerComboBox, 1, 3);
+        centralPane.addRow(3, forhandlerLabel, forhandlerComboBox);
 
         //Skriver størrelse
         InfoLabel størrelseLabel = new InfoLabel("Fad Størrelse i Liter:");
         størrelseTextField = new TextField();
         størrelseTextField.setEditable(true);
-        centralPane.add(størrelseLabel,0,4);
-        centralPane.add(størrelseTextField,1,4);
+        centralPane.addRow(4, størrelseLabel, størrelseTextField);
+
         //Evt skrive kommentar
         InfoLabel kommentarLabel = new InfoLabel("Kommentar: ");
         kommentarTextArea = new TextArea();
         kommentarTextArea.setEditable(true);
-        kommentarTextArea.setMaxSize(250,125);
-        centralPane.add(kommentarLabel,0,5);
-        centralPane.add(kommentarTextArea,1,5, 1, 2);
+        kommentarTextArea.setMaxSize(250, 125);
+        centralPane.add(kommentarLabel, 0, 5);
+        centralPane.add(kommentarTextArea, 1, 5, 1, 2);
 
         /*
         Opretter knapper og en HBox til at holde på dem.
@@ -110,8 +103,9 @@ public class OpretFadPane extends MotherPaneWithImageBackground {
         imageView.setPreserveRatio(true);
         imageView.setFitWidth(80);
         imageView.setRotate(20);
-        centralPane.add(imageView,0,6);
+        centralPane.add(imageView, 0, 6);
 
-        this.add(centralPane,0,0);
+        //Tilføjer det centrale pane til ydre pane
+        this.add(centralPane, 0, 0);
     }
 }

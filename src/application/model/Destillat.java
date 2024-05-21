@@ -3,7 +3,6 @@ package application.model;
 import java.time.LocalDate;
 
 public class Destillat extends Væske {
-    //TODO Destillat vises ikke i lister når mængde når 0
     private LocalDate startDato;
     private LocalDate slutDato;
     private double alkoholprocent;
@@ -83,7 +82,7 @@ public class Destillat extends Væske {
         toString += "\n\tAlkoholprocent: " + alkoholprocent + "%";
         toString += "\n\tMedarbejder: " + medarbejder.getSignatur();
         toString += "\n\tResterende væske: " + nuværendeMængde;
-        return toString; //TODO Smid mark på
+        return toString;
     }
 
     @Override

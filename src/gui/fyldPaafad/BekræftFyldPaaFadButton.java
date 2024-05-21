@@ -1,8 +1,9 @@
-package gui.opretWhisky;
+package gui.fyldPaafad;
 
 import application.controller.Controller;
-import application.model.TapningsVæske;
-import application.model.Whisky;
+import application.model.Fad;
+import application.model.Make;
+import application.model.Væske;
 import gui.motherClasses.BekræftAlertMedInfo;
 import gui.motherClasses.BekræftWarningMedFejlInfo;
 import gui.motherClasses.MotherButton;
@@ -10,28 +11,26 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import storage.Storage;
 
-import java.util.List;
+import java.util.HashMap;
 
-public class BekræftOpretWhiskyButton extends MotherButton {
-    public BekræftOpretWhiskyButton(String s) {
+public class BekræftFyldPaaFadButton extends MotherButton {
+    public BekræftFyldPaaFadButton(String s) {
         super(s);
     }
 
-    public boolean bekræft(List<TapningsVæske> valgteTapningsVæsker, int literVand, String kommentar) {
+    public boolean bekræft(Fad fad, HashMap<Væske, Double> væskeOgLiter) {
         boolean lykkedes = false;
         try {
-            //Checker input
-            Controller.opretWhiskyCheck(valgteTapningsVæsker, literVand);
+            Controller.opretMakeCheck(fad, væskeOgLiter);
 
             //Viser et alert vindue af typen Confirmation, som viser alt indtastede information
-            Alert alert = new BekræftAlertMedInfo("Er du sikker på at du vil oprette en whisky?"); //TODO lav en beskrivelse af de valgte elementer og inputtede værdier
+            Alert alert = new BekræftAlertMedInfo("Fad " + fad.getFadNr() + " med " + væskeOgLiter.size() + " væsker.");
             alert.showAndWait();
 
-            //Hvis brugeren bekræfter, så opretter vi faktisk en whisky
+            //Hvis der bekræftes, så opretter vi faktisk maket
             boolean bekræftet = alert.getResult() == ButtonType.OK;
             if (bekræftet) {
-                Controller.opretWhisky(valgteTapningsVæsker, literVand, kommentar);
-
+                Controller.opretMake(fad, væskeOgLiter);
             }
 
             //Returnere true, så det forrige pane ved at det lykkedes.

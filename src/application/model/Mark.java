@@ -11,6 +11,10 @@ public class Mark {
         this.adresse = adresse;
     }
 
+    public String getNavn() {
+        return navn;
+    }
+
     @Override
     public String toString() {
         return navn + ", " + beskrivelse + ".";
