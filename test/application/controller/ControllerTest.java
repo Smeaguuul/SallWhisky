@@ -28,7 +28,7 @@ class ControllerTest {
     }
 
     @Test
-    void udregnAlkoholProcent() {
+    void udregnAlkoholProcentTest01() {
         // Arrange
         Destillat destillat = new Destillat(LocalDate.now(),LocalDate.now().plusYears(3), 82, 60, RygningsType.TØRVRØGET, "", medarbejder, maltbatch);
         Forhandler forhandler = new Forhandler("Juan Igleasas", "Catalonien", "Spanien");
@@ -41,9 +41,9 @@ class ControllerTest {
 
         Fad gammeltFad02 = new Fad(Træsort.QUERCUSALBA,"", TidligereIndhold.SHERRY, 100, forhandler);
         HashMap<Væske, Double> hashMap02 = new HashMap<Væske, Double>();
-        hashMap.put(destillat, 36.00);
-        Make expectedMake02 = new Make(gammeltFad, hashMap, LocalDate.now());
-        TapningsVæske væske02 = new TapningsVæske(60, 32, expectedMake);
+        hashMap02.put(destillat, 36.00);
+        Make expectedMake02 = new Make(gammeltFad, hashMap02, LocalDate.now());
+        TapningsVæske væske02 = new TapningsVæske(60, 32, expectedMake02);
 
         double literVand = 10;
         double literVand02 = 15;
@@ -61,7 +61,9 @@ class ControllerTest {
         System.out.println("\tExpected:\t" + forvæntedeStyrke);
 
     }
+    void udregnAlkoholProcentTest02() {
 
+    }
     @Test
     void opretMakeTC1_Gyldig() {
         //Arrange
