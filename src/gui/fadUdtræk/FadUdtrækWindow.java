@@ -8,10 +8,7 @@ import application.model.TidligereIndhold;
 import application.model.Træsort;
 import gui.motherClasses.*;
 import javafx.collections.ObservableList;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
@@ -25,10 +22,12 @@ public class FadUdtrækWindow extends MotherPaneWithImageBackground {
     private final ComboBox<Træsort> træsortCombobox;
     private final ComboBox<Lager> lagerComboBox;
     private final ListView<Fad> fadListView;
+    private final MotherTab owner;
 
-    public FadUdtrækWindow() {
+    public FadUdtrækWindow(MotherTab owner) {
         super("/gui/images/mark.jpg");
 
+        this.owner = owner;
         //Laver central pane til alle centrale elemenet
         GridPane centralPane = new CentralPane();
 
@@ -104,6 +103,11 @@ public class FadUdtrækWindow extends MotherPaneWithImageBackground {
             filterList();
         });
         centralPane.add(søgButton, 1, 3);
+
+        // Opretter buttons annuler og opret, samt vbox der holder på de 2
+        Button annullerButton = new Button("Annuller");
+        annullerButton.setOnAction(e -> this.owner.drawDefault());
+        centralPane.add(annullerButton, 1,5);
 
 
         this.add(centralPane, 0, 0);

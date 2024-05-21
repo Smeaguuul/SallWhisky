@@ -1,22 +1,22 @@
 package gui.whiskyListe;
 
 import application.controller.Controller;
-import application.controller.UdtrækController;
 import application.model.Whisky;
-import gui.motherClasses.CentralPane;
-import gui.motherClasses.InfoLabel;
-import gui.motherClasses.MotherLabel;
-import gui.motherClasses.MotherPaneWithImageBackground;
+import gui.motherClasses.*;
+import gui.tabs.UdtrækFadTap;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 
 public class WhiskyUdtrækWindow extends MotherPaneWithImageBackground {
     private final ListView<Whisky> whiskyListView;
+    private final MotherTab owner;
 
-    public WhiskyUdtrækWindow() {
+    public WhiskyUdtrækWindow(MotherTab owner) {
         super("/gui/images/mark.jpg");
+        this.owner = owner;
 
         //Laver central pane til alle centrale elemenet
         GridPane centralPane = new CentralPane();
@@ -48,6 +48,10 @@ public class WhiskyUdtrækWindow extends MotherPaneWithImageBackground {
             }
         });
 
+        // Opretter buttons annuler og opret, samt vbox der holder på de 2
+        Button annullerButton = new Button("Annuller");
+        annullerButton.setOnAction(e -> this.owner.drawDefault());
+        centralPane.add(annullerButton, 1,4);
 
         this.add(centralPane,0,0);
     }

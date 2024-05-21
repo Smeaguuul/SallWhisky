@@ -45,12 +45,12 @@ public class UdtrækFadTap extends MotherTab {
     }
 
     private void openWhiskyWindow() {
-        WhiskyUdtrækWindow whiskyUdtrækWindow = new WhiskyUdtrækWindow();
+        WhiskyUdtrækWindow whiskyUdtrækWindow = new WhiskyUdtrækWindow(this);
         this.setContent(whiskyUdtrækWindow);
     }
 
     private void openUdtrækWindow() {
-        FadUdtrækWindow fadUdtrækWindow = new FadUdtrækWindow();
+        FadUdtrækWindow fadUdtrækWindow = new FadUdtrækWindow(this);
         this.setContent(fadUdtrækWindow);
     }
 }
