@@ -27,7 +27,7 @@ public class AdminLoginPane extends MotherPaneWithImageBackground {
         InfoLabel medarbejdernummerLabel = new InfoLabel("Medarbejdernummer: ");
 
         // Text Field til medarbejdernummer
-        this.nummerTextField = new TextField();
+        this.nummerTextField = new NumberTextField();
         nummerTextField.setMaxWidth(50);
 
         //HBox til nummer checkning

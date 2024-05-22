@@ -83,7 +83,7 @@ public class OpretWhiskyPane extends MotherPaneWithImageBackground {
         InfoLabel alkoholprocentLabel = new InfoLabel("Estimeret alkoholprocent:");
 
         //Laver et textfelt til input fortynding
-        literVandTilFortyndingTextField = new TextField();
+        literVandTilFortyndingTextField = new NumberTextField();
         //Opdater estimeret alkoholprocent hver gang en ny værdi inputes
         literVandTilFortyndingTextField.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -94,8 +94,6 @@ public class OpretWhiskyPane extends MotherPaneWithImageBackground {
 
         //Label til fortyndelse
         InfoLabel literVandTilFortyndingLabel = new InfoLabel("Liter vand at fortynde med:");
-        //TODO bruge textfield som kun tagerimod tal
-
 
         //Laver et textarea til en evt. kommentar
         TextArea kommentarTextArea = new TextArea();

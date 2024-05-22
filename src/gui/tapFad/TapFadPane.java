@@ -38,7 +38,7 @@ public class TapFadPane extends MotherPaneWithImageBackground {
         });
 
         //Laver et textfield til input at tapningsmængde
-        TextField tapningsMængdeTextField = new TextField();
+        TextField tapningsMængdeTextField = new NumberTextField();
         InfoLabel tapningsMængdeLabel = new InfoLabel("Liter Whisky Tappet: ");
         HBox tapningsMængdeHBox = new HBox(tapningsMængdeLabel, tapningsMængdeTextField);
         tapningsMængdeHBox.setSpacing(10);

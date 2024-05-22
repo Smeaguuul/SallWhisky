@@ -21,7 +21,7 @@ public class FyldPaaFad extends MotherPaneWithImageBackground {
     private ListView<Fad> fadListView = new ListView<>();
     private TextArea fadInfoTextArea = new TextArea();
     private TextArea væskeInfoTextArea = new TextArea();
-    private TextField literTextfield = new TextField();
+    private TextField literTextfield = new NumberTextField();
     private ListView<Væske> indholdListview = new ListView<>();
     private HashMap<Væske, Double> midlertidigHashMap = new HashMap<>();
     private ArrayList<Væske> arrayListTilHashMap = new ArrayList<>();

@@ -86,21 +86,21 @@ public class TildelLagerlokationPane extends MotherPaneWithImageBackground {
 
         //Laver et label og textfield til ReolNr.
         InfoLabel reolNrLabel = new InfoLabel("Reol Nr:");
-        TextField reolNrTextField = new TextField();
+        TextField reolNrTextField = new NumberTextField();
         reolNrTextField.setMaxWidth(30);
         centralPane.add(reolNrLabel,1,4);
         centralPane.add(reolNrTextField,2,4);
 
         //Laver et label og textfield til HyldeNr.
         InfoLabel hyldeNrLabel = new InfoLabel("Hylde Nummer:");
-        TextField hyldeNrTextField = new TextField();
+        TextField hyldeNrTextField = new NumberTextField();
         hyldeNrTextField.setMaxWidth(30);
         centralPane.add(hyldeNrLabel,1,5);
         centralPane.add(hyldeNrTextField,2,5);
 
         //Laver et label og textfield til HyldePlacering.
         InfoLabel hyldePlaceringLabel = new InfoLabel("Hylde placering:");
-        TextField hyldePlaceringNrTextField = new TextField();
+        TextField hyldePlaceringNrTextField = new NumberTextField();
         hyldePlaceringNrTextField.setMaxWidth(30);
         centralPane.add(hyldePlaceringLabel,1,6);
         centralPane.add(hyldePlaceringNrTextField,2,6);
