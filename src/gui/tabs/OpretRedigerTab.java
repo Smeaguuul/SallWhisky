@@ -6,6 +6,7 @@ import gui.opretAdminMedarbejder.AdminLoginPane;
 import gui.opretFad.OpretFadPane;
 import gui.opretForhandler.OpretForhandlerPane;
 import gui.opretLagerPane.OpretLagerPane;
+import gui.opretMaltbatch.OpretMaltBatchPane;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
@@ -66,7 +67,7 @@ public class OpretRedigerTab extends MotherTab {
         pane.add(forhandlerVBox,3,1); */
 
         //Opretter knap og billede til opretLager og sætter det i en VBox
-        VBox lagerVbox = new VBox();
+        /*VBox lagerVbox = new VBox();
         lagerVbox.setSpacing(10);
         lagerVbox.setAlignment(Pos.BOTTOM_CENTER);
         VerticalImageStackPane lagerImage = new VerticalImageStackPane("/gui/images/lager.png");
@@ -74,8 +75,24 @@ public class OpretRedigerTab extends MotherTab {
         Button opretLagerButton = new MainMenuButton("Opret Lager");
         opretLagerButton.setOnAction(e -> openOpretLagerPane());
         lagerVbox.getChildren().add(opretLagerButton);
-        pane.add(lagerVbox,3,1);
+        pane.add(lagerVbox,3,1); */
 
+        // Opretter knap og billede til opretMaltbatch og sætter det i en Vbox
+        VBox maltBatchVbox = new VBox();
+        maltBatchVbox.setSpacing(10);
+        maltBatchVbox.setAlignment(Pos.BOTTOM_CENTER);
+        VerticalImageStackPane maltBatchImage = new VerticalImageStackPane("/gui/images/lager.png");
+        maltBatchVbox.getChildren().add(maltBatchImage);
+        Button opretMaltBatchButton = new MainMenuButton("Opret Malt batch");
+        opretMaltBatchButton.setOnAction(e -> openOpretMaltBatch());
+        maltBatchVbox.getChildren().add(opretMaltBatchButton);
+        pane.add(maltBatchVbox,3,1);
+
+    }
+
+    private void openOpretMaltBatch() {
+        MotherPane opretMaltbatchPane = new OpretMaltBatchPane("/gui/images/mark.jpg",this);
+        this.setContent(opretMaltbatchPane);
     }
 
     private void openOpretLagerPane() {

@@ -372,4 +372,10 @@ public class Controller {
 
         return makeArrayList;
     }
+
+    public static MaltBatch opretMaltBatch(Kornsort kornsort,LocalDate ankomstDato,Malteri malteri, Mark mark){
+        MaltBatch maltBatch = new MaltBatch(kornsort,ankomstDato,malteri,mark);
+        Storage.addMaltbatch(maltBatch);
+        return maltBatch;
+    }
 }
