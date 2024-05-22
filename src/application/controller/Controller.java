@@ -193,8 +193,9 @@ public class Controller {
 
         for (Fad fad : fade) {
             try {
-                if (fad.hasMake() && fad.getMake().getNuværendeMængde() > 0) { //TODO Sorter fadene
+                if (fad.hasMake() && fad.getMake().getNuværendeMængde() > 0) {
                     modneFade.add(fad);
+                    modneFade.sort(null);
                 }
             } catch (Exception e) {
             }
@@ -318,7 +319,6 @@ public class Controller {
     }
 
     public static void setLagerLokation(Fad fad, Lager lager, int reolNummer, int højdeNummer, int placeringsnummer) throws Exception {
-        //TODO lav et check om det faktisk er inde for begrænsingerne og sørg for at den tilsvarende lokation i lageret bliver registreret som brugt
         //TODO konverter mellem 0-9 til 1-10 f.eks. Vi tæller fra 1 i GUI i ikke 0, så index passer ikke.
         try {
             fad.setLagerlokation(lager, reolNummer, højdeNummer, placeringsnummer);
