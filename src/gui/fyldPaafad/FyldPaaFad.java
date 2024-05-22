@@ -137,7 +137,7 @@ public class FyldPaaFad extends MotherPaneWithImageBackground {
             alert.showAndWait();
         } else {
             String literString = literTextfield.getText().trim();
-            double liter = Double.parseDouble(literString); //TODO kan kaste en error her
+            double liter = Double.parseDouble(literString);
             if (!destillatListview.getSelectionModel().isEmpty() && !indholderVæske(destillatListview)) {
                 Destillat valgtDestillat = (Destillat) destillatListview.getSelectionModel().getSelectedItem();
                 midlertidigHashMap.put(valgtDestillat, liter);

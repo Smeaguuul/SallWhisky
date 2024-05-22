@@ -24,7 +24,7 @@ public class BekræftOpretWhiskyButton extends MotherButton {
             Controller.opretWhiskyCheck(valgteTapningsVæsker, literVand);
 
             //Viser et alert vindue af typen Confirmation, som viser alt indtastede information
-            Alert alert = new BekræftAlertMedInfo("Er du sikker på at du vil oprette en whisky?"); //TODO lav en beskrivelse af de valgte elementer og inputtede værdier
+            Alert alert = new BekræftAlertMedInfo("Er du sikker på at du vil oprette en whisky?");
             alert.showAndWait();
 
             //Hvis brugeren bekræfter, så opretter vi faktisk en whisky

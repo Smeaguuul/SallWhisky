@@ -51,7 +51,8 @@ public class Whisky {
         }
         if (isCaskStrength()) {
             historieString.append("\n\tCaskstrength");
-        } //TODO hvilken slags cask, kig på side 10, fortyndingsfaktor. Split kravet til whisky op i 2. En til historie, og en til oprettelse
+        }
+        historieString.append("\n\tFortyndningsfaktor: " + fortyndningsFaktor);
 
         //Kommentar
         historieString.append("\nKommentar: ");
