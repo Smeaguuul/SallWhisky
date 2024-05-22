@@ -201,7 +201,7 @@ public class Controller {
             }
         }
 
-        return modneFade; //TODO Eventuelt smid en error så vi i GUI kan sige at der ikker er nogle klar
+        return modneFade;
     }
 
     public static TapningsVæske opretTapningsVæske(Fad fad, double alkoholprocent, double mængde) throws Exception {
