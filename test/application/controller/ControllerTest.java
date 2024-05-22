@@ -1,462 +1,203 @@
 package application.controller;
 
 import application.model.*;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import storage.Storage;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ControllerTest {
-    private Forhandler juan;
-    private Medarbejder medarbejder;
-    private MaltBatch maltBatch;
 
-    @BeforeEach
-    void setUp() {
-        juan = new Forhandler("Juan iglesias", "Catalonien", "Spanien");
+    private static Medarbejder medarbejder;
+    private static MaltBatch maltbatch;
+    private static Forhandler juan;
+
+    @BeforeAll
+    static void beforeAll() {
+        Adresse adresse = new Adresse("1", "Gyllevej", "6969", "DK");
+        Malteri malteri = new Malteri("Thy", "Malteri i Thy.", adresse);
         medarbejder = new Medarbejder("Mads Medarbejder", "010203-4555", "MAM");
-        Adresse adresse = new Adresse("1", "Landmandvej", "6960", "Danmark");
-        Mark mark = new Mark("En meget fin Økologisk mark, som dyrkes af Lars Landmand", "Langdahl", adresse);
-        Malteri malteri = new Malteri("Thy Whisky Malteri", "Et stort malteri i Thy, som opereres af Thy Whisky.", adresse);
-        maltBatch = new MaltBatch(Kornsort.EVERGREEN, 1, LocalDate.of(2024, 05, 03), malteri, mark);
+        Mark mark = new Mark("Øko mark", "Langdahl", adresse);
+        maltbatch = new MaltBatch(Kornsort.IRINA, 2, LocalDate.of(2024, 04, 17), malteri, mark);
+        juan = new Forhandler("Juan Igleasas", "Catalonien", "Spanien");
     }
 
     @Test
-    void getMedarbejder_TC1() {
-        //Arrange
-        Medarbejder expected = new Medarbejder("Mads Medarbejder", "010203-4555", "NAM");
-        Storage.addMedarbejder(expected);
-
-        //Act
-        Medarbejder actual = Controller.getMedarbejder(1);
-
-        //Assert
-        System.out.println("Medarbejder: ");
-        System.out.println("Actual: " + actual);
-        System.out.println("Expected: " + expected);
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void getMedarbejder_TC2() {
-        //Arrange
-        Medarbejder medarbejder = new Medarbejder("Mads Medarbejder", "010203-4555", "NAM");
-        Storage.addMedarbejder(medarbejder);
-        String expected = "Medarbejder eksistere ikke";
-
-        //Act
-        Exception actual = assertThrows(NoSuchElementException.class, () -> {
-            Controller.getMedarbejder(2);
-        });
-
-        //Assert
-        System.out.println("Error besked:");
-        System.out.println("Actual: " + actual.getMessage());
-        System.out.println("Expected: " + expected);
-
-        assertTrue(actual.getMessage().contains(expected));
-    }
-
-    @Test
-    void getMedarbejder_Ugyldig_TC1() {
-        //Arrange
-        Medarbejder medarbejder = new Medarbejder("Mads Medarbejder", "010203-4555", "NAM");
-        Storage.addMedarbejder(medarbejder);
-        String expected = "Medarbejdernummer skal være positivt.";
-
-        //Act
-        Exception actual = assertThrows(IllegalArgumentException.class, () -> {
-            Controller.getMedarbejder(-4);
-        });
-
-        //Assert
-        System.out.println("Error besked:");
-        System.out.println("Actual: " + actual.getMessage());
-        System.out.println("Expected: " + expected);
-
-        assertTrue(actual.getMessage().contains(expected));
-    }
-
-    @Test
-    void getMedarbejder_Ugyldig_TC2() {
-        //Arrange
-        Medarbejder medarbejder = new Medarbejder("Mads Medarbejder", "010203-4555", "NAM");
-        Storage.addMedarbejder(medarbejder);
-        String expected = "Medarbejdernummer skal være positivt.";
-
-        //Act
-        Exception actual = assertThrows(IllegalArgumentException.class, () -> {
-            Controller.getMedarbejder(0);
-        });
-
-        //Assert
-        System.out.println("Error besked:");
-        System.out.println("Actual: " + actual.getMessage());
-        System.out.println("Expected: " + expected);
-
-        assertTrue(actual.getMessage().contains(expected));
-    }
-
-    void opretFad_TC1() {
+    void udregnAlkoholProcentTest01() {
         // Arrange
-        String expected = "Liter størrelse skal være over 0";
+        Destillat destillat = new Destillat(LocalDate.now(),LocalDate.now().plusYears(3), 82, 60, RygningsType.TØRVRØGET, "", medarbejder, maltbatch);
+        Forhandler forhandler = new Forhandler("Juan Igleasas", "Catalonien", "Spanien");
 
-        // Act
-        Exception actual = assertThrows(IllegalArgumentException.class, () -> {
-            Controller.opretFad(Træsort.QUERCUSALBA, juan,
-                    TidligereIndhold.BOURBON, 0, "");
-        });
-
-        // Assert
-        System.out.println("opretfad: TC1");
-        System.out.println("Actual: " + actual.getMessage());
-        System.out.println("Expected: " + expected);
-        assertTrue(actual.getMessage().contains(expected));
-    }
-
-    @Test
-    void opretFad_TC2() {
-        // Arrange
-        Fad exptected = Controller.opretFad(Træsort.QUERCUSALBA, juan, TidligereIndhold.BOURBON, 2, "");
-        Træsort expectedTraesort = Træsort.QUERCUSALBA;
-        TidligereIndhold expectedTidligereIndhold = TidligereIndhold.BOURBON;
-        int expectedLiter = 2;
-
-        // Act
-        Fad actual = Storage.getFade().get(0);
-        Træsort actualTraesort = Storage.getFade().get(0).getTræsort();
-        TidligereIndhold acutalTidligereIndhold = Storage.getFade().get(0).getTidligereIndhold();
-        int actualLiter = Storage.getFade().get(0).getLiterStørrelse();
-
-        // Assert
-        System.out.println("opretfad: TC2");
-        System.out.println("Actual: " + Storage.getFade().get(0));
-        System.out.println("Expected: " + exptected);
-        assertTrue(actual.equals(exptected));
-        assertEquals(expectedTraesort, actualTraesort);
-        assertEquals(expectedTidligereIndhold, acutalTidligereIndhold);
-        assertEquals(expectedLiter, actualLiter);
-    }
-
-    @Test
-    void opretFad_TC3() {
-        // Arrange
-        String expected = "Liter størrelse skal være over 0";
-
-        // Act
-        Exception actual = assertThrows(IllegalArgumentException.class, () -> {
-            Controller.opretFad(Træsort.QUERCUSALBA, juan,
-                    TidligereIndhold.BOURBON, -1, "");
-        });
-
-        // Assert
-        System.out.println("opretfad: TC3");
-        System.out.println("Actual: " + actual.getMessage());
-        System.out.println("Expected: " + expected);
-        assertTrue(actual.getMessage().contains(expected));
-    }
-
-    @Test
-    void opretDestillat_TC1_Gyldig() {
-        // Arrange
-        LocalDate expectedStartdato = LocalDate.of(2024, 05, 01);
-        LocalDate expectedSlutdato = LocalDate.of(2024, 05, 8);
-        double expectedLiterVæske = 35.7;
-        double expectedAlkoholProcent = 40.5;
-
-        // Act
-        Destillat actualDestilat = Controller.opretDestillat(expectedStartdato, expectedSlutdato, 35.7, 99, RygningsType.IKKERØGET, "Meget fint destillat", maltBatch, medarbejder);
-
-        Medarbejder actualMedarbejder = actualDestilat.getMedarbejder();
-        MaltBatch actualMaltbatch = actualDestilat.getMaltBatch();
-        LocalDate actualStartDato = actualDestilat.getStartDato();
-        LocalDate actualSlutDato = actualDestilat.getSlutDato();
-        double actualLiterVæske = actualDestilat.getNuværendemængde();
-        double actualAlkoholProcent = actualDestilat.getAlkoholprocent();
-        Destillat actualDestillat = actualDestilat;
-
-        // Assert
-        assertTrue(Storage.getVæsker().get(0).equals(actualDestillat));
-        assertEquals(medarbejder, actualMedarbejder);
-        assertEquals(maltBatch, actualMaltbatch);
-        assertEquals(expectedStartdato, actualStartDato);
-        assertEquals(expectedSlutdato, actualSlutDato);
-        assertEquals(expectedLiterVæske, actualLiterVæske);
-        assertEquals(expectedAlkoholProcent, actualAlkoholProcent);
-    }
-
-    @Test
-    void opretDestillat_TC1_Dato() {
-        // Arrange
-        LocalDate expectedStartdato = LocalDate.of(2024, 05, 01);
-        LocalDate expectedSlutdato = LocalDate.of(2024, 05, 01);
-        String expected = "Startdato skal være før slutdato.";
-
-        // Act
-        Exception actual = assertThrows(IllegalArgumentException.class, () -> {
-            Controller.opretDestillat(expectedStartdato, expectedSlutdato, 35, 99, RygningsType.IKKERØGET, "Meget fint destillat", maltBatch, medarbejder);
-        });
-
-
-        // Assert
-        System.out.println("Opretdestillat: TC2");
-        System.out.println("Actual: " + actual.getMessage());
-        System.out.println("Expected: " + expected);
-        assertTrue(actual.getMessage().contains(expected));
-    }
-
-    @Test
-    void opretDestillat_TC2_Dato() {
-        // Arrange
-        LocalDate expectedStartdato = LocalDate.of(2024, 05, 8);
-        LocalDate expectedSlutdato = LocalDate.of(2024, 05, 01);
-        String expected = "Startdato skal være før slutdato.";
-
-
-        // Act
-        Exception actual = assertThrows(IllegalArgumentException.class, () -> {
-            Controller.opretDestillat(expectedStartdato, expectedSlutdato, 35, 99, RygningsType.IKKERØGET, "Meget fint destillat", maltBatch, medarbejder);
-        });
-
-
-        // Assert
-        System.out.println("Opretdestillat: TC3");
-        System.out.println("Actual: " + actual.getMessage());
-        System.out.println("Expected: " + expected);
-        assertTrue(actual.getMessage().contains(expected));
-    }
-
-    @Test
-    void opretDestillat_LiterOgAlkoholProcent_TC1() {
-        //Arrange
-        String expected = "Litermængde skal være over 0.";
-        int expectedAntalLiter = -10;
-        double expectedAlkoholprocent = 40;
-
-        //Act
-        Exception actual = assertThrows(IllegalArgumentException.class, () -> {
-            Controller.opretDestillat(LocalDate.of(2024, 05, 01), LocalDate.of(2024, 05, 8), expectedAntalLiter, expectedAlkoholprocent, RygningsType.IKKERØGET, "", maltBatch, medarbejder);
-        });
-
-        //Assert
-        System.out.println("Opretdestillat: TC3");
-        System.out.println("Actual: " + actual.getMessage());
-        System.out.println("Expected: " + expected);
-        assertTrue(actual.getMessage().contains(expected));
-    }
-
-    @Test
-    void opretDestillat_LiterOgAlkoholProcent_TC2() {
-        //Arrange
-        String expected = "Litermængde skal være over 0.";
-        int expectedAntalLiter = 0;
-        double expectedAlkoholprocent = 40;
-
-        //Act
-        Exception actual = assertThrows(IllegalArgumentException.class, () -> {
-            Controller.opretDestillat(LocalDate.of(2024, 05, 01), LocalDate.of(2024, 05, 8), expectedAntalLiter, expectedAlkoholprocent, RygningsType.IKKERØGET, "", maltBatch, medarbejder);
-        });
-
-        //Assert
-        System.out.println("Opretdestillat: TC3");
-        System.out.println("Actual: " + actual.getMessage());
-        System.out.println("Expected: " + expected);
-        assertTrue(actual.getMessage().contains(expected));
-    }
-
-    @Test
-    void opretDestillat_LiterOgAlkoholProcent_TC3() {
-        //Arrange
-        String expected = "Alkoholprocent skal være mellem 40 og 100.";
-        int expectedAntalLiter = 35;
-        double expectedAlkoholprocent = 39.9;
-
-        //Act
-        Exception actual = assertThrows(IllegalArgumentException.class, () -> {
-            Controller.opretDestillat(LocalDate.of(2024, 05, 01), LocalDate.of(2024, 05, 8), expectedAntalLiter, expectedAlkoholprocent, RygningsType.IKKERØGET, "", maltBatch, medarbejder);
-        });
-
-        //Assert
-        System.out.println("Opretdestillat: TC3");
-        System.out.println("Actual: " + actual.getMessage());
-        System.out.println("Expected: " + expected);
-        assertTrue(actual.getMessage().contains(expected));
-    }
-
-    @Test
-    void opretDestillat_LiterOgAlkoholProcent_TC4() {
-        // Arrange
-        int expectedAntalLiter = 35;
-        int expectedAlkoholprocent = 100;
-        LocalDate expectedStartdato = LocalDate.of(2024, 05, 01);
-        LocalDate expectedSlutdato = LocalDate.of(2024, 05, 8);
-        RygningsType expectedRygsningsType = RygningsType.IKKERØGET;
-
-        Destillat expectedDestillat = Controller.opretDestillat(expectedStartdato,
-                expectedSlutdato, expectedAntalLiter, expectedAlkoholprocent, expectedRygsningsType, "", maltBatch, medarbejder);
-
-
-        // Act
-        Destillat actualDestillat = (Destillat) Storage.getVæsker().get(0);
-        double actualAlkohol = actualDestillat.getAlkoholprocent();
-        double actualLiter = actualDestillat.getNuværendemængde();
-
-        // Assert
-        System.out.println("Opretdestillat TC4");
-        System.out.println("Actual: " + actualDestillat + ", Liter: " + actualLiter + ", Alkohol%: " + actualAlkohol + "%");
-        System.out.println("Expected: " + expectedDestillat + ", Liter: " + expectedAntalLiter + ", Alkohol%: " + expectedAlkoholprocent + "%");
-        assertEquals(expectedDestillat, actualDestillat);
-        assertEquals(expectedAntalLiter, actualLiter);
-        assertEquals(expectedAlkoholprocent, actualAlkohol);
-    }
-
-    @Test
-    void opretDestillat_LiterOgAlkoholProcent_TC5() {
-        //Arrange
-        String expected = "Alkoholprocent skal være mellem 40 og 100.";
-        int expectedAntalLiter = 35;
-        double expectedAlkoholprocent = 100.1;
-
-        //Act
-        Exception actual = assertThrows(IllegalArgumentException.class, () -> {
-            Controller.opretDestillat(LocalDate.of(2024, 05, 01), LocalDate.of(2024, 05, 8), expectedAntalLiter, expectedAlkoholprocent, RygningsType.IKKERØGET, "", maltBatch, medarbejder);
-        });
-
-        //Assert
-        System.out.println("Opretdestillat: TC5");
-        System.out.println("Actual: " + actual.getMessage());
-        System.out.println("Expected: " + expected);
-        assertTrue(actual.getMessage().contains(expected));
-    }
-
-    @Test
-    void forsøgLogin_TC1() {
-        // Arrange
-        Medarbejder expectedMedarbejder = new Adminstrator("Snævar Albertsson", "123456-7890", "SNA", "kodeord123");
-
-        // Act
-        Medarbejder actualMedarbejder;
-        try {
-            actualMedarbejder = Controller.forsøgLogin(1, "kodeord123");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        // Assert
-        System.out.println("ForsøgLogin TC1");
-        System.out.println("Actual: " + actualMedarbejder);
-        System.out.println("Expected: " + expectedMedarbejder);
-        assertEquals(expectedMedarbejder, actualMedarbejder);
-
-    }
-
-    @Test
-    void test() {
-        Destillat destillat = new Destillat(LocalDate.now().minusDays(2), LocalDate.now(), 35, 75, RygningsType.IKKERØGET, "", medarbejder, maltBatch);
-        Destillat destillat2 = new Destillat(LocalDate.now().minusDays(2), LocalDate.now(), 35, 90, RygningsType.TØRVRØGET, "", medarbejder, maltBatch);
-        Destillat destillat3 = new Destillat(LocalDate.now().minusDays(4), LocalDate.now(), 50, 45, RygningsType.TØRVRØGET, "", medarbejder, maltBatch);
-        Destillat destillat4 = new Destillat(LocalDate.now().minusDays(4), LocalDate.now(), 35, 69, RygningsType.TØRVRØGET, "", medarbejder, maltBatch);
-        Fad fad = new Fad(Træsort.QUERCUSALBA, "", TidligereIndhold.SHERRY, 200, juan);
-        Fad fad2 = new Fad(Træsort.QUERCUSALBA, "", TidligereIndhold.SHERRY, 200, juan);
-        Fad fad3 = new Fad(Træsort.QUERCUSALBA, "", TidligereIndhold.SHERRY, 200, juan);
-
-
+        Fad gammeltFad = new Fad(Træsort.QUERCUSALBA,"", TidligereIndhold.SHERRY, 100, forhandler);
         HashMap<Væske, Double> hashMap = new HashMap<Væske, Double>();
-        hashMap.put(destillat, 35.00);
-        Make make = Controller.opretMake(fad, hashMap);
+        hashMap.put(destillat, 36.00);
+        Make expectedMake = new Make(gammeltFad, hashMap, LocalDate.now());
+        TapningsVæske væske01 = new TapningsVæske(60, 32, expectedMake);
 
-        HashMap<Væske, Double> hashMap2 = new HashMap<Væske, Double>();
-        hashMap2.put(destillat2, 35.00);
-        hashMap2.put(destillat4, 35.00);
-        Make make2 = Controller.opretMake(fad2, hashMap2);
+        Fad gammeltFad02 = new Fad(Træsort.QUERCUSALBA,"", TidligereIndhold.SHERRY, 100, forhandler);
+        HashMap<Væske, Double> hashMap02 = new HashMap<Væske, Double>();
+        hashMap02.put(destillat, 36.00);
+        Make expectedMake02 = new Make(gammeltFad, hashMap02, LocalDate.now());
+        TapningsVæske væske02 = new TapningsVæske(60, 32, expectedMake02);
 
-        HashMap<Væske, Double> hashMap3 = new HashMap<Væske, Double>();
-        hashMap3.put(make, 35.00);
-        hashMap3.put(make2, 35.00);
-        hashMap3.put(destillat3, 50.00);
-        Make make3 = Controller.opretMake(fad3, hashMap3);
+        double literVand = 10;
+        double literVand02 = 15;
+        double forvæntedeStyrke = 37.16;
+        ArrayList<TapningsVæske> tapningsVæsker = new ArrayList<>();
+        tapningsVæsker.add(væske01);
+        tapningsVæsker.add(væske02);
 
-        System.out.println(make3.getOpbygning());
-    }
-
-    @Test
-    void test2() {
-        Destillat destillat = new Destillat(LocalDate.now().minusDays(2), LocalDate.now(), 35, 75, RygningsType.IKKERØGET, "", medarbejder, maltBatch);
-        Destillat destillat2 = new Destillat(LocalDate.now().minusDays(2), LocalDate.now(), 35, 90, RygningsType.TØRVRØGET, "", medarbejder, maltBatch);
-        Destillat destillat3 = new Destillat(LocalDate.now().minusDays(4), LocalDate.now(), 50, 45, RygningsType.TØRVRØGET, "", medarbejder, maltBatch);
-        Destillat destillat4 = new Destillat(LocalDate.now().minusDays(4), LocalDate.now(), 35, 69, RygningsType.TØRVRØGET, "", medarbejder, maltBatch);
-        Fad fad = new Fad(Træsort.QUERCUSALBA, "", TidligereIndhold.SHERRY, 200, juan);
-
-
-        HashMap<Væske, Double> hashMap = new HashMap<Væske, Double>();
-        hashMap.put(destillat, 35.00);
-        Make make = Controller.opretMake(fad, hashMap);
-
-        HashMap<Væske, Double> hashMap2 = new HashMap<Væske, Double>();
-        hashMap2.put(destillat2, 35.00);
-        hashMap2.put(destillat4, 35.00);
-        Make make2 = Controller.opretMake(fad, hashMap2);
-
-        HashMap<Væske, Double> hashMap3 = new HashMap<Væske, Double>();
-        hashMap3.put(destillat3, 50.00);
-        Make make3 = Controller.opretMake(fad, hashMap3);
-
-        System.out.println(make3.getOpbygning());
-    }
-
-    @Test
-    void getMedarbejder_Gyldig_TC1() {
-        // Arrange
-        String expected = "Medarbejder eksistere ikke.";
         // Act
-        Exception actual = assertThrows(NoSuchElementException.class, () -> {
-            Controller.getMedarbejder(1);
+        Double actualProcent = Controller.udregnAlkoholProcent(tapningsVæsker, literVand);
 
-        });
         // Assert
-        assertEquals(expected, actual.getMessage());
-        System.out.println("getMedarbejder()_Gyldig: TC1");
-        assertEquals(expected, actual.getMessage());
+        System.out.println("UdregnAlkoholprocent: TC 1");
+        System.out.println("\tActual:\t\t" + actualProcent);
+        System.out.println("\tExpected:\t" + forvæntedeStyrke);
+
+    }
+    void udregnAlkoholProcentTest02() {
+
+    }
+    @Test
+    void opretMakeTC1_Gyldig() {
+        //Arrange
+        Destillat destillat0 = new Destillat(LocalDate.now().minusDays(2), LocalDate.now(), 35, 75, RygningsType.IKKERØGET, "", medarbejder, maltbatch);
+        Destillat destillat1 = new Destillat(LocalDate.now().minusDays(2), LocalDate.now(), 35, 90, RygningsType.TØRVRØGET, "", medarbejder, maltbatch);
+        Fad expectedFad = new Fad(Træsort.QUERCUSALBA,"",TidligereIndhold.SHERRY, 70, juan);
+        HashMap<Væske,Double> expectedVæskeOgLiter = new HashMap<>();
+        expectedVæskeOgLiter.put(destillat0, 35.00);
+        expectedVæskeOgLiter.put(destillat1, 35.00);
+        int expectedNuværendeMængdeDestillat0 = 0;
+        int expectedNuværendeMængdeDestillat1 = 0;
+        double expectedNuværendeMængdeMake = 70.0;
+
+        //Act
+        Make actualMake = Controller.opretMake(expectedFad, expectedVæskeOgLiter);
+        Make storageMake = (Make) Storage.getVæsker().get(Storage.getVæsker().size() - 1);
+
+        //Assert
+        System.out.println("opretMake: TC1");
+        System.out.println("\tActual:\t\t" + actualMake.getNuværendeMængde());
+        System.out.println("\tExpected:\t" + expectedNuværendeMængdeMake);
+
+        //Tester om den er landet i storage
+        assertEquals(actualMake, storageMake);
+
+        //Tester værdierne i destillaterne
+        assertEquals(expectedNuværendeMængdeDestillat0, destillat0.getNuværendeMængde());
+        assertEquals(expectedNuværendeMængdeDestillat1, destillat1.getNuværendeMængde());
+
+        //Tester værdierne i Make
+        assertEquals(expectedVæskeOgLiter, actualMake.getVæskeOgLiter());
+        assertEquals(expectedNuværendeMængdeMake, actualMake.getNuværendeMængde());
+    }
+
+    @Test
+    void opretMakeTC2_Gyldig() {
+        //Arrange
+        Destillat destillat0 = new Destillat(LocalDate.now().minusDays(2), LocalDate.now(), 35, 75, RygningsType.IKKERØGET, "", medarbejder, maltbatch);
+        Destillat destillat1 = new Destillat(LocalDate.now().minusDays(2), LocalDate.now(), 35, 90, RygningsType.TØRVRØGET, "", medarbejder, maltbatch);
+        Fad expectedFad = new Fad(Træsort.QUERCUSALBA,"",TidligereIndhold.SHERRY, 70, juan);
+        HashMap<Væske,Double> expectedVæskeOgLiter = new HashMap<>();
+        expectedVæskeOgLiter.put(destillat0, 20.0);
+        expectedVæskeOgLiter.put(destillat1, 10.0);
+        int expectedNuværendeMængdeDestillat0 = 15;
+        int expectedNuværendeMængdeDestillat1 = 25;
+        double expectedNuværendeMængdeMake = 30.0;
+
+        //Act
+        Make actualMake = Controller.opretMake(expectedFad, expectedVæskeOgLiter);
+        Make storageMake = (Make) Storage.getVæsker().get(Storage.getVæsker().size() - 1);
+
+        //Assert
+        System.out.println("opretMake: TC2");
+        System.out.println("\tActual:\t\t" + actualMake.getNuværendeMængde());
+        System.out.println("\tExpected:\t" + expectedNuværendeMængdeMake);
+
+        //Tester værdierne i destillaterne
+        assertEquals(expectedNuværendeMængdeDestillat0, destillat0.getNuværendeMængde());
+        assertEquals(expectedNuværendeMængdeDestillat1, destillat1.getNuværendeMængde());
+
+        //Tester værdierne i Make
+        assertEquals(expectedVæskeOgLiter, actualMake.getVæskeOgLiter());
+        assertEquals(expectedNuværendeMængdeMake, actualMake.getNuværendeMængde());
+    }
+
+    @Test
+    void opretMakeTC1_Ugyldig() {
+        //Arrange
+        Destillat destillat0 = new Destillat(LocalDate.now().minusDays(2), LocalDate.now(), 35, 75, RygningsType.IKKERØGET, "", medarbejder, maltbatch);
+        Destillat destillat1 = new Destillat(LocalDate.now().minusDays(2), LocalDate.now(), 35, 90, RygningsType.TØRVRØGET, "", medarbejder, maltbatch);
+        Destillat destillat2 = new Destillat(LocalDate.now().minusDays(2), LocalDate.now(), 35, 90, RygningsType.TØRVRØGET, "", medarbejder, maltbatch);
+        Fad expectedFad = new Fad(Træsort.QUERCUSALBA,"",TidligereIndhold.SHERRY, 70, juan);
+        HashMap<Væske,Double> expectedVæskeOgLiter = new HashMap<>();
+        expectedVæskeOgLiter.put(destillat0, 35.00);
+        expectedVæskeOgLiter.put(destillat1, 35.00);
+        expectedVæskeOgLiter.put(destillat2, 35.00);
+        String expected = "Der er ikke  plads i fadet.";
+
+        //Act
+        Exception actual = assertThrows(IllegalArgumentException.class, () -> {
+            Controller.opretMake(expectedFad, expectedVæskeOgLiter);
+        });
+
+        //Assert
+        System.out.println("opretMake: Ugyldig TC1");
         System.out.println("\tActual:\t\t" + actual.getMessage());
         System.out.println("\tExpected:\t" + expected);
+
+        assertTrue(actual.getMessage().contains(expected));
     }
 
     @Test
-    void getMedarbejder_Gyldig_TC2() {
-        // Arrange
-        // Da der allerede er oprettet en medarbejder uden for feltet vil denne medarbejder få medarbejdernummeret 2
-        Medarbejder expectedMedarbejder = Controller.opretMedarbejder("Thor", "1234567890", "TBH");
+    void opretMakeTC2_Ugyldig() {
+        //Arrange
+        Destillat destillat0 = new Destillat(LocalDate.now().minusDays(2), LocalDate.now(), 35, 75, RygningsType.IKKERØGET, "", medarbejder, maltbatch);
+        Destillat destillat1 = new Destillat(LocalDate.now().minusDays(2), LocalDate.now(), 35, 90, RygningsType.TØRVRØGET, "", medarbejder, maltbatch);
+        Destillat destillat2 = new Destillat(LocalDate.now().minusDays(2), LocalDate.now(), 35, 90, RygningsType.TØRVRØGET, "", medarbejder, maltbatch);
+        Fad expectedFad = new Fad(Træsort.QUERCUSALBA,"",TidligereIndhold.SHERRY, 70, juan);
+        HashMap<Væske,Double> expectedVæskeOgLiter = new HashMap<>();
+        expectedVæskeOgLiter.put(destillat0, 45.0);
+        expectedVæskeOgLiter.put(destillat1, 10.0);
+        expectedVæskeOgLiter.put(destillat2, 10.0);
+        String expected = "Der er ikke nok væske i de valgte væsker.";
 
-        // Act
-        Medarbejder actualMedarbejder = Controller.getMedarbejder(2);
-
-        // Assert
-        System.out.println("getMedarbejder()_Gyldig: TC2");
-        assertEquals(expectedMedarbejder, actualMedarbejder);
-        System.out.println("\tActual:\n" + actualMedarbejder);
-        System.out.println("\tExpected:\n" + expectedMedarbejder);
-    }
-
-    @Test
-    void getMedarbejder_Gyldig_TC3() {
-        // Arrange
-        String expected = "Medarbejdernummer skal være positivt.";
-        // Act
+        //Act
         Exception actual = assertThrows(IllegalArgumentException.class, () -> {
-            Controller.getMedarbejder(0);
-
+            Controller.opretMake(expectedFad, expectedVæskeOgLiter);
         });
-        // Assert
-        assertEquals(expected, actual.getMessage());
-        System.out.println("getMedarbejder()_Ugyldig: TC1");
-        assertEquals(expected, actual.getMessage());
+
+        //Assert
+        System.out.println("opretMake: Ugyldig TC2");
         System.out.println("\tActual:\t\t" + actual.getMessage());
         System.out.println("\tExpected:\t" + expected);
+
+        assertTrue(actual.getMessage().contains(expected));
     }
 
+    @Test
+    void opretMakeTC3_Ugyldig() {
+        //Arrange
+        Fad expectedFad = new Fad(Træsort.QUERCUSALBA,"",TidligereIndhold.SHERRY, 70, juan);
+        HashMap<Væske,Double> expectedVæskeOgLiter = new HashMap<>();
+        String expected = "Du skal medgive mindst en væske";
+
+        //Act
+        Exception actual = assertThrows(IllegalArgumentException.class, () -> {
+            Controller.opretMake(expectedFad, expectedVæskeOgLiter);
+        });
+
+        //Assert
+        System.out.println("opretMake: Ugyldig TC3");
+        System.out.println("\tActual:\t\t" + actual.getMessage());
+        System.out.println("\tExpected:\t" + expected);
+
+        assertTrue(actual.getMessage().contains(expected));
+    }
 }

@@ -17,14 +17,10 @@ public class OpretForhandlerPane extends MotherPaneWithImageBackground {
     private final TextField navnTextField;
     private final TextField regionTextField;
     private final TextField landTextField;
-    private MotherTab owner;
     ListView<Forhandler> forhandlerListview;
 
     public OpretForhandlerPane(String title, OpretRedigerTab owner) {
-        super("/gui/images/mark.jpg");
-        this.owner = owner;
-
-        CentralPane centralPane = new CentralPane();
+        super("/gui/images/mark.jpg", owner);
 
         //Overskrift
         MotherLabel instructionLabel = new MotherLabel("Udfyld nedenstående for at oprette en forhandler: ");
@@ -62,7 +58,7 @@ public class OpretForhandlerPane extends MotherPaneWithImageBackground {
         buttonBox.setSpacing(20);
         buttonBox.setAlignment(Pos.BASELINE_RIGHT);
         MotherButton afbrydButton = new MotherButton("Afbryd");
-        BekræftForhandlerButton bekræftButton = new BekræftForhandlerButton("Bekræft"); //TODO Hvorfor en hel ny klasse her?
+        MotherButton bekræftButton = new MotherButton("Bekræft");
 
         //Afbryd lukker blot vinduet
         afbrydButton.setOnAction(event -> {
@@ -76,7 +72,7 @@ public class OpretForhandlerPane extends MotherPaneWithImageBackground {
         buttonBox.getChildren().addAll(afbrydButton, bekræftButton);
         centralPane.add(buttonBox, 1, 4);
 
-        this.add(centralPane,0,0);
+        this.add(centralPane, 0, 0);
     }
 
     private void opretForhandler() {

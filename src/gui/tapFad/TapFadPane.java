@@ -2,21 +2,17 @@ package gui.tapFad;
 
 import application.controller.Controller;
 import application.model.Fad;
+import application.model.TapningsVæske;
 import gui.motherClasses.*;
+import gui.opretWhisky.OpretWhiskyPane;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 
 public class TapFadPane extends MotherPaneWithImageBackground {
-    private final MotherTab owner;
 
     public TapFadPane(String title, MotherTab owner) {
-        super("/gui/images/mark.jpg");
-        this.owner = owner;
-
-        //Laver central pane til alle centrale elemenet
-        GridPane centralPane = new CentralPane();
+        super("/gui/images/mark.jpg", owner);
 
         //Overskrift
         MotherLabel instructionLabel = new MotherLabel("Vælg hvilket fad du vil tappe fra, og Hvor meget");
@@ -81,10 +77,11 @@ public class TapFadPane extends MotherPaneWithImageBackground {
             //Giver det valgte input til commonclass
             CommonClass commonClass = new CommonClass(modneFadListView.getSelectionModel().getSelectedItem(), Double.parseDouble(alkoholprocentTextField.getText()), Integer.parseInt(tapningsMængdeTextField.getText()));
             boolean bekræftet = bekræftButton.bekræft(commonClass);
-            if (bekræftet) {
+            if (bekræftet && !singleCaskToggle.isSelected()) {
                 owner.drawDefault();
+            } else if (bekræftet && singleCaskToggle.isSelected()){
+                drawOpretWhiskyPane(commonClass.getTapningsVæske());
             }
-            //TODO skal åbne opretWhisky hvis man har valgt det
         });
 
         //Tilføjer knapperne til pane
@@ -92,5 +89,11 @@ public class TapFadPane extends MotherPaneWithImageBackground {
         centralPane.addColumn(1, buttonBox);
 
         this.add(centralPane,0,0);
+    }
+
+    //Til opretning af singleCask whisky
+    private void drawOpretWhiskyPane(TapningsVæske tapningsVæske) {
+        MotherPane opretWhiskyPane = new OpretWhiskyPane("Opret Whisky", this.owner, tapningsVæske);
+        this.owner.setContent(opretWhiskyPane);
     }
 }

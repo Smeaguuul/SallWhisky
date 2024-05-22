@@ -18,10 +18,7 @@ import java.util.List;
 
 public class TildelLagerlokationPane extends MotherPaneWithImageBackground {
     public TildelLagerlokationPane(String title, MotherTab owner) {
-        super("/gui/images/mark.jpg");
-
-        //Laver central pane til alle centrale elemenet
-        GridPane centralPane = new CentralPane();
+        super("/gui/images/mark.jpg", owner);
 
         //Overskrift
         MotherLabel instructionLabel = new MotherLabel("Vælg et fad, og tildel det en lokation");
@@ -108,10 +105,7 @@ public class TildelLagerlokationPane extends MotherPaneWithImageBackground {
         centralPane.add(hyldePlaceringLabel,1,6);
         centralPane.add(hyldePlaceringNrTextField,2,6);
 
-
-         /*
-        Opretter knapper og en HBox til at holde på dem.
-         */
+        //Opretter knapper og en HBox til at holde på dem.
         HBox buttonBox = new HBox();
         buttonBox.setSpacing(20);
         buttonBox.setAlignment(Pos.BASELINE_RIGHT);
@@ -149,9 +143,7 @@ public class TildelLagerlokationPane extends MotherPaneWithImageBackground {
         buttonBox.getChildren().addAll(afbrydButton, bekræftButton);
         centralPane.addColumn(1, buttonBox);
 
-
-
-
+        //Tilføjer centralPane til ydre pane
         this.add(centralPane,0,0);
     }
 }

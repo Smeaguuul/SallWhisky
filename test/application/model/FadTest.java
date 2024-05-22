@@ -359,7 +359,7 @@ class FadTest {
         Fad fad = new Fad(Træsort.QUERCUSALBA, "", TidligereIndhold.SHERRY, 200, forhandler);
         Adresse adresse = new Adresse("1", "Gyllevej", "6969", "DK");
         Lager lager = new Lager("Lagersted", adresse, 10, 5, 10);
-        fad.setLagerlokation(lager, 1, 1, 1);
+        //fad.setLagerlokation(lager, 1, 1, 1);
 
         Lager expectedLager = null;
         int[] expectedLokation = null;

@@ -10,8 +10,6 @@ public class Whisky {
     private int nummer;
     private boolean brugt;
 
-    //TODO giv unikt ID nummer
-
     public Whisky(double fortyndningsFaktor, String kommentar, ArrayList<TapningsVæske> tapningsVæsker) {
         //Sætter alle tapningsVæsker til 0
         for (TapningsVæske tapningsVæske : tapningsVæsker) {

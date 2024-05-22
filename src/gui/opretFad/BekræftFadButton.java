@@ -24,31 +24,30 @@ public class BekræftFadButton extends MotherButton {
     public boolean bekræft(CommonClass commonClass) {
         //Gemmer commonClass
         this.commonClass = commonClass;
-
+        boolean lykkedes = false;
         try {
-            Fad fad = Controller.opretFad(commonClass.getTræsort(), commonClass.getForhandler(), commonClass.getTidligereIndhold(), Integer.parseInt(commonClass.getLiterStørrelse()), commonClass.getKommentar());
+            //Checker for fejl
+            Controller.opretFadCheck(commonClass.getTræsort(), commonClass.getForhandler(), commonClass.getTidligereIndhold(), Integer.parseInt(commonClass.getLiterStørrelse()));
 
             //Viser et alert vindue af typen Confirmation, som viser alt indtastede information
             Alert alert = new BekræftAlertMedInfo(commonClass.toString());
             alert.showAndWait();
 
-            //Lidt en baglens måde at gøre det på, at slette efter man allerede har oprettet, men det gør det markant mere simpelt.
-            //Og eftersom vi kun har at gøre med en bruger af gangen, og ikke en delt database mellem flere brugere, så føler vi det er fin løsning.
+            //Hvis der bekræftes, så opretter vi faktisk fadet
             boolean bekræftet = alert.getResult() == ButtonType.OK;
-            if (!bekræftet) {
-                Storage.removeFad(fad);
+            if (bekræftet) {
+                Controller.opretFad(commonClass.getTræsort(), commonClass.getForhandler(), commonClass.getTidligereIndhold(), Integer.parseInt(commonClass.getLiterStørrelse()),commonClass.getKommentar());
             }
 
             //Returnere true, så det forrige pane ved at det lykkedes.
-            return bekræftet;
+            lykkedes = bekræftet;
         } catch (NumberFormatException e) {
             Alert warning = new BekræftWarningMedFejlInfo(new Exception("Antal liter skal kun bestå af tal."));
             warning.showAndWait();
         } catch (Exception e) {
             Alert warning = new BekræftWarningMedFejlInfo(e);
             warning.showAndWait();
-            ;
         }
-        return false;
+        return lykkedes;
     }
 }

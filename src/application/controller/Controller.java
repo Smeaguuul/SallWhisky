@@ -10,6 +10,13 @@ import java.util.function.Predicate;
 
 public class Controller {
     public static Fad opretFad(Træsort træsort, Forhandler forhandler, TidligereIndhold tidligereIndhold, int literStørrelse, String bemærkning) throws IllegalArgumentException {
+        opretFadCheck(træsort, forhandler, tidligereIndhold, literStørrelse);
+        Fad fad = new Fad(træsort, bemærkning, tidligereIndhold, literStørrelse, forhandler);
+        Storage.addFad(fad);
+        return fad;
+    }
+
+    public static void opretFadCheck(Træsort træsort, Forhandler forhandler, TidligereIndhold tidligereIndhold, int literStørrelse) {
         if (literStørrelse <= 0) {
             throw new IllegalArgumentException("Liter størrelse skal være over 0");
         }
@@ -22,12 +29,16 @@ public class Controller {
         if (tidligereIndhold == null) {
             throw new NoSuchElementException("Ingen Forhandler Valgt!");
         }
-        Fad fad = new Fad(træsort, bemærkning, tidligereIndhold, literStørrelse, forhandler);
-        Storage.addFad(fad);
-        return fad;
     }
 
-    public static Destillat opretDestillat(LocalDate startDato, LocalDate slutDato, double literVæske, double alkoholProcent, RygningsType rygningsType, String kommentar, MaltBatch maltbatch, Medarbejder medarbejder) {
+    public static Destillat opretDestillat(LocalDate startDato, LocalDate slutDato, double literVæske, double alkoholProcent, RygningsType rygningsType, String kommentar, MaltBatch maltbatch, Medarbejder medarbejder) throws Exception {
+        opretDestillatCheck(startDato, slutDato, literVæske, alkoholProcent, rygningsType);
+        Destillat destillat = new Destillat(startDato, slutDato, literVæske, alkoholProcent, rygningsType, kommentar, medarbejder, maltbatch);
+        Storage.addvæske(destillat);
+        return destillat;
+    }
+
+    public static void opretDestillatCheck(LocalDate startDato, LocalDate slutDato, double literVæske, double alkoholProcent, RygningsType rygningsType) throws Exception {
         if (literVæske <= 0) {
             throw new IllegalArgumentException("Litermængde skal være over 0.");
         }
@@ -40,10 +51,8 @@ public class Controller {
         if (rygningsType == null) {
             throw new IllegalArgumentException("Der skal vælges en rygningstype.");
         }
-        Destillat destillat = new Destillat(startDato, slutDato, literVæske, alkoholProcent, rygningsType, kommentar, medarbejder, maltbatch);
-        Storage.addvæske(destillat);
-        return destillat;
     }
+
 
     public static ArrayList<MaltBatch> getMaltBatches() {
         return Storage.getMaltBatches();
@@ -56,7 +65,7 @@ public class Controller {
         return med;
     }
 
-    public static Medarbejder getMedarbejder(int medarbejderNummer) {
+    public static Medarbejder getMedarbejder(int medarbejderNummer) throws Exception {
         Medarbejder medarbejder = null;
 
         //Kaster en error hvis medarbejder nummer ikke er gyldigt
@@ -122,16 +131,42 @@ public class Controller {
     }
 
 
-    public static Make opretMake(Fad fad, HashMap<Væske, Double> væskerOgLiter) {
+    public static Make opretMake(Fad fad, HashMap<Væske, Double> væskerOgLiter) throws Exception {
         //Tilføjer fadets make til listen, hvis det har et
-        try { //TODO ryd op her
+        try {
             Make fadMake = fad.getMake();
             //Checker lige for en sikkerhedsskyld om den allerede er inkluderet i listen
             if (!væskerOgLiter.containsKey(fadMake)) {
                 væskerOgLiter.put(fadMake, fadMake.getNuværendeMængde());
-
             }
-        } catch (Exception e) {
+        } catch (Exception e){}
+
+
+        //Checker om det er et gyldigt input
+        opretMakeCheck(fad, væskerOgLiter);
+
+
+        //Trækker det brugte væske fra
+        for (Map.Entry<Væske, Double> væskeDoubleEntry : væskerOgLiter.entrySet()) {
+            væskeDoubleEntry.getKey().brugVæske(væskeDoubleEntry.getValue());
+        }
+
+        //Laver det nye make
+        Make make = new Make(fad, væskerOgLiter);
+        Storage.addvæske(make);
+
+        //Returnere make
+        return make;
+    }
+
+    public static void opretMakeCheck(Fad fad, HashMap<Væske, Double> væskerOgLiter) throws Exception {
+        //Checker om fad er null
+        if (fad == null) {
+            throw new IllegalArgumentException("Du skal medgive mindst en væske");
+        }
+        //Checker om der faktisk er medgivet >0 væsker
+        if (væskerOgLiter.size() == 0) {
+            throw new IllegalArgumentException("Du skal medgive mindst en væske");
         }
 
         //Checker om det er plads
@@ -149,18 +184,6 @@ public class Controller {
                 throw new IllegalArgumentException("Der er ikke nok væske i de valgte væsker."); //TODO evt. specificere hvilket destillat/make det er
             }
         }
-
-        //Trækker det brugte væske fra
-        for (Map.Entry<Væske, Double> væskeDoubleEntry : væskerOgLiter.entrySet()) {
-            væskeDoubleEntry.getKey().brugVæske(væskeDoubleEntry.getValue());
-        }
-
-        //Laver det nye make
-        Make make = new Make(fad, væskerOgLiter);
-        Storage.addvæske(make);
-
-        //Returnere make
-        return make;
     }
 
     public static ArrayList<Fad> getModneFade() {
@@ -172,7 +195,8 @@ public class Controller {
                 if (fad.hasMake() && fad.getMake().getNuværendeMængde() > 0) { //TODO Sorter fadene
                     modneFade.add(fad);
                 }
-            } catch (Exception e) {}
+            } catch (Exception e) {
+            }
         }
 
         return modneFade; //TODO Eventuelt smid en error så vi i GUI kan sige at der ikker er nogle klar
@@ -183,14 +207,8 @@ public class Controller {
         Make make;
         make = fad.getMake();
 
-
         //Tester om det er gyldige tal vi får
-        if (alkoholprocent < 40 || alkoholprocent > 100) {
-            throw new IllegalArgumentException("Alkoholprocent skal være mellem 40 og 100.");
-        }
-        if (mængde > make.getNuværendeMængde()) {
-            throw new IllegalArgumentException("Ikke nok resterende væske i Make.");
-        }
+        opretTapningsVæskeCheck(fad, alkoholprocent, mængde);
 
         //Opretter tapningsvæske
         TapningsVæske tapningsVæske = new TapningsVæske(alkoholprocent, mængde, make);
@@ -199,6 +217,17 @@ public class Controller {
         Storage.addTapningsVæske(tapningsVæske);
 
         return tapningsVæske;
+    }
+
+    public static void opretTapningsVæskeCheck(Fad fad, double alkoholprocent, double mængde) throws Exception {
+        Make make;
+        make = fad.getMake();
+        if (alkoholprocent < 40 || alkoholprocent > 100) {
+            throw new IllegalArgumentException("Alkoholprocent skal være mellem 40 og 100.");
+        }
+        if (mængde > make.getNuværendeMængde()) {
+            throw new IllegalArgumentException("Ikke nok resterende væske i Make.");
+        }
     }
 
     /*
@@ -215,10 +244,7 @@ public class Controller {
     }
 
     public static Whisky opretWhisky(List<TapningsVæske> tapningsVæsker, int literVand, String kommentar) throws Exception {
-        double estimeretAlkoholprocent = udregnAlkoholProcent(new ArrayList<>(tapningsVæsker), literVand);
-        if (estimeretAlkoholprocent < 40 || estimeretAlkoholprocent > 100) {
-            throw new IllegalArgumentException("En whisky skal have en alkoholprocent over 40");
-        }
+        opretWhiskyCheck(tapningsVæsker, literVand);
 
         double totalMængdeTapningsVæske = 0;
         for (TapningsVæske tapningsVæske : tapningsVæsker) {
@@ -231,6 +257,13 @@ public class Controller {
         Storage.addWhisky(whisky);
 
         return whisky;
+    }
+
+    public static void opretWhiskyCheck(List<TapningsVæske> tapningsVæsker, int literVand) {
+        double estimeretAlkoholprocent = udregnAlkoholProcent(new ArrayList<>(tapningsVæsker), literVand);
+        if (estimeretAlkoholprocent < 40 || estimeretAlkoholprocent > 100) {
+            throw new IllegalArgumentException("En whisky skal have en alkoholprocent over 40");
+        }
     }
 
     public static double udregnAlkoholProcent(ArrayList<TapningsVæske> tapningsVæsker, double literVandTilFortynding) {
@@ -251,7 +284,7 @@ public class Controller {
     }
 
     public static Lager opretLager(String navn, Adresse adresse, int reolAntal, int højde, int placeringerPrHylde) {
-        Lager lager = new Lager(navn, adresse, reolAntal, højde,placeringerPrHylde);
+        Lager lager = new Lager(navn, adresse, reolAntal, højde, placeringerPrHylde);
 
         Storage.addLager(lager);
 
@@ -283,7 +316,11 @@ public class Controller {
     public static void setLagerLokation(Fad fad, Lager lager, int reolNummer, int højdeNummer, int placeringsnummer) throws Exception {
         //TODO lav et check om det faktisk er inde for begrænsingerne og sørg for at den tilsvarende lokation i lageret bliver registreret som brugt
         //TODO konverter mellem 0-9 til 1-10 f.eks. Vi tæller fra 1 i GUI i ikke 0, så index passer ikke.
-        fad.setLagerlokation(lager, reolNummer, højdeNummer, placeringsnummer);
+        try {
+            fad.setLagerlokation(lager, reolNummer, højdeNummer, placeringsnummer);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static ArrayList<Whisky> getWhisky() {
@@ -306,5 +343,33 @@ public class Controller {
             }
         }
         return ubrugtWhiskies;
+    }
+
+    public static ArrayList<Destillat> getDestillater() {
+        ArrayList<Destillat> destlliatArraylist = new ArrayList<>();
+
+        //Løber listen igennem, og tilføjer alle destillater til listen
+        for (int i = 0; i < Storage.getVæsker().size(); i++) {
+            if (Storage.getVæsker().get(i) instanceof Destillat && Storage.getVæsker().get(i).getNuværendeMængde() > 0) {
+                Destillat destillat = (Destillat) Storage.getVæsker().get(i);
+                destlliatArraylist.add(destillat);
+            }
+        }
+
+        return destlliatArraylist;
+    }
+
+    public static ArrayList<Make> getMakes() {
+        ArrayList<Make> makeArrayList = new ArrayList<>();
+
+        //Løber listen igennem, og tilføjer alle makes til listen
+        for (int i = 0; i < Storage.getVæsker().size(); i++) {
+            if (Storage.getVæsker().get(i) instanceof Make && Storage.getVæsker().get(i).getNuværendeMængde() > 0) {
+                Make make = (Make) Storage.getVæsker().get(i);
+                makeArrayList.add(make);
+            }
+        }
+
+        return makeArrayList;
     }
 }

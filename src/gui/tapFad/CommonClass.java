@@ -1,11 +1,21 @@
 package gui.tapFad;
 
 import application.model.Fad;
+import application.model.TapningsVæske;
 
 public class CommonClass {
     private Fad fad;
     private double alkoholprocent;
     private double mængde;
+    private TapningsVæske tapningsVæske;
+
+    public TapningsVæske getTapningsVæske() {
+        return tapningsVæske;
+    }
+
+    public void setTapningsVæske(TapningsVæske tapningsVæske) {
+        this.tapningsVæske = tapningsVæske;
+    }
 
     public CommonClass(Fad fad, double alkoholprocent, double mængde) {
         this.fad = fad;

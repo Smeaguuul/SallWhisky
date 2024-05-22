@@ -12,57 +12,54 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 
 public class AdminLoginPane extends MotherPaneWithImageBackground {
-    private final MotherTab owner;
-    private TextField nummerTextField = new TextField();
+    private TextField nummerTextField;
     private Medarbejder aktuelMedarbejder;
-    private TextField kodeTextField = new TextField();
+    private TextField kodeTextField;
 
     public AdminLoginPane(String title, MotherTab owner) {
-        super("/gui/images/mark.jpg");
-        this.owner = owner;
+        super("/gui/images/mark.jpg", owner);
 
         //Titel
-        GridPane centralPane = new CentralPane();
         MotherLabel instructionLabel = new MotherLabel("Indtast venlist medarbejdernummer.");
         centralPane.add(instructionLabel, 0, 0, 2, 1);
-        this.add(centralPane, 0, 0);
+
+        // Label til medarbejdernummer
+        InfoLabel medarbejdernummerLabel = new InfoLabel("Medarbejdernummer: ");
+
+        // Text Field til medarbejdernummer
+        this.nummerTextField = new TextField();
+        nummerTextField.setMaxWidth(50);
 
         //HBox til nummer checkning
         HBox nummerHBox = new HBox();
         nummerHBox.setSpacing(20);
+        nummerHBox.getChildren().addAll(medarbejdernummerLabel, nummerTextField);
+        centralPane.add(nummerHBox, 0, 1);
 
-        // Label
-        InfoLabel medarbejdernummerLabel = new InfoLabel("Medarbejdernummer: ");
-        nummerHBox.getChildren().add(medarbejdernummerLabel);
+        //Label og TextField til kodeord
+        InfoLabel kodeLabel = new InfoLabel("Kodeord: ");
+        kodeTextField  = new TextField();
+        kodeTextField.setMaxWidth(50);
 
-        // Text Field
-        nummerTextField.setMaxWidth(50);
-        nummerHBox.getChildren().add(nummerTextField);
-
-        //HBox til kode checkning
+        //HBox til kodeord
         HBox kodeHBox = new HBox();
         kodeHBox.setSpacing(20);
-
-        InfoLabel kodeLabel = new InfoLabel("Kodeord: ");
-        kodeHBox.getChildren().add(kodeLabel);
-
-        kodeTextField.setMaxWidth(50);
-        kodeHBox.getChildren().add(kodeTextField);
-        centralPane.add(nummerHBox, 0, 1);
+        kodeHBox.getChildren().addAll(kodeLabel, kodeTextField);
         centralPane.add(kodeHBox, 0, 2);
-
-        //Laver en HBox til login og annuller knapper
-        HBox buttonHBox = new HBox();
 
         //Laver knapperne
         MotherButton annullerButton = new MotherButton("Annuller");
         annullerButton.setOnAction(e -> owner.drawDefault());
-        buttonHBox.getChildren().add(annullerButton);
-
         MotherButton loginButton = new MotherButton("Log ind");
         loginButton.setOnAction(e -> checkLogin());
-        buttonHBox.getChildren().add(loginButton);
+
+        //Laver en HBox til login og annuller knapper
+        HBox buttonHBox = new HBox();
+        buttonHBox.getChildren().addAll(annullerButton, loginButton);
         centralPane.add(buttonHBox, 0, 3);
+
+        //Tilføjer centralPane til ydrepane
+        this.add(centralPane, 0, 0);
     }
     private void checkLogin() {
         try {

@@ -12,7 +12,6 @@ public class Make extends Væske {
     private static int antalMakes = 0;
     private int makeNummer;
 
-    //TODO lav en metode til tapning, som sætter tømningsdato til idag, hvis 0 liter rammes
     //TODO lav en metode så man kan sætte en tømningsdato ind tved oprettelsen af et nyt make
     @Override
     public String getOpbygning() {
@@ -122,6 +121,10 @@ public class Make extends Væske {
         }
     }
 
+    public HashMap<Væske, Double> getVæskeOgLiter() {
+        return new HashMap<>(væskeDoubleHashMap);
+    }
+
     public int getMakeNummer() {
         return makeNummer;
     }
@@ -130,6 +133,9 @@ public class Make extends Væske {
         StringBuilder st = new StringBuilder();
         st.append("Nr. " + makeNummer);
         st.append("\n\tPåfyldningsdato: " + tidsperioder.get(lastIndex()).getPåfyldningsdato());
+        if (tidsperioder.get(lastIndex()).getTømningsDato() != null) {
+            st.append("\n\tTømningsdato: " + tidsperioder.get(lastIndex()).getTømningsDato());
+        }
         st.append("\n\tstartmængde: " + startmængde);
         st.append("\n\tResterende væske: " + nuværendeMængde);
         return st.toString();

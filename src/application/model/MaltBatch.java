@@ -19,7 +19,7 @@ public class MaltBatch implements historieInterface{
 
     @Override
     public String toString() {
-        return "MaltBatch nr. " + nummer + " af kornsort " + kornsort + " (" + ankomstDato + ")";
+        return "MaltBatch nr. " + nummer + " af kornsort " + kornsort + " fra " + mark.getNavn() + " (" + ankomstDato + ")";
     }
 
     @Override

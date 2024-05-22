@@ -58,9 +58,8 @@ public class FraFadTilWhiskyTab extends MotherTab {
     }
 
     private void drawOpretWhiskyPane() {
-        MotherPane opretWhiskyPane = new OpretWhiskyPane("Opret Whisky", this);
+        MotherPane opretWhiskyPane = new OpretWhiskyPane("Opret Whisky", this, null);
         this.setContent(opretWhiskyPane);
-
     }
 
     private void drawTapFadPane() {
