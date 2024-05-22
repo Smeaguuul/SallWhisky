@@ -22,29 +22,6 @@ public class OpretRedigerTab extends MotherTab {
     }
 
     private void initContentRediger(MotherPane pane) {
-        //Opretter knap og billede til opretDestillat og sætter det i en VBox
-        VBox destillatVBox = new VBox();
-        destillatVBox.setSpacing(10);
-        VerticalImageStackPane fieldImage = new VerticalImageStackPane("/gui/images/markLogo.jpg");
-        destillatVBox.getChildren().add(fieldImage);
-        MotherButton opretDestillatButton = new MainMenuButton("Opret Destillat");
-        opretDestillatButton.setOnAction(event -> openMedarbejderChecker());
-        destillatVBox.getChildren().add(opretDestillatButton);
-        destillatVBox.setAlignment(Pos.BOTTOM_CENTER);
-        pane.add(destillatVBox,0,1);
-
-
-        //Opretter knap og billede til opretFad og sætter det i en VBox
-        VBox fadVBox = new VBox();
-        fadVBox.setSpacing(10);
-        fadVBox.setAlignment(Pos.BOTTOM_CENTER);
-        VerticalImageStackPane fadImage = new VerticalImageStackPane("/gui/images/fad.png");
-        fadVBox.getChildren().add(fadImage);
-        MotherButton opretFadButton = new MainMenuButton("Opret Fad");
-        opretFadButton.setOnAction(event -> openOpretFadWindow());
-        fadVBox.getChildren().add(opretFadButton);
-        pane.add(fadVBox,1,1);
-
         //Opretter knap og billede til Adminstrer Medarbejdere og sætter det i en VBox
         VBox medarbejderVBox = new VBox();
         medarbejderVBox.setSpacing(10);
@@ -54,10 +31,10 @@ public class OpretRedigerTab extends MotherTab {
         MotherButton redigerMedarbejderButton = new MainMenuButton("Admin. Medarbejdere");
         redigerMedarbejderButton.setOnAction(event -> openAdminMedarbejder());
         medarbejderVBox.getChildren().add(redigerMedarbejderButton);
-        pane.add(medarbejderVBox,2,1);
+        pane.add(medarbejderVBox,0,1);
 
         //Opretter knap og billede til opretForhandler og sætter det i en VBox
-        /*VBox forhandlerVBox = new VBox();
+        VBox forhandlerVBox = new VBox();
         forhandlerVBox.setSpacing(10);
         forhandlerVBox.setAlignment(Pos.BOTTOM_CENTER);
         VerticalImageStackPane forhandlerImage = new VerticalImageStackPane("/gui/images/forhandler.png");
@@ -65,9 +42,9 @@ public class OpretRedigerTab extends MotherTab {
         MotherButton opretForhandlerButton = new MainMenuButton("Opret Forhandler");
         opretForhandlerButton.setOnAction(event -> openOpretForhandlerPane());
         forhandlerVBox.getChildren().add(opretForhandlerButton);
-        pane.add(forhandlerVBox,3,1); */
+        pane.add(forhandlerVBox,1,1);
 
-        /*Opretter knap og billede til opretLager og sætter det i en VBox
+        //Opretter knap og billede til opretLager og sætter det i en VBox
         VBox lagerVbox = new VBox();
         lagerVbox.setSpacing(10);
         lagerVbox.setAlignment(Pos.BOTTOM_CENTER);
@@ -76,7 +53,7 @@ public class OpretRedigerTab extends MotherTab {
         Button opretLagerButton = new MainMenuButton("Opret Lager");
         opretLagerButton.setOnAction(e -> openOpretLagerPane());
         lagerVbox.getChildren().add(opretLagerButton);
-        pane.add(lagerVbox,3,1); */
+        pane.add(lagerVbox,2,1);
 
         // Opretter knap og billede til opretMaltbatch og sætter det i en Vbox
         VBox maltBatchVbox = new VBox();
@@ -98,7 +75,7 @@ public class OpretRedigerTab extends MotherTab {
         MotherButton opretDiverseButton = new MainMenuButton("Opret Diverse");
         opretDiverseButton.setOnAction(event -> openOpretDiversePane());
         opretDiverseVBox.getChildren().add(opretDiverseButton);
-        pane.add(opretDiverseVBox,3,1);
+        pane.add(opretDiverseVBox,4,1);
     }
 
     private void openOpretDiversePane() {
@@ -130,15 +107,5 @@ public class OpretRedigerTab extends MotherTab {
         MotherPane paneRediger = new MotherPane();
         initContentRediger(paneRediger);
         this.setContent(paneRediger);
-    }
-
-    private void openMedarbejderChecker() {
-        MotherPane checkMedarbejderPane = new CheckMedarbejderWindow("Indtast medarbejder nummer", this);
-        this.setContent(checkMedarbejderPane);
-    }
-
-    private void openOpretFadWindow() {
-        OpretFadPane opretFadPane = new OpretFadPane("Opret Fad Vindue", this);
-        this.setContent(opretFadPane);
     }
 }
