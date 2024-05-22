@@ -30,15 +30,19 @@ public class FyldPaaFad extends MotherPaneWithImageBackground {
     public FyldPaaFad(String title, MotherTab owner) {
         super("/gui/images/mark.jpg", owner);
 
-        //Laver et central pane
-        CentralPane centralPane = new CentralPane();
+        //Overskrift
+        MotherLabel instructionLabel = new MotherLabel("Udfyld nedenstående for at oprette et nyt fad: ");
+        centralPane.add(instructionLabel, 0, 0, 5, 1);
+
 
         // Opdeler de to væsketyper "destillat og make" i to arraylister
         vaerdierTilVaeskeListviews();
 
         // Tilføjer labels med tilhørende listview
-        centralPane.addColumn(0, new InfoLabel("Destillater:"), new InfoLabel("Makes:"), new InfoLabel("Fade:"));
-        centralPane.addColumn(1, destillatListview, makeListview, fadListView);
+        centralPane.addColumn(0, new InfoLabel("Destillater:"), new InfoLabel("Makes:"));
+        centralPane.addColumn(1, destillatListview, makeListview);
+        centralPane.add(new InfoLabel("Fade:"), 4,1);
+        centralPane.add(fadListView, 4,2);
 
         // Listeners til væskeListViews, som sender info om valgte objekter til info feltene
         destillatListview.getSelectionModel().selectedIndexProperty().addListener(observable -> {
@@ -63,11 +67,13 @@ public class FyldPaaFad extends MotherPaneWithImageBackground {
         });
 
         //Hbox med fad og væske textarea med info
+        væskeInfoTextArea.setMaxWidth(200);
+        fadInfoTextArea.setMaxWidth(200);
         VBox fadOgVæskeInfoHbox = new VBox();
         fadOgVæskeInfoHbox.getChildren().addAll(new InfoLabel("Fad info:"), fadInfoTextArea, new InfoLabel("Væske info:"), væskeInfoTextArea);
         fadInfoTextArea.editableProperty().setValue(false);
         væskeInfoTextArea.editableProperty().setValue(false);
-        centralPane.add(fadOgVæskeInfoHbox, 3, 0, 1, 2);
+        centralPane.add(fadOgVæskeInfoHbox, 2, 1, 1, 2);
 
         // Label, textfield og knap til tilføjelse af væske med valgte litermængde
         Button tilføjVæskeButton = new MotherButton("Tilføj");
@@ -75,7 +81,7 @@ public class FyldPaaFad extends MotherPaneWithImageBackground {
         HBox tilføjVæskeHbox = new HBox();
         tilføjVæskeHbox.setSpacing(20);
         tilføjVæskeHbox.getChildren().addAll(new InfoLabel("Liter:"), literTextfield, tilføjVæskeButton);
-        centralPane.add(tilføjVæskeHbox, 3, 2);
+        centralPane.add(tilføjVæskeHbox, 2, 3);
 
         // Knapper til oprettelse og afbryd
         Button afbrydButton = new MotherButton("Afbryd");
@@ -90,12 +96,13 @@ public class FyldPaaFad extends MotherPaneWithImageBackground {
         HBox afbrydOpretHbox = new HBox();
         afbrydOpretHbox.setSpacing(20);
         afbrydOpretHbox.getChildren().addAll(afbrydButton, opretButton);
-        centralPane.add(afbrydOpretHbox, 3, 3);
+        centralPane.add(afbrydOpretHbox, 2, 4);
 
         // Liste med væsker der er i det kommende batch, samt knap til fjernelse af væske
         Button fjernVaeskeButton = new MotherButton("Fjern");
         fjernVaeskeButton.setOnAction(e -> fjernVaeske());
-        centralPane.addRow(4, new InfoLabel("Væsker i kommende make: "), indholdListview, fjernVaeskeButton);
+        centralPane.add(new InfoLabel("Væsker i kommende make: "), 0, 4, 2, 1);
+        centralPane.add(indholdListview, 0, 5, 3, 1);;
 
         //Tilføjer centralpane til hovedpane
         this.add(centralPane, 0, 0);
