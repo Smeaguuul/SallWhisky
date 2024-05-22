@@ -3,12 +3,9 @@ package gui.whiskyListe;
 import application.controller.Controller;
 import application.model.Whisky;
 import gui.motherClasses.*;
-import gui.tabs.UdtrækFadTap;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 
 public class WhiskyUdtrækWindow extends MotherPaneWithImageBackground {
     private final ListView<Whisky> whiskyListView;

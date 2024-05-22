@@ -22,17 +22,6 @@ public class OpretRedigerTab extends MotherTab {
     }
 
     private void initContentRediger(MotherPane pane) {
-        //Opretter knap og billede til Adminstrer Medarbejdere og sætter det i en VBox
-        VBox medarbejderVBox = new VBox();
-        medarbejderVBox.setSpacing(10);
-        medarbejderVBox.setAlignment(Pos.BOTTOM_CENTER);
-        VerticalImageStackPane medarbejderImage = new VerticalImageStackPane("/gui/images/medarbejder.png");
-        medarbejderVBox.getChildren().add(medarbejderImage);
-        MotherButton redigerMedarbejderButton = new MainMenuButton("Admin. Medarbejdere");
-        redigerMedarbejderButton.setOnAction(event -> openAdminMedarbejder());
-        medarbejderVBox.getChildren().add(redigerMedarbejderButton);
-        pane.add(medarbejderVBox,0,1);
-
         //Opretter knap og billede til opretForhandler og sætter det i en VBox
         VBox forhandlerVBox = new VBox();
         forhandlerVBox.setSpacing(10);
@@ -42,7 +31,7 @@ public class OpretRedigerTab extends MotherTab {
         MotherButton opretForhandlerButton = new MainMenuButton("Opret Forhandler");
         opretForhandlerButton.setOnAction(event -> openOpretForhandlerPane());
         forhandlerVBox.getChildren().add(opretForhandlerButton);
-        pane.add(forhandlerVBox,1,1);
+        pane.add(forhandlerVBox,0,1);
 
         //Opretter knap og billede til opretLager og sætter det i en VBox
         VBox lagerVbox = new VBox();
@@ -53,7 +42,7 @@ public class OpretRedigerTab extends MotherTab {
         Button opretLagerButton = new MainMenuButton("Opret Lager");
         opretLagerButton.setOnAction(e -> openOpretLagerPane());
         lagerVbox.getChildren().add(opretLagerButton);
-        pane.add(lagerVbox,2,1);
+        pane.add(lagerVbox,1,1);
 
         // Opretter knap og billede til opretMaltbatch og sætter det i en Vbox
         VBox maltBatchVbox = new VBox();
@@ -64,7 +53,7 @@ public class OpretRedigerTab extends MotherTab {
         Button opretMaltBatchButton = new MainMenuButton("Opret Malt batch");
         opretMaltBatchButton.setOnAction(e -> openOpretMaltBatch());
         maltBatchVbox.getChildren().add(opretMaltBatchButton);
-        pane.add(maltBatchVbox,3,1);
+        pane.add(maltBatchVbox,2,1);
 
         //Opretter knap og billede til opret diverse
         VBox opretDiverseVBox = new VBox();
@@ -75,7 +64,7 @@ public class OpretRedigerTab extends MotherTab {
         MotherButton opretDiverseButton = new MainMenuButton("Opret Diverse");
         opretDiverseButton.setOnAction(event -> openOpretDiversePane());
         opretDiverseVBox.getChildren().add(opretDiverseButton);
-        pane.add(opretDiverseVBox,4,1);
+        pane.add(opretDiverseVBox,3,1);
     }
 
     private void openOpretDiversePane() {
@@ -93,10 +82,6 @@ public class OpretRedigerTab extends MotherTab {
         this.setContent(opretLagerPane);
     }
 
-    private void openAdminMedarbejder(){
-        AdminLoginPane adminLoginPane = new AdminLoginPane("Admin login", this);
-        this.setContent(adminLoginPane);
-    }
     private void openOpretForhandlerPane() {
         MotherPane opretForhandlerPane = new OpretForhandlerPane("Opret Forhandler", this);
         this.setContent(opretForhandlerPane);

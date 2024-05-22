@@ -4,13 +4,12 @@ package gui;
 import gui.motherClasses.MotherPane;
 import gui.tabs.FraFadTilWhiskyTab;
 import gui.tabs.OpretRedigerTab;
-import gui.tabs.PaafyldTab;
-import gui.tabs.UdtrækFadTap;
+import gui.tabs.ProduktionsTab;
+import gui.tabs.SystemInformationTap;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
@@ -20,10 +19,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
 
 public class StartWindow extends Application {
     private Stage stage;
@@ -68,12 +64,12 @@ public class StartWindow extends Application {
         tabPane.getTabs().add(fraFadTilWhiskyTab);
 
         //Laver tab til udtræk
-        UdtrækFadTap tabUdtræk = new UdtrækFadTap("Udtræk");
-        tabPane.getTabs().add(tabUdtræk);
+        SystemInformationTap systemInformationTab = new SystemInformationTap("System Information");
+        tabPane.getTabs().add(systemInformationTab);
 
         //tab til påfyldning
-        Tab tabPaaefyld = new PaafyldTab("Paafyldning");
-        tabPane.getTabs().add(tabPaaefyld);
+        Tab produktionsTab = new ProduktionsTab("Produktion");
+        tabPane.getTabs().add(produktionsTab);
 
         //MotherPane
         motherPane.add(tabPane, 0, 1);

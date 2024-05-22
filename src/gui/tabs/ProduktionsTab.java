@@ -7,11 +7,10 @@ import gui.opretFad.OpretFadPane;
 import gui.tildelLagerlokation.TildelLagerlokationPane;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
-public class PaafyldTab extends MotherTab {
-    public PaafyldTab(String text) {
+public class ProduktionsTab extends MotherTab {
+    public ProduktionsTab(String text) {
         super(text);
         drawDefault();
     }
