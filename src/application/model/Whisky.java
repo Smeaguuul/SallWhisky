@@ -93,6 +93,6 @@ public class Whisky {
 
     @Override
     public String toString() {
-        return getHistorie();
+        return "Whisky Nr: " + nummer;
     }
 }
