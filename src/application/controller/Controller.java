@@ -319,7 +319,6 @@ public class Controller {
     }
 
     public static void setLagerLokation(Fad fad, Lager lager, int reolNummer, int højdeNummer, int placeringsnummer) throws Exception {
-        //TODO konverter mellem 0-9 til 1-10 f.eks. Vi tæller fra 1 i GUI i ikke 0, så index passer ikke.
         try {
             fad.setLagerlokation(lager, reolNummer, højdeNummer, placeringsnummer);
         } catch (Exception e) {
