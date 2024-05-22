@@ -119,7 +119,7 @@ public class Fad implements Comparable{
         }
         if (this.lager != null) {
             stBuilder.append("\n Lager: " + lager);
-            stBuilder.append("\n\t Lagerlokation: Reolnr: " + this.lagerLokation[0] + ", hyldeNr: " + this.lagerLokation[1] + ", Hylde placering: " + this.lagerLokation[2] + ".");
+            stBuilder.append("\n\t Lagerlokation: Reolnr: " + (this.lagerLokation[0] + 1)+ ", hyldeNr: " + (this.lagerLokation[1] + 1)+ ", Hylde placering: " + (this.lagerLokation[2] + 1)+ ".");
         }
         stBuilder.append("\n Bemærkning: " + bemærkning);
         return stBuilder.toString();

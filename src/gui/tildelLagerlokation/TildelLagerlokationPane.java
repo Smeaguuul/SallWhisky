@@ -110,7 +110,7 @@ public class TildelLagerlokationPane extends MotherPaneWithImageBackground {
         buttonBox.setSpacing(20);
         buttonBox.setAlignment(Pos.BASELINE_RIGHT);
         MotherButton afbrydButton = new MotherButton("Afbryd");
-        BekræftTapFadButtton bekræftButton = new BekræftTapFadButtton("Tap Fad");
+        BekræftTapFadButtton bekræftButton = new BekræftTapFadButtton("Bekræft");
 
         //Afbryd lukker blot vinduet
         afbrydButton.setOnAction(event -> {
@@ -128,9 +128,9 @@ public class TildelLagerlokationPane extends MotherPaneWithImageBackground {
             }
             Lager lager = lagrerListview.getSelectionModel().getSelectedItem();
 
-            int reolNummer = Integer.parseInt(reolNrTextField.getText());
-            int højdeNummer = Integer.parseInt(hyldeNrTextField.getText());
-            int placeringsnummer = Integer.parseInt(hyldePlaceringNrTextField.getText());
+            int reolNummer = Integer.parseInt(reolNrTextField.getText()) - 1;
+            int højdeNummer = Integer.parseInt(hyldeNrTextField.getText()) - 1;
+            int placeringsnummer = Integer.parseInt(hyldePlaceringNrTextField.getText()) - 1;
 
             try {
                 Controller.setLagerLokation(fad, lager, reolNummer, højdeNummer, placeringsnummer);
