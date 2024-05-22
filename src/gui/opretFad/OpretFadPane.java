@@ -56,7 +56,7 @@ public class OpretFadPane extends MotherPaneWithImageBackground {
 
         //Skriver størrelse
         InfoLabel størrelseLabel = new InfoLabel("Fad Størrelse i Liter:");
-        størrelseTextField = new TextField();
+        størrelseTextField = new NumberTextField();
         størrelseTextField.setEditable(true);
         centralPane.addRow(4, størrelseLabel, størrelseTextField);
 

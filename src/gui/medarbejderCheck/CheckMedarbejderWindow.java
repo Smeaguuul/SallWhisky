@@ -33,7 +33,7 @@ public class CheckMedarbejderWindow extends MotherPane {
         InfoLabel medarbejderNummerLabel = new InfoLabel("Medarbejdernummer: ");
 
         // Text Field
-        medarbejderNummerTextField = new TextField();
+        medarbejderNummerTextField = new NumberTextField();
         medarbejderNummerTextField.setMaxWidth(50);
 
         // Check Button

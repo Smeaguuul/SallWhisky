@@ -50,7 +50,7 @@ public class OpretDestillatPane extends MotherPaneWithImageBackground {
 
         //Vælger liter væske
         InfoLabel literVæskeLabel = new InfoLabel("Liter væske produceret:");
-        TextField størrelseTextField = new TextField();
+        TextField størrelseTextField = new NumberTextField();
         størrelseTextField.setEditable(true);
 
         //Vælger alkoholprocent

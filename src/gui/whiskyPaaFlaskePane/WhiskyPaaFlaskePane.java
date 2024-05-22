@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
 
 public class WhiskyPaaFlaskePane extends MotherPaneWithImageBackground {
     private ListView<Whisky> whiskyListView = new ListView<>();
-    private TextField flaskeStorrelseTextfield = new TextField();
+    private TextField flaskeStorrelseTextfield = new NumberTextField();
     private TextField flaskeAntalTextfield = new TextField();
 
 

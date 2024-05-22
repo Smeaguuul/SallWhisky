@@ -18,9 +18,9 @@ public class OpretLagerPane extends MotherPaneWithImageBackground {
     private TextField postnrTextfield = new TextField();
     private TextField gadeNavnTextfield = new TextField();
     private TextField gadeNrTextfield = new TextField();
-    private TextField antalReolerTextfield = new TextField();
-    private TextField hyldePrReolTextfield = new TextField();
-    private TextField pladserPrHylde = new TextField();
+    private TextField antalReolerTextfield = new NumberTextField();
+    private TextField hyldePrReolTextfield = new NumberTextField();
+    private TextField pladserPrHylde = new NumberTextField();
 
     public OpretLagerPane(String s, OpretRedigerTab owner) {
         super("/gui/images/mark.jpg", owner);
