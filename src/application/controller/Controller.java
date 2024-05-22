@@ -372,4 +372,31 @@ public class Controller {
 
         return makeArrayList;
     }
+
+    public static Mark opretMark(String land, String postNr, String gadeNavn, String gadeNr, String markNavn, String markBeskrivelse) throws Exception {
+        //Checker om vi mangler information.
+        // Vi checker dog ikke beskrivelsen, da den ikke er nødvendig.
+        if (markNavn.isEmpty() || land.isEmpty() || postNr.isEmpty() || gadeNavn.isEmpty() || gadeNr.isEmpty()){
+            throw new IllegalArgumentException("Udfyld venligst alle relevante felter");
+        }
+        Adresse adresse = opretAdresse(land, postNr, gadeNavn, gadeNr);
+        Mark mark = new Mark(markBeskrivelse, markNavn, adresse);
+        Storage.addMark(mark);
+        return mark;
+    }
+
+    private static Adresse opretAdresse(String land, String postNr, String gadeNavn, String gadeNr) {
+        Adresse adresse = new Adresse(gadeNr, gadeNavn, postNr, land);
+        return adresse;
+    }
+
+    public static Malteri opretMalteri(String land, String postNr, String gadeNavn, String gadeNr, String malteriNavn, String malteriBeskrivelse) throws Exception {
+        if (malteriNavn.isEmpty() || land.isEmpty() || postNr.isEmpty() || gadeNavn.isEmpty() || gadeNr.isEmpty()){
+            throw new IllegalArgumentException("Udfyld venligst alle relevante felter");
+        }
+        Adresse adresse = opretAdresse(land, postNr, gadeNavn, gadeNr);
+        Malteri malteri = new Malteri(malteriNavn, malteriBeskrivelse, adresse);
+        Storage.addMalteri(malteri);
+        return malteri;
+    }
 }

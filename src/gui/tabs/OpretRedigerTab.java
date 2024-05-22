@@ -3,11 +3,11 @@ package gui.tabs;
 import gui.medarbejderCheck.CheckMedarbejderWindow;
 import gui.motherClasses.*;
 import gui.opretAdminMedarbejder.AdminLoginPane;
+import gui.opretDiverse.OpretDiversePane;
 import gui.opretFad.OpretFadPane;
 import gui.opretForhandler.OpretForhandlerPane;
 import gui.opretLagerPane.OpretLagerPane;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 
 public class OpretRedigerTab extends MotherTab {
@@ -65,7 +65,7 @@ public class OpretRedigerTab extends MotherTab {
         forhandlerVBox.getChildren().add(opretForhandlerButton);
         pane.add(forhandlerVBox,3,1); */
 
-        //Opretter knap og billede til opretLager og sætter det i en VBox
+        /*Opretter knap og billede til opretLager og sætter det i en VBox
         VBox lagerVbox = new VBox();
         lagerVbox.setSpacing(10);
         lagerVbox.setAlignment(Pos.BOTTOM_CENTER);
@@ -75,7 +75,23 @@ public class OpretRedigerTab extends MotherTab {
         opretLagerButton.setOnAction(e -> openOpretLagerPane());
         lagerVbox.getChildren().add(opretLagerButton);
         pane.add(lagerVbox,3,1);
+        */
 
+        //Opretter knap og billede til opret diverse
+        VBox opretDiverseVBox = new VBox();
+        opretDiverseVBox.setSpacing(10);
+        opretDiverseVBox.setAlignment(Pos.BOTTOM_CENTER);
+        VerticalImageStackPane opretDiverseImage = new VerticalImageStackPane("/gui/images/forhandler.png");
+        opretDiverseVBox.getChildren().add(opretDiverseImage);
+        MotherButton opretDiverseButton = new MainMenuButton("Opret Diverse");
+        opretDiverseButton.setOnAction(event -> openOpretDiversePane());
+        opretDiverseVBox.getChildren().add(opretDiverseButton);
+        pane.add(opretDiverseVBox,3,1);
+    }
+
+    private void openOpretDiversePane() {
+        OpretDiversePane opretDiversePane = new OpretDiversePane(this);
+        this.setContent(opretDiversePane);
     }
 
     private void openOpretLagerPane() {
