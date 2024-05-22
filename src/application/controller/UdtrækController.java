@@ -12,7 +12,6 @@ public class UdtrækController {
         return Storage.getFade();
     }
 
-    //TODO eventuelt lav en metode som bare tage det man kan filtrere efter som parametere, og bagefter laver sit eget predicate
     public static ArrayList<Fad> getFilterFad(LocalDate senestePåfyldningsDato, TidligereIndhold tidligereIndhold, Træsort træsort, Lager lager) {
         //Opretter det specificerede filter
         Predicate<Fad> fadFilter = new Predicate<Fad>() {

@@ -51,7 +51,7 @@ public class Whisky {
         }
         if (isCaskStrength()) {
             historieString.append("\n\tCaskstrength");
-        } //TODO hvilken slags cask, kig på side 10, fortyndingsfaktor. Split kravet til whisky op i 2. En til historie, og en til oprettelse
+        }
 
         //Kommentar
         historieString.append("\nKommentar: ");
@@ -89,5 +89,10 @@ public class Whisky {
 
     public boolean isBrugt() {
         return brugt;
+    }
+
+    @Override
+    public String toString() {
+        return getHistorie();
     }
 }
