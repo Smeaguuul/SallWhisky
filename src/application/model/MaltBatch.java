@@ -5,13 +5,15 @@ import java.time.LocalDate;
 public class MaltBatch implements historieInterface{
     private Kornsort kornsort;
     private int nummer;
+    private static int antalMaltbatches;
     private LocalDate ankomstDato;
     private Malteri malteri;
     private Mark mark;
 
-    public MaltBatch(Kornsort kornsort, int nummer, LocalDate ankomstDato, Malteri malteri, Mark mark) {
+    public MaltBatch(Kornsort kornsort, LocalDate ankomstDato, Malteri malteri, Mark mark) {
         this.kornsort = kornsort;
-        this.nummer = nummer;
+        antalMaltbatches++;
+        this.nummer = antalMaltbatches;
         this.ankomstDato = ankomstDato;
         this.malteri = malteri;
         this.mark = mark;
