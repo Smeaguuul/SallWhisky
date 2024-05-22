@@ -25,7 +25,7 @@ public class App {
 
         //Laver nogle medarbejdere
         Medarbejder snævar = new Adminstrator("Snævar Albertsson", "130676-1234", "SNA", "kode");
-        Storage.addMedarbejder(snævar); //TODO Vi skal nok også kunne oprette en admin i controller
+        Storage.addMedarbejder(snævar);
         Medarbejder mads = Controller.opretMedarbejder("Mads Medarbejder", "010203-4555", "MAM");
         Medarbejder thor = Controller.opretMedarbejder("Thor Testesen", "020304-6969", "TOT");
 

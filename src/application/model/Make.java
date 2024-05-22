@@ -12,7 +12,6 @@ public class Make extends Væske {
     private static int antalMakes = 0;
     private int makeNummer;
 
-    //TODO lav en metode så man kan sætte en tømningsdato ind tved oprettelsen af et nyt make
     @Override
     public String getOpbygning() {
         String opbygning = "Make " + makeNummer;

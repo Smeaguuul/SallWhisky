@@ -4,7 +4,7 @@ public class TapningsVæske {
     private double alkoholprocent;
     private double mængde;
     private Make make;
-    private boolean erBrugt = false; //TODO skal tilføjes til uml diagrammerne
+    private boolean erBrugt = false;
 
     public boolean isErBrugt() {
         return erBrugt;
