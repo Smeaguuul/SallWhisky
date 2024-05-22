@@ -124,6 +124,7 @@ public class FadUdtrækWindow extends MotherPaneWithImageBackground {
         this.fadListView.getItems().addAll(fadEfterFilter);
     }
 
+    //TODO vi bruger fades tidligere makes, til at filtere efter påfyldningsdato. Vi skal helt undgå at bruge fade uden makes, ift filtering ift. påfyldningsdato
 
     private void clearSelections() {
         this.tidligereIndholdComboBox.getSelectionModel().select(null);
