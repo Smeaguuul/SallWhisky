@@ -46,7 +46,7 @@ public class TapFadPane extends MotherPaneWithImageBackground {
 
         //Laver et textfield til input at alkoholprocent
         TextField alkoholprocentTextField = new TextField();
-        InfoLabel alkoholprocentLabel = new InfoLabel("Målt alkoholprocent: "); //TODO bruge textfield som kun tagerimod tal
+        InfoLabel alkoholprocentLabel = new InfoLabel("Målt alkoholprocent: ");
         HBox alkoholprocentHBox = new HBox(alkoholprocentLabel, alkoholprocentTextField);
         alkoholprocentHBox.setSpacing(10);
         centralPane.addColumn(1, alkoholprocentHBox);
