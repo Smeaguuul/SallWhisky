@@ -277,7 +277,6 @@ class FadTest {
 
     @Test
     void setLagerlokation_TC1() throws Exception {
-        //TODO
         Forhandler forhandler = new Forhandler("Juan Igleasas", "Catalonien", "Spanien");
         Fad fad = new Fad(Træsort.QUERCUSALBA, "", TidligereIndhold.SHERRY, 200, forhandler);
         Fad fad2 = new Fad(Træsort.QUERCUSALBA,"", TidligereIndhold.BOURBON, 200, forhandler);
@@ -309,7 +308,6 @@ class FadTest {
     }
     @Test
     void setLagerlokation_TC2() throws Exception {
-        //TODO
         Forhandler forhandler = new Forhandler("Juan Igleasas", "Catalonien", "Spanien");
         Fad fad = new Fad(Træsort.QUERCUSALBA, "", TidligereIndhold.SHERRY, 200, forhandler);
         Fad fad2 = new Fad(Træsort.QUERCUSALBA,"", TidligereIndhold.BOURBON, 200, forhandler);
@@ -332,7 +330,6 @@ class FadTest {
     }
     @Test
     void setLagerlokation_TC3() throws Exception {
-        //TODO
         Forhandler forhandler = new Forhandler("Juan Igleasas", "Catalonien", "Spanien");
         Fad fad = new Fad(Træsort.QUERCUSALBA, "", TidligereIndhold.SHERRY, 200, forhandler);
         Fad fad2 = new Fad(Træsort.QUERCUSALBA,"", TidligereIndhold.BOURBON, 200, forhandler);
