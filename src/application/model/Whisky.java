@@ -52,6 +52,7 @@ public class Whisky {
         if (isCaskStrength()) {
             historieString.append("\n\tCaskstrength");
         }
+        historieString.append("\n\tFortyndningsfaktor: " + fortyndningsFaktor);
 
         //Kommentar
         historieString.append("\nKommentar: ");

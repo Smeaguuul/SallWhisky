@@ -1,6 +1,9 @@
 package application.controller;
 
-import application.model.*;
+import application.model.Fad;
+import application.model.Lager;
+import application.model.TidligereIndhold;
+import application.model.Træsort;
 import storage.Storage;
 
 import java.time.LocalDate;
@@ -21,9 +24,13 @@ public class UdtrækController {
 
                 //Checker påfyldningsdato
                 if (senestePåfyldningsDato != null) {
-                    try {
-                        matches = senestePåfyldningsDato.isAfter(fad.getPåfyldningsDato().minusDays(1)); //Trækker 1 dag fra, for at inkludere den sidste dag
-                    } catch (Exception e) {
+                    if (fad.hasMake()) {
+                        try {
+                            matches = senestePåfyldningsDato.isAfter(fad.getPåfyldningsDato().minusDays(1)); //Trækker 1 dag fra, for at inkludere den sidste dag
+                        } catch (Exception e) {
+                            matches = false;
+                        }
+                    } else {
                         matches = false;
                     }
                 }
@@ -47,11 +54,9 @@ public class UdtrækController {
             }
         };
 
-
         //Opretter listerne
         ArrayList<Fad> fad = getFad();
         ArrayList<Fad> fadEfterFilter = new ArrayList<Fad>();
-
 
         //Filtrere listen efter det givne predicate
         fad.stream().filter(fadFilter).forEach(fadElement -> fadEfterFilter.add(fadElement));

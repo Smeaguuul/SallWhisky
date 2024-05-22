@@ -36,7 +36,7 @@ public class BekræftTapFadButtton extends MotherButton {
             //Hvis der bekræftes, så opretter vi en tapningsvæske
             boolean bekræftet = alert.getResult() == ButtonType.OK;
             TapningsVæske tapningsVæske = null;
-            if (!bekræftet) {
+            if (bekræftet) {
                 tapningsVæske = Controller.opretTapningsVæske(commonClass.getFad(), commonClass.getAlkoholprocent(), commonClass.getMængde());
             }
 
