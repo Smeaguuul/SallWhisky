@@ -361,24 +361,24 @@ class ControllerTest {
         Destillat destillat2 = new Destillat(LocalDate.now().minusDays(2), LocalDate.now(), 35, 90, RygningsType.TØRVRØGET, "", medarbejder, maltBatch);
         Destillat destillat3 = new Destillat(LocalDate.now().minusDays(4), LocalDate.now(), 50, 45, RygningsType.TØRVRØGET, "", medarbejder, maltBatch);
         Destillat destillat4 = new Destillat(LocalDate.now().minusDays(4), LocalDate.now(), 35, 69, RygningsType.TØRVRØGET, "", medarbejder, maltBatch);
-        Fad fad = new Fad(Træsort.QUERCUSALBA,"",TidligereIndhold.SHERRY,200,juan);
-        Fad fad2 = new Fad(Træsort.QUERCUSALBA,"",TidligereIndhold.SHERRY,200,juan);
-        Fad fad3 = new Fad(Træsort.QUERCUSALBA,"",TidligereIndhold.SHERRY,200,juan);
+        Fad fad = new Fad(Træsort.QUERCUSALBA, "", TidligereIndhold.SHERRY, 200, juan);
+        Fad fad2 = new Fad(Træsort.QUERCUSALBA, "", TidligereIndhold.SHERRY, 200, juan);
+        Fad fad3 = new Fad(Træsort.QUERCUSALBA, "", TidligereIndhold.SHERRY, 200, juan);
 
 
-        HashMap<Væske,Double> hashMap = new HashMap<Væske,Double>();
-        hashMap.put(destillat,35.00);
-        Make make = Controller.opretMake(fad ,hashMap);
+        HashMap<Væske, Double> hashMap = new HashMap<Væske, Double>();
+        hashMap.put(destillat, 35.00);
+        Make make = Controller.opretMake(fad, hashMap);
 
-        HashMap<Væske,Double> hashMap2 = new HashMap<Væske,Double>();
-        hashMap2.put(destillat2,35.00);
-        hashMap2.put(destillat4,35.00);
+        HashMap<Væske, Double> hashMap2 = new HashMap<Væske, Double>();
+        hashMap2.put(destillat2, 35.00);
+        hashMap2.put(destillat4, 35.00);
         Make make2 = Controller.opretMake(fad2, hashMap2);
 
-        HashMap<Væske,Double> hashMap3 = new HashMap<Væske,Double>();
+        HashMap<Væske, Double> hashMap3 = new HashMap<Væske, Double>();
         hashMap3.put(make, 35.00);
         hashMap3.put(make2, 35.00);
-        hashMap3.put(destillat3,50.00);
+        hashMap3.put(destillat3, 50.00);
         Make make3 = Controller.opretMake(fad3, hashMap3);
 
         System.out.println(make3.getOpbygning());
@@ -390,22 +390,73 @@ class ControllerTest {
         Destillat destillat2 = new Destillat(LocalDate.now().minusDays(2), LocalDate.now(), 35, 90, RygningsType.TØRVRØGET, "", medarbejder, maltBatch);
         Destillat destillat3 = new Destillat(LocalDate.now().minusDays(4), LocalDate.now(), 50, 45, RygningsType.TØRVRØGET, "", medarbejder, maltBatch);
         Destillat destillat4 = new Destillat(LocalDate.now().minusDays(4), LocalDate.now(), 35, 69, RygningsType.TØRVRØGET, "", medarbejder, maltBatch);
-        Fad fad = new Fad(Træsort.QUERCUSALBA,"",TidligereIndhold.SHERRY,200,juan);
+        Fad fad = new Fad(Træsort.QUERCUSALBA, "", TidligereIndhold.SHERRY, 200, juan);
 
 
-        HashMap<Væske,Double> hashMap = new HashMap<Væske,Double>();
-        hashMap.put(destillat,35.00);
-        Make make = Controller.opretMake(fad ,hashMap);
+        HashMap<Væske, Double> hashMap = new HashMap<Væske, Double>();
+        hashMap.put(destillat, 35.00);
+        Make make = Controller.opretMake(fad, hashMap);
 
-        HashMap<Væske,Double> hashMap2 = new HashMap<Væske,Double>();
-        hashMap2.put(destillat2,35.00);
-        hashMap2.put(destillat4,35.00);
+        HashMap<Væske, Double> hashMap2 = new HashMap<Væske, Double>();
+        hashMap2.put(destillat2, 35.00);
+        hashMap2.put(destillat4, 35.00);
         Make make2 = Controller.opretMake(fad, hashMap2);
 
-        HashMap<Væske,Double> hashMap3 = new HashMap<Væske,Double>();
-        hashMap3.put(destillat3,50.00);
+        HashMap<Væske, Double> hashMap3 = new HashMap<Væske, Double>();
+        hashMap3.put(destillat3, 50.00);
         Make make3 = Controller.opretMake(fad, hashMap3);
 
         System.out.println(make3.getOpbygning());
     }
+
+    @Test
+    void getMedarbejder_Gyldig_TC1() {
+        // Arrange
+        String expected = "Medarbejder eksistere ikke.";
+        // Act
+        Exception actual = assertThrows(NoSuchElementException.class, () -> {
+            Controller.getMedarbejder(1);
+
+        });
+        // Assert
+        assertEquals(expected, actual.getMessage());
+        System.out.println("getMedarbejder()_Gyldig: TC1");
+        assertEquals(expected, actual.getMessage());
+        System.out.println("\tActual:\t\t" + actual.getMessage());
+        System.out.println("\tExpected:\t" + expected);
+    }
+
+    @Test
+    void getMedarbejder_Gyldig_TC2() {
+        // Arrange
+        // Da der allerede er oprettet en medarbejder uden for feltet vil denne medarbejder få medarbejdernummeret 2
+        Medarbejder expectedMedarbejder = Controller.opretMedarbejder("Thor", "1234567890", "TBH");
+
+        // Act
+        Medarbejder actualMedarbejder = Controller.getMedarbejder(2);
+
+        // Assert
+        System.out.println("getMedarbejder()_Gyldig: TC2");
+        assertEquals(expectedMedarbejder, actualMedarbejder);
+        System.out.println("\tActual:\n" + actualMedarbejder);
+        System.out.println("\tExpected:\n" + expectedMedarbejder);
+    }
+
+    @Test
+    void getMedarbejder_Gyldig_TC3() {
+        // Arrange
+        String expected = "Medarbejdernummer skal være positivt.";
+        // Act
+        Exception actual = assertThrows(IllegalArgumentException.class, () -> {
+            Controller.getMedarbejder(0);
+
+        });
+        // Assert
+        assertEquals(expected, actual.getMessage());
+        System.out.println("getMedarbejder()_Ugyldig: TC1");
+        assertEquals(expected, actual.getMessage());
+        System.out.println("\tActual:\t\t" + actual.getMessage());
+        System.out.println("\tExpected:\t" + expected);
+    }
+
 }

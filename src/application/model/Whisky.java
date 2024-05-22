@@ -8,6 +8,7 @@ public class Whisky {
     private ArrayList<TapningsVæske> tapningsVæsker = new ArrayList<>();
     private static int antalWhiskyer = 0;
     private int nummer;
+    private boolean brugt;
 
     //TODO giv unikt ID nummer
 
@@ -75,4 +76,20 @@ public class Whisky {
         return historieString.toString();
     }
 
+    // Udregner den samlede væskemængde
+    public int getVæskeMængde(){
+        int væskeMængde = 0;
+        for (TapningsVæske tapningsVæske : tapningsVæsker) {
+            væskeMængde += tapningsVæske.getMængde();
+        }
+        return væskeMængde;
+    }
+
+    public void setBrugt(boolean brugt) {
+        this.brugt = brugt;
+    }
+
+    public boolean isBrugt() {
+        return brugt;
+    }
 }

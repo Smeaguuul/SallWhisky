@@ -31,8 +31,6 @@ public class Lager {
         return navn;
     }
 
-    public
-
     @Override
     public String toString() {
         return this.navn;

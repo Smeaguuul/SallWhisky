@@ -138,7 +138,11 @@ public class TildelLagerlokationPane extends MotherPaneWithImageBackground {
             int højdeNummer = Integer.parseInt(hyldeNrTextField.getText());
             int placeringsnummer = Integer.parseInt(hyldePlaceringNrTextField.getText());
 
-            Controller.setLagerLokation(fad, lager, reolNummer, højdeNummer, placeringsnummer);
+            try {
+                Controller.setLagerLokation(fad, lager, reolNummer, højdeNummer, placeringsnummer);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         });
 
         //Tilføjer knapperne til pane

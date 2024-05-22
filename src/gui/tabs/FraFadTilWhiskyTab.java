@@ -3,7 +3,9 @@ package gui.tabs;
 import gui.motherClasses.*;
 import gui.opretWhisky.OpretWhiskyPane;
 import gui.tapFad.TapFadPane;
+import gui.whiskyPaaFlaskePane.WhiskyPaaFlaskePane;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
 public class FraFadTilWhiskyTab extends MotherTab {
@@ -37,6 +39,22 @@ public class FraFadTilWhiskyTab extends MotherTab {
         opretWhiskyVBox.getChildren().add(opretWhiskyButton);
         opretWhiskyVBox.setAlignment(Pos.BOTTOM_CENTER);
         pane.add(opretWhiskyVBox, 1, 1);
+
+        //Opretter knap og billede til Whiskey på flaske og sætter det i en VBox
+        VBox whiskyPaaFlaskeVbox = new VBox();
+        whiskyPaaFlaskeVbox.setSpacing(10);
+        VerticalImageStackPane flaskeImage = new VerticalImageStackPane("/gui/images/mark.jpg");
+        whiskyPaaFlaskeVbox.getChildren().add(flaskeImage);
+        Button whiskyPaaFlaskeButton = new MainMenuButton("Whisky På Flaske");
+        whiskyPaaFlaskeButton.setOnAction(e -> drawWhiskyPaaFlaskePane());
+        whiskyPaaFlaskeVbox.getChildren().add(whiskyPaaFlaskeButton);
+        whiskyPaaFlaskeVbox.setAlignment(Pos.BOTTOM_CENTER);
+        pane.add(whiskyPaaFlaskeVbox,2,1);
+    }
+
+    private void drawWhiskyPaaFlaskePane() {
+        MotherPane whiskyPaaFlaske = new WhiskyPaaFlaskePane("Whisky På Flaske",this);
+        this.setContent(whiskyPaaFlaske);
     }
 
     private void drawOpretWhiskyPane() {

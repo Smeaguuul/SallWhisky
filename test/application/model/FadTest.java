@@ -276,23 +276,85 @@ class FadTest {
     }
 
     @Test
-    void setLagerlokation() {
+    void setLagerlokation_TC1() throws Exception {
         //TODO
         Forhandler forhandler = new Forhandler("Juan Igleasas", "Catalonien", "Spanien");
         Fad fad = new Fad(Træsort.QUERCUSALBA, "", TidligereIndhold.SHERRY, 200, forhandler);
+        Fad fad2 = new Fad(Træsort.QUERCUSALBA,"", TidligereIndhold.BOURBON, 200, forhandler);
         Adresse adresse = new Adresse("1", "Gyllevej", "6969", "DK");
         Lager lager = new Lager("Lagersted", adresse, 10, 5, 10);
 
         int expectedReolnummer = 1;
         int expectedHøjde = 1;
-        int expectedPlaceringsNummer = 1;
+        int expectedPlaceringsNr = 1;
 
         // Act
         fad.setLagerlokation(lager, 1, 1, 1);
+        int[] actualLagerLokation = fad.getLagerLokation();
+        int actualReolNr = actualLagerLokation[0];
+        int actualHøjde = actualLagerLokation[0];
+        int actualPlaceringNr = actualLagerLokation[0];
+
+        // Assert
+        System.out.println("setLagerLokation: TC1");
+        System.out.println("\tActual Reol Nr:\t\t\t" + actualReolNr);
+        System.out.println("\tExpected Reol Nr:\t\t" + expectedReolnummer);
+        assertEquals(actualReolNr,expectedReolnummer);
+        System.out.println("\tActual Højde Nr:\t\t" + actualHøjde);
+        System.out.println("\tExpected Højde Nr:\t\t" + expectedHøjde);
+        assertEquals(actualHøjde,expectedHøjde);
+        System.out.println("\tActual PlaceringsNr:\t" + actualPlaceringNr);
+        System.out.println("\tExpected PlaceringsNr:\t" + expectedPlaceringsNr);
+        assertEquals(actualPlaceringNr,expectedPlaceringsNr);
+    }
+    @Test
+    void setLagerlokation_TC2() throws Exception {
+        //TODO
+        Forhandler forhandler = new Forhandler("Juan Igleasas", "Catalonien", "Spanien");
+        Fad fad = new Fad(Træsort.QUERCUSALBA, "", TidligereIndhold.SHERRY, 200, forhandler);
+        Fad fad2 = new Fad(Træsort.QUERCUSALBA,"", TidligereIndhold.BOURBON, 200, forhandler);
+        Adresse adresse = new Adresse("1", "Gyllevej", "6969", "DK");
+        Lager lager = new Lager("Lagersted", adresse, 10, 5, 10);
+        fad2.setLagerlokation(lager, 1, 1, 1);
+
+        String expected = "Der er ikke plads der.";
+
+        // Act
+        Exception actual = assertThrows(IllegalArgumentException.class, () -> {
+            fad.setLagerlokation(lager,1,1,1);
+        });
+
+        // Assert
+        System.out.println("setLagerLokation: TC2");
+        assertEquals(expected,actual.getMessage());
+        System.out.println("\tActual:\t\t" + actual.getMessage());
+        System.out.println("\tExpected:\t" + expected);
+    }
+    @Test
+    void setLagerlokation_TC3() throws Exception {
+        //TODO
+        Forhandler forhandler = new Forhandler("Juan Igleasas", "Catalonien", "Spanien");
+        Fad fad = new Fad(Træsort.QUERCUSALBA, "", TidligereIndhold.SHERRY, 200, forhandler);
+        Fad fad2 = new Fad(Træsort.QUERCUSALBA,"", TidligereIndhold.BOURBON, 200, forhandler);
+        Adresse adresse = new Adresse("1", "Gyllevej", "6969", "DK");
+        Lager lager = new Lager("Lagersted", adresse, 10, 5, 10);
+
+        String expected = "Det er ikke en lokation på lageret";
+
+        // Act
+        Exception actual = assertThrows(IllegalArgumentException.class, () -> {
+            fad.setLagerlokation(lager,100000,1,1);
+        });
+
+        // Assert
+        System.out.println("setLagerLokation: TC2");
+        assertEquals(expected,actual.getMessage());
+        System.out.println("\tActual:\t\t" + actual.getMessage());
+        System.out.println("\tExpected:\t" + expected);
     }
 
     @Test
-    void fjernLagerLokation() {
+    void fjernLagerLokation() throws Exception {
         Forhandler forhandler = new Forhandler("Juan Igleasas", "Catalonien", "Spanien");
         Fad fad = new Fad(Træsort.QUERCUSALBA, "", TidligereIndhold.SHERRY, 200, forhandler);
         Adresse adresse = new Adresse("1", "Gyllevej", "6969", "DK");
@@ -316,5 +378,43 @@ class FadTest {
         System.out.println("\tActual Lokation:\t" + actualLokation);
         System.out.println("\tExpected Lokation:\t" + expectedLokation);
 
+    }
+
+    @Test
+    void harLagerLokation_TC1() throws Exception {
+        Forhandler forhandler = new Forhandler("Juan Igleasas", "Catalonien", "Spanien");
+        Fad fad = new Fad(Træsort.QUERCUSALBA, "", TidligereIndhold.SHERRY, 200, forhandler);
+        Adresse adresse = new Adresse("1", "Gyllevej", "6969", "DK");
+        Lager lager = new Lager("Lagersted", adresse, 10, 5, 10);
+        fad.setLagerlokation(lager, 1, 1, 1);
+
+        boolean expected = true;
+
+        // Act
+        boolean actual = fad.harLagerlokation();
+
+        // Assert
+        System.out.println("harLagerlokation(): TC1");
+        assertEquals(expected, actual);
+        System.out.println("\tActual:\t\t" + actual);
+        System.out.println("\tExpected:\t" + expected);
+    }
+    @Test
+    void harLagerLokation_TC2() throws Exception {
+        Forhandler forhandler = new Forhandler("Juan Igleasas", "Catalonien", "Spanien");
+        Fad fad = new Fad(Træsort.QUERCUSALBA, "", TidligereIndhold.SHERRY, 200, forhandler);
+        Adresse adresse = new Adresse("1", "Gyllevej", "6969", "DK");
+        Lager lager = new Lager("Lagersted", adresse, 10, 5, 10);
+
+        boolean expected = false;
+
+        // Act
+        boolean actual = fad.harLagerlokation();
+
+        // Assert
+        System.out.println("harLagerlokation(): TC2");
+        assertEquals(expected, actual);
+        System.out.println("\tActual:\t\t" + actual);
+        System.out.println("\tExpected:\t" + expected);
     }
 }
