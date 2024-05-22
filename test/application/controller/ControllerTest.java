@@ -65,7 +65,7 @@ class ControllerTest {
 
     }
     @Test
-    void opretMakeTC1_Gyldig() {
+    void opretMakeTC1_Gyldig() throws Exception {
         //Arrange
         Destillat destillat0 = new Destillat(LocalDate.now().minusDays(2), LocalDate.now(), 35, 75, RygningsType.IKKERØGET, "", medarbejder, maltbatch);
         Destillat destillat1 = new Destillat(LocalDate.now().minusDays(2), LocalDate.now(), 35, 90, RygningsType.TØRVRØGET, "", medarbejder, maltbatch);
@@ -99,7 +99,7 @@ class ControllerTest {
     }
 
     @Test
-    void opretMakeTC2_Gyldig() {
+    void opretMakeTC2_Gyldig() throws Exception {
         //Arrange
         Destillat destillat0 = new Destillat(LocalDate.now().minusDays(2), LocalDate.now(), 35, 75, RygningsType.IKKERØGET, "", medarbejder, maltbatch);
         Destillat destillat1 = new Destillat(LocalDate.now().minusDays(2), LocalDate.now(), 35, 90, RygningsType.TØRVRØGET, "", medarbejder, maltbatch);
