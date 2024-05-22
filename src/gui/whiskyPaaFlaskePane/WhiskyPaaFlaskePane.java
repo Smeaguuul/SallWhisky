@@ -12,15 +12,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class WhiskyPaaFlaskePane extends MotherPaneWithImageBackground {
-    private final MotherTab owner;
     private ListView<Whisky> whiskyListView = new ListView<>();
     private TextField flaskeStorrelseTextfield = new TextField();
     private TextField flaskeAntalTextfield = new TextField();
 
 
     public WhiskyPaaFlaskePane(String title, MotherTab owner) {
-        super("/gui/images/mark.jpg");
-        this.owner = owner;
+        super("/gui/images/mark.jpg",owner);
 
         //Laver central pane til alle centrale elemenet
         GridPane centralPane = new CentralPane();
