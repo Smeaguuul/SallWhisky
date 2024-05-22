@@ -26,7 +26,7 @@ public class AdminMedarbejderPane extends MotherPaneWithImageBackground {
         resetView();
         Button sletButton = new MotherButton("Slet medarbejder");
         sletButton.setOnAction(e -> sletMedarbejder());
-        centralPane.addRow(0, medArbejderListeLabel, medarbejderListView, sletButton);
+        centralPane.addColumn(0, medArbejderListeLabel, medarbejderListView, sletButton);
 
 
         // Rediger medarbejder labels i VBox
@@ -70,7 +70,7 @@ public class AdminMedarbejderPane extends MotherPaneWithImageBackground {
         VBox opretVboxTextfields = new VBox();
         opretVboxTextfields.getChildren().addAll(navnOpretTextfield, cprOpretTextfield, signaturOpretTexfield);
         opretVboxTextfields.setSpacing(30);
-        centralPane.addColumn(1, opretVboxLabels, opretVboxTextfields);
+        centralPane.addRow(1, opretVboxLabels, opretVboxTextfields);
 
         //Opret medarbejderButton
         Button opretButton = new MotherButton("Opret medarbejder");

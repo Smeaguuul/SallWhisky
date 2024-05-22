@@ -44,7 +44,7 @@ public class App {
         Storage.addMalteri(thyMalteri);
 
         //Laver nogle maltBatches
-        MaltBatch maltBatch1 = new MaltBatch(Kornsort.EVERGREEN, LocalDate.of(2020, 04, 01), thyMalteri, langdahlMark); //TODO lav en statisk counter, i stedet for at det er en parameter
+        MaltBatch maltBatch1 = new MaltBatch(Kornsort.EVERGREEN, LocalDate.of(2020, 04, 01), thyMalteri, langdahlMark);
         Storage.addMaltbatch(maltBatch1);
         MaltBatch maltBatch2 = new MaltBatch(Kornsort.IRINA, LocalDate.of(2024, 04, 17), thyMalteri, langdahlMark);
         Storage.addMaltbatch(maltBatch2);
