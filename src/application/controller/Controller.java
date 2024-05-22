@@ -4,6 +4,7 @@ import application.model.*;
 import storage.Storage;
 
 import javax.security.auth.login.LoginException;
+import java.security.InvalidParameterException;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.function.Predicate;
@@ -267,6 +268,9 @@ public class Controller {
     }
 
     public static double udregnAlkoholProcent(ArrayList<TapningsVæske> tapningsVæsker, double literVandTilFortynding) {
+        if(literVandTilFortynding < 0) {
+            throw new InvalidParameterException("Ugyldig mængde vand.");
+        }
         //Findet total antal liter
         double totalLiter = 0;
         for (TapningsVæske tapningsVæske : tapningsVæsker) {
@@ -371,6 +375,12 @@ public class Controller {
         }
 
         return makeArrayList;
+    }
+
+    public static MaltBatch opretMaltBatch(Kornsort kornsort,LocalDate ankomstDato,Malteri malteri, Mark mark){
+        MaltBatch maltBatch = new MaltBatch(kornsort,ankomstDato,malteri,mark);
+        Storage.addMaltbatch(maltBatch);
+        return maltBatch;
     }
 
     public static Mark opretMark(String land, String postNr, String gadeNavn, String gadeNr, String markNavn, String markBeskrivelse) throws Exception {
