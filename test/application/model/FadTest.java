@@ -20,7 +20,7 @@ class FadTest {
         Malteri malteri = new Malteri("Thy", "Malteri i Thy.", adresse);
         Medarbejder medarbejder = new Medarbejder("Mads Medarbejder", "010203-4555", "MAM");
         Mark mark = new Mark("Øko mark", "Langdahl", adresse);
-        MaltBatch maltbatch = new MaltBatch(Kornsort.IRINA, 2, LocalDate.of(2024, 04, 17), malteri, mark);
+        MaltBatch maltbatch = new MaltBatch(Kornsort.IRINA, LocalDate.of(2024, 04, 17), malteri, mark);
         Destillat destillat = new Destillat(LocalDate.now().minusDays(4), LocalDate.now(), 50, 45, RygningsType.TØRVRØGET, "", medarbejder, maltbatch);
         HashMap<Væske, Double> hashMap = new HashMap<>();
         hashMap.put(destillat, 10.00);
@@ -58,7 +58,7 @@ class FadTest {
         Malteri malteri = new Malteri("Thy", "Malteri i Thy.", adresse);
         Medarbejder medarbejder = new Medarbejder("Mads Medarbejder", "010203-4555", "MAM");
         Mark mark = new Mark("Øko mark", "Langdahl", adresse);
-        MaltBatch maltbatch = new MaltBatch(Kornsort.IRINA, 2, LocalDate.of(2024, 04, 17), malteri, mark);
+        MaltBatch maltbatch = new MaltBatch(Kornsort.IRINA,  LocalDate.of(2024, 04, 17), malteri, mark);
         Destillat destillat1 = new Destillat(LocalDate.now().minusDays(5), LocalDate.now().minusDays(1), 50, 45, RygningsType.TØRVRØGET, "", medarbejder, maltbatch);
         HashMap<Væske, Double> hashMap1 = new HashMap<>();
         hashMap1.put(destillat1, 10.00);
@@ -90,7 +90,7 @@ class FadTest {
         Malteri malteri = new Malteri("Thy", "Malteri i Thy.", adresse);
         Medarbejder medarbejder = new Medarbejder("Mads Medarbejder", "010203-4555", "MAM");
         Mark mark = new Mark("Øko mark", "Langdahl", adresse);
-        MaltBatch maltbatch = new MaltBatch(Kornsort.IRINA, 2, LocalDate.of(2024, 04, 17), malteri, mark);
+        MaltBatch maltbatch = new MaltBatch(Kornsort.IRINA, LocalDate.of(2024, 04, 17), malteri, mark);
         Destillat destillat1 = new Destillat(LocalDate.now().minusDays(5), LocalDate.now().minusDays(1), 50, 45, RygningsType.TØRVRØGET, "", medarbejder, maltbatch);
         HashMap<Væske, Double> hashMap1 = new HashMap<>();
         hashMap1.put(destillat1, 10.00);
@@ -120,7 +120,7 @@ class FadTest {
         Malteri malteri = new Malteri("Thy", "Malteri i Thy.", adresse);
         Medarbejder medarbejder = new Medarbejder("Mads Medarbejder", "010203-4555", "MAM");
         Mark mark = new Mark("Øko mark", "Langdahl", adresse);
-        MaltBatch maltbatch = new MaltBatch(Kornsort.IRINA, 2, LocalDate.of(2024, 04, 17), malteri, mark);
+        MaltBatch maltbatch = new MaltBatch(Kornsort.IRINA, LocalDate.of(2024, 04, 17), malteri, mark);
         Destillat destillat1 = new Destillat(LocalDate.now().minusDays(5), LocalDate.now().minusDays(1), 50, 45, RygningsType.TØRVRØGET, "", medarbejder, maltbatch);
         HashMap<Væske, Double> hashMap1 = new HashMap<>();
         hashMap1.put(destillat1, 10.00);
@@ -151,7 +151,7 @@ class FadTest {
         Malteri malteri = new Malteri("Thy", "Malteri i Thy.", adresse);
         Medarbejder medarbejder = new Medarbejder("Mads Medarbejder", "010203-4555", "MAM");
         Mark mark = new Mark("Øko mark", "Langdahl", adresse);
-        MaltBatch maltbatch = new MaltBatch(Kornsort.IRINA, 2, LocalDate.of(2024, 04, 17), malteri, mark);
+        MaltBatch maltbatch = new MaltBatch(Kornsort.IRINA, LocalDate.of(2024, 04, 17), malteri, mark);
         Destillat destillat = new Destillat(LocalDate.now().minusDays(5), LocalDate.now().minusDays(1), 50, 45, RygningsType.TØRVRØGET, "", medarbejder, maltbatch);
         HashMap<Væske, Double> hashMap = new HashMap<>();
         hashMap.put(destillat, 10.00);
@@ -177,7 +177,7 @@ class FadTest {
         Malteri malteri = new Malteri("Thy", "Malteri i Thy.", adresse);
         Medarbejder medarbejder = new Medarbejder("Mads Medarbejder", "010203-4555", "MAM");
         Mark mark = new Mark("Øko mark", "Langdahl", adresse);
-        MaltBatch maltbatch = new MaltBatch(Kornsort.IRINA, 2, LocalDate.of(2024, 04, 17), malteri, mark);
+        MaltBatch maltbatch = new MaltBatch(Kornsort.IRINA, LocalDate.of(2024, 04, 17), malteri, mark);
         Destillat destillat = new Destillat(LocalDate.now().minusDays(5), LocalDate.now().minusDays(1), 50, 45, RygningsType.TØRVRØGET, "", medarbejder, maltbatch);
         HashMap<Væske, Double> hashMap = new HashMap<>();
         hashMap.put(destillat, 10.00);
@@ -204,7 +204,7 @@ class FadTest {
         Malteri malteri = new Malteri("Thy", "Malteri i Thy.", adresse);
         Medarbejder medarbejder = new Medarbejder("Mads Medarbejder", "010203-4555", "MAM");
         Mark mark = new Mark("Øko mark", "Langdahl", adresse);
-        MaltBatch maltbatch = new MaltBatch(Kornsort.IRINA, 2, LocalDate.of(2024, 04, 17), malteri, mark);
+        MaltBatch maltbatch = new MaltBatch(Kornsort.IRINA, LocalDate.of(2024, 04, 17), malteri, mark);
         Destillat destillat = new Destillat(LocalDate.now().minusDays(5), LocalDate.now().minusDays(1), 50, 45, RygningsType.TØRVRØGET, "", medarbejder, maltbatch);
         HashMap<Væske, Double> hashMap = new HashMap<>();
         hashMap.put(destillat, 10.00);
@@ -231,7 +231,7 @@ class FadTest {
         Malteri malteri = new Malteri("Thy", "Malteri i Thy.", adresse);
         Medarbejder medarbejder = new Medarbejder("Mads Medarbejder", "010203-4555", "MAM");
         Mark mark = new Mark("Øko mark", "Langdahl", adresse);
-        MaltBatch maltbatch = new MaltBatch(Kornsort.IRINA, 2, LocalDate.of(2024, 04, 17), malteri, mark);
+        MaltBatch maltbatch = new MaltBatch(Kornsort.IRINA, LocalDate.of(2024, 04, 17), malteri, mark);
         Destillat destillat = new Destillat(LocalDate.now().minusDays(5), LocalDate.now().minusDays(1), 50, 45, RygningsType.TØRVRØGET, "", medarbejder, maltbatch);
         HashMap<Væske, Double> hashMap = new HashMap<>();
         hashMap.put(destillat, 10.00);
@@ -258,7 +258,7 @@ class FadTest {
         Malteri malteri = new Malteri("Thy", "Malteri i Thy.", adresse);
         Medarbejder medarbejder = new Medarbejder("Mads Medarbejder", "010203-4555", "MAM");
         Mark mark = new Mark("Øko mark", "Langdahl", adresse);
-        MaltBatch maltbatch = new MaltBatch(Kornsort.IRINA, 2, LocalDate.of(2024, 04, 17), malteri, mark);
+        MaltBatch maltbatch = new MaltBatch(Kornsort.IRINA, LocalDate.of(2024, 04, 17), malteri, mark);
         Destillat destillat = new Destillat(LocalDate.now().minusDays(5), LocalDate.now().minusDays(1), 50, 45, RygningsType.TØRVRØGET, "", medarbejder, maltbatch);
         HashMap<Væske, Double> hashMap = new HashMap<>();
         hashMap.put(destillat, 10.00);

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import storage.Storage;
 
+import java.security.InvalidParameterException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +25,7 @@ class ControllerTest {
         Malteri malteri = new Malteri("Thy", "Malteri i Thy.", adresse);
         medarbejder = new Medarbejder("Mads Medarbejder", "010203-4555", "MAM");
         Mark mark = new Mark("Øko mark", "Langdahl", adresse);
-        maltbatch = new MaltBatch(Kornsort.IRINA, 2, LocalDate.of(2024, 04, 17), malteri, mark);
+        maltbatch = new MaltBatch(Kornsort.IRINA, LocalDate.of(2024, 04, 17), malteri, mark);
         juan = new Forhandler("Juan Igleasas", "Catalonien", "Spanien");
     }
 
@@ -34,36 +35,101 @@ class ControllerTest {
         Destillat destillat = new Destillat(LocalDate.now(),LocalDate.now().plusYears(3), 82, 60, RygningsType.TØRVRØGET, "", medarbejder, maltbatch);
         Forhandler forhandler = new Forhandler("Juan Igleasas", "Catalonien", "Spanien");
 
-        Fad gammeltFad = new Fad(Træsort.QUERCUSALBA,"", TidligereIndhold.SHERRY, 100, forhandler);
-        HashMap<Væske, Double> hashMap = new HashMap<Væske, Double>();
-        hashMap.put(destillat, 36.00);
-        Make expectedMake = new Make(gammeltFad, hashMap, LocalDate.now());
-        TapningsVæske væske01 = new TapningsVæske(60, 32, expectedMake);
+        Fad gammeltFad = new Fad(Træsort.QUERCUSALBA,"", TidligereIndhold.SHERRY, 20, forhandler);
+        HashMap<Væske, Double> destillatMængde01 = new HashMap<Væske, Double>();
+        destillatMængde01.put(destillat, 20.00);
+        Make expectedMake = new Make(gammeltFad, destillatMængde01, LocalDate.now());
+        TapningsVæske væske01 = new TapningsVæske(60, 20, expectedMake);
 
-        Fad gammeltFad02 = new Fad(Træsort.QUERCUSALBA,"", TidligereIndhold.SHERRY, 100, forhandler);
-        HashMap<Væske, Double> hashMap02 = new HashMap<Væske, Double>();
-        hashMap02.put(destillat, 36.00);
-        Make expectedMake02 = new Make(gammeltFad, hashMap02, LocalDate.now());
-        TapningsVæske væske02 = new TapningsVæske(60, 32, expectedMake02);
+        Fad gammeltFad02 = new Fad(Træsort.QUERCUSALBA,"", TidligereIndhold.SHERRY, 20, forhandler);
+        HashMap<Væske, Double> destillatMængde02 = new HashMap<Væske, Double>();
+        destillatMængde02.put(destillat, 20.00);
+        Make expectedMake02 = new Make(gammeltFad, destillatMængde02, LocalDate.now());
+        TapningsVæske væske02 = new TapningsVæske(60, 20, expectedMake02);
 
         double literVand = 10;
-        double literVand02 = 15;
-        double forvæntedeStyrke = 37.16;
+        double forvæntedeProcent = 48;
         ArrayList<TapningsVæske> tapningsVæsker = new ArrayList<>();
         tapningsVæsker.add(væske01);
         tapningsVæsker.add(væske02);
 
         // Act
         Double actualProcent = Controller.udregnAlkoholProcent(tapningsVæsker, literVand);
-
+        assertEquals(forvæntedeProcent, actualProcent);
         // Assert
         System.out.println("UdregnAlkoholprocent: TC 1");
         System.out.println("\tActual:\t\t" + actualProcent);
-        System.out.println("\tExpected:\t" + forvæntedeStyrke);
+        System.out.println("\tExpected:\t" + forvæntedeProcent);
 
     }
+    @Test
     void udregnAlkoholProcentTest02() {
+        // Arrange
+        Destillat destillat = new Destillat(LocalDate.now(),LocalDate.now().plusYears(3), 82, 60, RygningsType.TØRVRØGET, "", medarbejder, maltbatch);
+        Forhandler forhandler = new Forhandler("Juan Igleasas", "Catalonien", "Spanien");
 
+        Fad gammeltFad = new Fad(Træsort.QUERCUSALBA,"", TidligereIndhold.SHERRY, 20, forhandler);
+        HashMap<Væske, Double> destillatMængde01 = new HashMap<Væske, Double>();
+        destillatMængde01.put(destillat, 20.00);
+        Make expectedMake = new Make(gammeltFad, destillatMængde01, LocalDate.now());
+        TapningsVæske væske01 = new TapningsVæske(60, 20, expectedMake);
+
+        Fad gammeltFad02 = new Fad(Træsort.QUERCUSALBA,"", TidligereIndhold.SHERRY, 20, forhandler);
+        HashMap<Væske, Double> destillatMængde02 = new HashMap<Væske, Double>();
+        destillatMængde02.put(destillat, 20.00);
+        Make expectedMake02 = new Make(gammeltFad, destillatMængde02, LocalDate.now());
+        TapningsVæske væske02 = new TapningsVæske(60, 20, expectedMake02);
+
+        double literVand = 0;
+        double forvæntedeProcent = 60;
+        ArrayList<TapningsVæske> tapningsVæsker = new ArrayList<>();
+        tapningsVæsker.add(væske01);
+        tapningsVæsker.add(væske02);
+
+        // Act
+        Double actualProcent = Controller.udregnAlkoholProcent(tapningsVæsker, literVand);
+        assertEquals(forvæntedeProcent, actualProcent);
+        // Assert
+        System.out.println("UdregnAlkoholprocent: TC 2");
+        System.out.println("\tActual:\t\t" + actualProcent);
+        System.out.println("\tExpected:\t" + forvæntedeProcent);
+
+
+    }
+    @Test
+    void udregnAlkoholProcentTest03() {
+        // Arrange
+        Destillat destillat = new Destillat(LocalDate.now(),LocalDate.now().plusYears(3), 82, 60, RygningsType.TØRVRØGET, "", medarbejder, maltbatch);
+        Forhandler forhandler = new Forhandler("Juan Igleasas", "Catalonien", "Spanien");
+
+        Fad gammeltFad = new Fad(Træsort.QUERCUSALBA,"", TidligereIndhold.SHERRY, 20, forhandler);
+        HashMap<Væske, Double> destillatMængde01 = new HashMap<Væske, Double>();
+        destillatMængde01.put(destillat, 20.00);
+        Make expectedMake = new Make(gammeltFad, destillatMængde01, LocalDate.now());
+        TapningsVæske væske01 = new TapningsVæske(60, 20, expectedMake);
+
+        Fad gammeltFad02 = new Fad(Træsort.QUERCUSALBA,"", TidligereIndhold.SHERRY, 20, forhandler);
+        HashMap<Væske, Double> destillatMængde02 = new HashMap<Væske, Double>();
+        destillatMængde02.put(destillat, 20.00);
+        Make expectedMake02 = new Make(gammeltFad, destillatMængde02, LocalDate.now());
+        TapningsVæske væske02 = new TapningsVæske(60, 20, expectedMake02);
+
+        double literVand = -5;
+        double forvæntedeProcent = 60;
+        ArrayList<TapningsVæske> tapningsVæsker = new ArrayList<>();
+        tapningsVæsker.add(væske01);
+        tapningsVæsker.add(væske02);
+
+        // Act
+        Exception actualProcent = assertThrows(IllegalArgumentException.class, () -> {
+            Controller.udregnAlkoholProcent(tapningsVæsker, literVand);
+        });
+
+        // Assert
+        System.out.println("UdregnAlkoholprocent: TC 2");
+        System.out.println("\tActual:\t\t" + actualProcent);
+        System.out.println("\tExpected:\t" + forvæntedeProcent);
+        assertTrue(actualProcent.getMessage().contains("Ugyldig mængde vand."));
     }
     @Test
     void opretMakeTC1_Gyldig() throws Exception {
