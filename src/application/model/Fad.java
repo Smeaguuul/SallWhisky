@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
-public class Fad {
+public class Fad implements Comparable{
     private Træsort træsort;
     private String bemærkning;
     private TidligereIndhold tidligereIndhold;
@@ -171,4 +171,15 @@ public class Fad {
         return getMake().getPåfyldningsDato();
     }
 
+    @Override
+    public int compareTo(Object object) {
+        Fad fad = (Fad)object;
+        int result = 0;
+        if(this.fadNr < fad.getFadNr()) result = -1;
+        else if(this.fadNr == fad.getFadNr()) result = 0;
+        else {
+            result = 1;
+        }
+        return result;
+    }
 }

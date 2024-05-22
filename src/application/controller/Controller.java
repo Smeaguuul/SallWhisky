@@ -193,8 +193,9 @@ public class Controller {
 
         for (Fad fad : fade) {
             try {
-                if (fad.hasMake() && fad.getMake().getNuværendeMængde() > 0) { //TODO Sorter fadene
+                if (fad.hasMake() && fad.getMake().getNuværendeMængde() > 0) {
                     modneFade.add(fad);
+                    modneFade.sort(null);
                 }
             } catch (Exception e) {
             }
