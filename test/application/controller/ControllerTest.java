@@ -76,7 +76,7 @@ class ControllerTest {
 
         Fad gammeltFad02 = new Fad(Træsort.QUERCUSALBA,"", TidligereIndhold.SHERRY, 20, forhandler);
         HashMap<Væske, Double> destillatMængde02 = new HashMap<Væske, Double>();
-        destillatMængde02.put(destillat, 20.00);
+        destillatMængde02.put(destillat, 60.00);
         Make expectedMake02 = new Make(gammeltFad, destillatMængde02, LocalDate.now());
         TapningsVæske væske02 = new TapningsVæske(60, 20, expectedMake02);
 
