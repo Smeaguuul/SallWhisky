@@ -313,7 +313,7 @@ public class Controller {
         return Storage.getLagrer();
     }
 
-    public static void setLagerLokation(Fad fad, Lager lager, int reolNummer, int højdeNummer, int placeringsnummer) {
+    public static void setLagerLokation(Fad fad, Lager lager, int reolNummer, int højdeNummer, int placeringsnummer) throws Exception {
         //TODO lav et check om det faktisk er inde for begrænsingerne og sørg for at den tilsvarende lokation i lageret bliver registreret som brugt
         //TODO konverter mellem 0-9 til 1-10 f.eks. Vi tæller fra 1 i GUI i ikke 0, så index passer ikke.
         try {
@@ -325,6 +325,24 @@ public class Controller {
 
     public static ArrayList<Whisky> getWhisky() {
         return Storage.getWhiskyer();
+    }
+
+    // Opretter et whiskyprodukt og tilføjer det tioll storage
+    public static WhiskyProdukt haeldPaaFlaske(Whisky whisky, int flaskeStoerrelse) {
+        WhiskyProdukt whiskyProdukt = new WhiskyProdukt(whisky,flaskeStoerrelse);
+        Storage.addWhiskyProdukt(whiskyProdukt);
+        return whiskyProdukt;
+    }
+    // Finder alle whiskies fra storage som er ubrugte
+    public static ArrayList<Whisky> getUbrugteWhiskyer(){
+        ArrayList<Whisky> whiskies = Storage.getWhiskyer();
+        ArrayList<Whisky> ubrugtWhiskies = new ArrayList<>();
+        for (Whisky whiskey : whiskies) {
+            if (!whiskey.isBrugt()){
+                ubrugtWhiskies.add(whiskey);
+            }
+        }
+        return ubrugtWhiskies;
     }
 
     public static ArrayList<Destillat> getDestillater() {

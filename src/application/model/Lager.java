@@ -11,6 +11,8 @@ public class Lager {
         lagerLokationer = new boolean[reolAntal][højde][placeringerPrHylde];
     }
 
+
+
     public boolean harPlads() {
         //Løber alle pladser igennem
         for (boolean[][] reoler : lagerLokationer) {

@@ -44,11 +44,11 @@ public class App {
         Storage.addMalteri(thyMalteri);
 
         //Laver nogle maltBatches
-        MaltBatch maltBatch1 = new MaltBatch(Kornsort.EVERGREEN, 1, LocalDate.of(2020, 04, 01), thyMalteri, langdahlMark); //TODO lav en statisk counter, i stedet for at det er en parameter
+        MaltBatch maltBatch1 = new MaltBatch(Kornsort.EVERGREEN, LocalDate.of(2020, 04, 01), thyMalteri, langdahlMark); //TODO lav en statisk counter, i stedet for at det er en parameter
         Storage.addMaltbatch(maltBatch1);
-        MaltBatch maltBatch2 = new MaltBatch(Kornsort.IRINA, 2, LocalDate.of(2024, 04, 17), thyMalteri, langdahlMark);
+        MaltBatch maltBatch2 = new MaltBatch(Kornsort.IRINA, LocalDate.of(2024, 04, 17), thyMalteri, langdahlMark);
         Storage.addMaltbatch(maltBatch2);
-        MaltBatch maltBatch3 = new MaltBatch(Kornsort.STAIRWAY, 3, LocalDate.of(2024, 05, 20), thyMalteri, langdahlMark);
+        MaltBatch maltBatch3 = new MaltBatch(Kornsort.STAIRWAY, LocalDate.of(2024, 05, 20), thyMalteri, langdahlMark);
         Storage.addMaltbatch(maltBatch3);
 
 

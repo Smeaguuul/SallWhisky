@@ -8,6 +8,7 @@ import storage.Storage;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,7 +24,7 @@ class ControllerTest {
         Malteri malteri = new Malteri("Thy", "Malteri i Thy.", adresse);
         medarbejder = new Medarbejder("Mads Medarbejder", "010203-4555", "MAM");
         Mark mark = new Mark("Øko mark", "Langdahl", adresse);
-        maltbatch = new MaltBatch(Kornsort.IRINA, 2, LocalDate.of(2024, 04, 17), malteri, mark);
+        maltbatch = new MaltBatch(Kornsort.IRINA, LocalDate.of(2024, 04, 17), malteri, mark);
         juan = new Forhandler("Juan Igleasas", "Catalonien", "Spanien");
     }
 
@@ -227,6 +228,82 @@ class ControllerTest {
         System.out.println("opretMake: Ugyldig TC3");
         System.out.println("\tActual:\t\t" + actual.getMessage());
         System.out.println("\tExpected:\t" + expected);
+
+        assertTrue(actual.getMessage().contains(expected));
+    }
+    @Test
+    void getMedarbejder_TC1() throws Exception {
+        //Arrange
+        Medarbejder expected = new Medarbejder("Mads Medarbejder", "010203-4555", "NAM");
+        Storage.addMedarbejder(expected);
+
+        //Act
+        Medarbejder actual = Controller.getMedarbejder(1);
+
+        //Assert
+        System.out.println("Medarbejder: ");
+        System.out.println("Actual: " + actual);
+        System.out.println("Expected: " + expected);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void getMedarbejder_TC2() {
+        //Arrange
+        Medarbejder medarbejder = new Medarbejder("Mads Medarbejder", "010203-4555", "NAM");
+        Storage.addMedarbejder(medarbejder);
+        String expected = "Medarbejder eksistere ikke";
+
+        //Act
+        Exception actual = assertThrows(NoSuchElementException.class, () -> {
+            Controller.getMedarbejder(2);
+        });
+
+        //Assert
+        System.out.println("Error besked:");
+        System.out.println("Actual: " + actual.getMessage());
+        System.out.println("Expected: " + expected);
+
+        assertTrue(actual.getMessage().contains(expected));
+    }
+
+    @Test
+    void getMedarbejder_Ugyldig_TC1() {
+        //Arrange
+        Medarbejder medarbejder = new Medarbejder("Mads Medarbejder", "010203-4555", "NAM");
+        Storage.addMedarbejder(medarbejder);
+        String expected = "Medarbejdernummer skal være positivt.";
+
+        //Act
+        Exception actual = assertThrows(IllegalArgumentException.class, () -> {
+            Controller.getMedarbejder(-4);
+        });
+
+        //Assert
+        System.out.println("Error besked:");
+        System.out.println("Actual: " + actual.getMessage());
+        System.out.println("Expected: " + expected);
+
+        assertTrue(actual.getMessage().contains(expected));
+    }
+
+    @Test
+    void getMedarbejder_Ugyldig_TC2() {
+        //Arrange
+        Medarbejder medarbejder = new Medarbejder("Mads Medarbejder", "010203-4555", "NAM");
+        Storage.addMedarbejder(medarbejder);
+        String expected = "Medarbejdernummer skal være positivt.";
+
+        //Act
+        Exception actual = assertThrows(IllegalArgumentException.class, () -> {
+            Controller.getMedarbejder(0);
+        });
+
+        //Assert
+        System.out.println("Error besked:");
+        System.out.println("Actual: " + actual.getMessage());
+        System.out.println("Expected: " + expected);
 
         assertTrue(actual.getMessage().contains(expected));
     }
