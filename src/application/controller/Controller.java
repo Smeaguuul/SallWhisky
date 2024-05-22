@@ -182,7 +182,7 @@ public class Controller {
         //Checker om der er tilstrækkelig af resterende væske fra de valgte væsker
         for (Map.Entry<Væske, Double> væskeDoubleEntry : væskerOgLiter.entrySet()) {
             if (væskeDoubleEntry.getKey().getNuværendeMængde() < væskeDoubleEntry.getValue()) {
-                throw new IllegalArgumentException("Der er ikke nok væske i de valgte væsker."); //TODO evt. specificere hvilket destillat/make det er
+                throw new IllegalArgumentException("Der er ikke nok væske i de valgte væsker: " + væskeDoubleEntry.toString());
             }
         }
     }
