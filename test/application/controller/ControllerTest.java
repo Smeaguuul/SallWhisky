@@ -24,7 +24,7 @@ class ControllerTest {
         Malteri malteri = new Malteri("Thy", "Malteri i Thy.", adresse);
         medarbejder = new Medarbejder("Mads Medarbejder", "010203-4555", "MAM");
         Mark mark = new Mark("Øko mark", "Langdahl", adresse);
-        maltbatch = new MaltBatch(Kornsort.IRINA, 2, LocalDate.of(2024, 04, 17), malteri, mark);
+        maltbatch = new MaltBatch(Kornsort.IRINA, LocalDate.of(2024, 04, 17), malteri, mark);
         juan = new Forhandler("Juan Igleasas", "Catalonien", "Spanien");
     }
 
