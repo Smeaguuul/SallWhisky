@@ -25,7 +25,7 @@ public class SystemInformationTap extends MotherTab {
         VBox fadUdtrækVBox = new VBox();
         fadUdtrækVBox.setSpacing(10);
         fadUdtrækVBox.setAlignment(Pos.BOTTOM_CENTER);
-        VerticalImageStackPane udtrækImage = new VerticalImageStackPane("/gui/images/markLogo.jpg");
+        VerticalImageStackPane udtrækImage = new VerticalImageStackPane("/gui/images/lagerhal.png");
         fadUdtrækVBox.getChildren().add(udtrækImage);
         MotherButton hentUdtrækButton = new MainMenuButton("Fad Udtræk");
         hentUdtrækButton.setOnAction(event -> openUdtrækWindow());
@@ -37,7 +37,7 @@ public class SystemInformationTap extends MotherTab {
         VBox whiskyVBox = new VBox();
         whiskyVBox.setSpacing(10);
         whiskyVBox.setAlignment(Pos.BOTTOM_CENTER);
-        VerticalImageStackPane whiskyImage = new VerticalImageStackPane("/gui/images/markLogo.jpg");
+        VerticalImageStackPane whiskyImage = new VerticalImageStackPane("/gui/images/flaske.png");
         whiskyVBox.getChildren().add(whiskyImage);
         MotherButton whiskyButton = new MainMenuButton("Whisky Udtræk");
         whiskyButton.setOnAction(event -> openWhiskyWindow());

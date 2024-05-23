@@ -63,23 +63,23 @@ public class App {
         Fad fad1 = Controller.opretFad(Træsort.QUERCUSALBA, juan, TidligereIndhold.SHERRY, 200, "");
         Fad fad2 = Controller.opretFad(Træsort.QUERCUSPATREA, juan, TidligereIndhold.BOURBON, 60, "");
         Fad fad3 = Controller.opretFad(Træsort.QUERCUSPATREA, juan, TidligereIndhold.BOURBON, 60, "");
-        Fad fad4 = Controller.opretFad(Træsort.QUERCUSROBER, donald, TidligereIndhold.BOURBON, 120, "");
+        Fad fad4 = Controller.opretFad(Træsort.QUERCUSROBER, donald, TidligereIndhold.BOURBON, 90, "");
         Fad fad5 = Controller.opretFad(Træsort.QUERCUSROBER, donald, TidligereIndhold.BOURBON, 30, "");
 
         //Laver 3 makes, som er klar til tapning
-        LocalDate destillatFærdig1 = LocalDate.of(2021, 11, 02);
-        Destillat destillat1 = Controller.opretDestillat(LocalDate.of(2021, 02, 22), destillatFærdig1, 35, 45, RygningsType.TØRVRØGET, "", maltBatch1, mads);
+        LocalDate destillatFærdig1 = LocalDate.of(2020, 11, 02);
+        Destillat destillat1 = Controller.opretDestillat(LocalDate.of(2020, 02, 22), destillatFærdig1, 35, 45, RygningsType.TØRVRØGET, "", maltBatch1, mads);
         HashMap<Væske, Double> væskeOgLiter1 = new HashMap<>();
         væskeOgLiter1.put(destillat1, 45.00);
         Storage.addvæske(new Make(fad1, væskeOgLiter1, destillatFærdig1.plusDays(1)));
 
-        LocalDate destillatFærdig2 = LocalDate.of(2021, 11, 02);
+        LocalDate destillatFærdig2 = LocalDate.of(2020, 11, 02);
         Destillat destillat2 = Controller.opretDestillat(LocalDate.of(2020, 10, 30), LocalDate.of(2020, 11, 02), 60, 55, RygningsType.TØRVRØGET, "", maltBatch1, mads);
         HashMap<Væske, Double> væskeOgLiter2 = new HashMap<>();
         væskeOgLiter2.put(destillat1, 60.00);
         Storage.addvæske(new Make(fad2, væskeOgLiter1, destillatFærdig2.plusDays(1)));
 
-        LocalDate destillatFærdig3 = LocalDate.of(2021, 11, 02);
+        LocalDate destillatFærdig3 = LocalDate.of(2020, 11, 02);
         Destillat destillat3 = Controller.opretDestillat(LocalDate.of(2020, 11, 03), LocalDate.of(2020, 11, 05), 90, 45, RygningsType.IKKERØGET, "", maltBatch1, thor);
         HashMap<Væske, Double> væskeOgLiter3 = new HashMap<>();
         væskeOgLiter3.put(destillat1, 90.00);

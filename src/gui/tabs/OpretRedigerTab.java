@@ -26,7 +26,7 @@ public class OpretRedigerTab extends MotherTab {
         VBox forhandlerVBox = new VBox();
         forhandlerVBox.setSpacing(10);
         forhandlerVBox.setAlignment(Pos.BOTTOM_CENTER);
-        VerticalImageStackPane forhandlerImage = new VerticalImageStackPane("/gui/images/forhandler.png");
+        VerticalImageStackPane forhandlerImage = new VerticalImageStackPane("/gui/images/juan.jpg");
         forhandlerVBox.getChildren().add(forhandlerImage);
         MotherButton opretForhandlerButton = new MainMenuButton("Opret Forhandler");
         opretForhandlerButton.setOnAction(event -> openOpretForhandlerPane());
@@ -37,7 +37,7 @@ public class OpretRedigerTab extends MotherTab {
         VBox lagerVbox = new VBox();
         lagerVbox.setSpacing(10);
         lagerVbox.setAlignment(Pos.BOTTOM_CENTER);
-        VerticalImageStackPane lagerImage = new VerticalImageStackPane("/gui/images/lager.png");
+        VerticalImageStackPane lagerImage = new VerticalImageStackPane("/gui/images/lagerhal.png");
         lagerVbox.getChildren().add(lagerImage);
         Button opretLagerButton = new MainMenuButton("Opret Lager");
         opretLagerButton.setOnAction(e -> openOpretLagerPane());
@@ -48,7 +48,7 @@ public class OpretRedigerTab extends MotherTab {
         VBox maltBatchVbox = new VBox();
         maltBatchVbox.setSpacing(10);
         maltBatchVbox.setAlignment(Pos.BOTTOM_CENTER);
-        VerticalImageStackPane maltBatchImage = new VerticalImageStackPane("/gui/images/lager.png");
+        VerticalImageStackPane maltBatchImage = new VerticalImageStackPane("/gui/images/maltbatch.png");
         maltBatchVbox.getChildren().add(maltBatchImage);
         Button opretMaltBatchButton = new MainMenuButton("Opret Malt batch");
         opretMaltBatchButton.setOnAction(e -> openOpretMaltBatch());

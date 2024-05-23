@@ -193,7 +193,7 @@ public class Controller {
 
         for (Fad fad : fade) {
             try {
-                if (fad.hasMake() && fad.getMake().getNuværendeMængde() > 0) {
+                if (fad.hasMake() && fad.getMake().getNuværendeMængde() > 0  && fad.erKlar()) {
                     modneFade.add(fad);
                     modneFade.sort(null);
                 }
@@ -407,5 +407,27 @@ public class Controller {
         Malteri malteri = new Malteri(malteriNavn, malteriBeskrivelse, adresse);
         Storage.addMalteri(malteri);
         return malteri;
+    }
+
+    public static ArrayList<Fad> getFadeMedPlads() {
+        ArrayList<Fad> fade = Storage.getFade();
+        ArrayList<Fad> fadeMedPlads = new ArrayList<>();
+
+        //Løber alle fade igennem
+        for (Fad fad : fade) {
+            try {
+                Make make = fad.getMake();
+                double nuværendeMængde = make.getNuværendeMængde();
+                int fadStørrelse = fad.getLiterStørrelse();
+                if (fadStørrelse > nuværendeMængde){
+                    fadeMedPlads.add(fad);
+                }
+            } catch (Exception e) {
+                //Kaster en fejl hvis den ikke har et make.
+                fadeMedPlads.add(fad);
+            }
+        }
+
+        return fadeMedPlads;
     }
 }

@@ -6,7 +6,6 @@ public class Forhandler {
     private String navn;
     private String region;
     private String land;
-    private ArrayList<Fad> købtHer;
 
     public Forhandler(String navn, String region, String land) {
         this.navn = navn;

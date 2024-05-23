@@ -274,7 +274,7 @@ class ControllerTest {
         Storage.addMedarbejder(expected);
 
         //Act
-        Medarbejder actual = Controller.getMedarbejder(1);
+        Medarbejder actual = Controller.getMedarbejder(2);
 
         //Assert
         System.out.println("Medarbejder: ");
@@ -287,13 +287,11 @@ class ControllerTest {
     @Test
     void getMedarbejder_TC2() {
         //Arrange
-        Medarbejder medarbejder = new Medarbejder("Mads Medarbejder", "010203-4555", "NAM");
-        Storage.addMedarbejder(medarbejder);
         String expected = "Medarbejder eksistere ikke";
 
         //Act
         Exception actual = assertThrows(NoSuchElementException.class, () -> {
-            Controller.getMedarbejder(2);
+            Controller.getMedarbejder(1);
         });
 
         //Assert

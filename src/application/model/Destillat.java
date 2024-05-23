@@ -9,7 +9,7 @@ public class Destillat extends Væske {
     private RygningsType rygningsType;
     private String kommentar;
     private MaltBatch maltBatch;
-    private static int antalBatches = 0;
+    private static int antalDestillater = 0;
     private int nummer;
 
 
@@ -20,8 +20,8 @@ public class Destillat extends Væske {
     }
 
     public Destillat(LocalDate startDato, LocalDate slutDato, double literVæske, double alkoholprocent, RygningsType rygningsType, String kommentar, Medarbejder medarbejder, MaltBatch maltBatch) {
-        antalBatches++;
-        nummer = antalBatches;
+        antalDestillater++;
+        nummer = antalDestillater;
         this.startDato = startDato;
         this.slutDato = slutDato;
         this.alkoholprocent = alkoholprocent;

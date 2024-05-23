@@ -38,7 +38,7 @@ public class ProduktionsTab extends MotherTab {
         VBox fadVBox = new VBox();
         fadVBox.setSpacing(10);
         fadVBox.setAlignment(Pos.BOTTOM_CENTER);
-        VerticalImageStackPane fadImage = new VerticalImageStackPane("/gui/images/fad.png");
+        VerticalImageStackPane fadImage = new VerticalImageStackPane("/gui/images/opretFad.png");
         fadVBox.getChildren().add(fadImage);
         MotherButton opretFadButton = new MainMenuButton("Opret Fad");
         opretFadButton.setOnAction(event -> openOpretFadWindow());
@@ -49,7 +49,7 @@ public class ProduktionsTab extends MotherTab {
         VBox påfyldVBox = new VBox();
         påfyldVBox.setSpacing(10);
         påfyldVBox.setAlignment(Pos.BOTTOM_CENTER);
-        VerticalImageStackPane påfyldImage = new VerticalImageStackPane("/gui/images/fad.png");
+        VerticalImageStackPane påfyldImage = new VerticalImageStackPane("/gui/images/fyldpaafad.png");
         påfyldVBox.getChildren().add(påfyldImage);
         MotherButton fyldpaaFadButton = new MainMenuButton("Fyld På Fad");
         fyldpaaFadButton.setOnAction(event -> fyldpaaFad());
